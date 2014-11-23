@@ -4,7 +4,7 @@
       <vm:ViewModelLocator xmlns:vm="clr-namespace:GitHub"
                            x:Key="Locator" />
   </Application.Resources>
-  
+
   In the View:
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 
@@ -47,16 +47,29 @@ namespace GitHub.ViewModels.ViewModel
             ////}
 
             // view models
+            SimpleIoc.Default.Register<ILoginViewModel, LoginViewModel>();
             SimpleIoc.Default.Register<IMainViewModel, MainViewModel>();
+
+            SimpleIoc.Default.Register<IProfileViewModel, ProfileViewModel>();
+            SimpleIoc.Default.Register<IActivitiesViewModel, ActivitiesViewModel>();
+            SimpleIoc.Default.Register<IReposViewModel, ReposViewModel>();
+            SimpleIoc.Default.Register<IUsersViewModel, UsersViewModel>();
 
             // services
             SimpleIoc.Default.Register<IGitHubManager, GitHubManager>();
         }
 
-        #endregion
-
+        #endregion Constructor
 
         #region View Models
+
+        public static ILoginViewModel Login
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ILoginViewModel>();
+            }
+        }
 
         public static IMainViewModel Main
         {
@@ -66,8 +79,7 @@ namespace GitHub.ViewModels.ViewModel
             }
         }
 
-        #endregion
-
+        #endregion View Models
 
         #region Services
 
@@ -79,6 +91,6 @@ namespace GitHub.ViewModels.ViewModel
             }
         }
 
-        #endregion
+        #endregion Services
     }
 }

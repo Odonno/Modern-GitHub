@@ -10,7 +10,7 @@ namespace GitHub.Core
 
         Task<User> GetCurrentUser();
         Task<User> GetUserAsync(string name);
-        Task GetNews();
+        Task GetActivities();
 
         #endregion
 

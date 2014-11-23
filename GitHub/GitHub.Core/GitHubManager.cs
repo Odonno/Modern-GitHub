@@ -32,7 +32,7 @@ namespace GitHub.Core
             }
         }
 
-        public Task GetNews()
+        public Task GetActivities()
         {
             throw new NotImplementedException();
         }

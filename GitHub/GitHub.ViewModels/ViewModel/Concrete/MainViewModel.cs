@@ -1,36 +1,35 @@
 using GalaSoft.MvvmLight;
 using GitHub.ViewModels.ViewModel.Abstract;
-using Octokit;
 
 namespace GitHub.ViewModels.ViewModel.Concrete
 {
-    /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-    /// </para>
-    /// <para>
-    /// You can also use Blend to data bind with the tool's support.
-    /// </para>
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
-    public class MainViewModel : ViewModelBase, IMainViewModel
+    internal class MainViewModel : ViewModelBase, IMainViewModel
     {
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
-        public MainViewModel()
+        public IProfileViewModel ProfileViewModel { get; private set; }
+
+        public IActivitiesViewModel ActivitiesViewModel { get; private set; }
+
+        public IReposViewModel ReposViewModel { get; private set; }
+
+        public IUsersViewModel UsersViewModel { get; private set; }
+
+
+        public MainViewModel(IProfileViewModel profileViewModel, IActivitiesViewModel activitiesViewModel,
+            IReposViewModel reposViewModel, IUsersViewModel usersViewModel)
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+            //if (IsInDesignMode)
+            //{
+            //    // Code runs in Blend --> create design time data.
+            //}
+            //else
+            //{
+            //    // Code runs "for real"
+            //}
+
+            ProfileViewModel = profileViewModel;
+            ActivitiesViewModel = activitiesViewModel;
+            ReposViewModel = reposViewModel;
+            UsersViewModel = usersViewModel;
         }
     }
 }
