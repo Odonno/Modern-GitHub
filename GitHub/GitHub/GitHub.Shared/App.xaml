@@ -1,5 +1,6 @@
-<Application x:Class="GitHub.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:GitHub">
+<Application x:Class="GitHub.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:GitHub"
+             xmlns:viewModel="using:GitHub.ViewModels.ViewModel">
     <Application.Resources>
-        <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:GitHub.ViewModel" />
+        <viewModel:ViewModelLocator x:Key="Locator" xmlns:vm="using:GitHub.ViewModel" />
     </Application.Resources>
 </Application>

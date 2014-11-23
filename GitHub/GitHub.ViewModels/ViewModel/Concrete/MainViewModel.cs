@@ -1,7 +1,8 @@
 using GalaSoft.MvvmLight;
 using GitHub.ViewModels.ViewModel.Abstract;
+using Octokit;
 
-namespace GitHub.ViewModel
+namespace GitHub.ViewModels.ViewModel.Concrete
 {
     /// <summary>
     /// This class contains properties that the main View can data bind to.

@@ -16,6 +16,7 @@ using GitHub.Data;
 using GitHub.Common;
 
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955
+using GitHub.ViewModels.ViewModel;
 
 namespace GitHub
 {

@@ -12,12 +12,13 @@
   See http://www.galasoft.ch/mvvm
 */
 
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using GitHub.Core;
 using GitHub.ViewModels.ViewModel.Abstract;
+using GitHub.ViewModels.ViewModel.Concrete;
 using Microsoft.Practices.ServiceLocation;
 
-namespace GitHub.ViewModel
+namespace GitHub.ViewModels.ViewModel
 {
     /// <summary>
     /// This class contains static references to all the view models in the
@@ -25,6 +26,8 @@ namespace GitHub.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        #region Constructor
+
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
@@ -43,20 +46,39 @@ namespace GitHub.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
+            // view models
             SimpleIoc.Default.Register<IMainViewModel, MainViewModel>();
+
+            // services
+            SimpleIoc.Default.Register<IGitHubManager, GitHubManager>();
         }
 
-        public IMainViewModel Main
+        #endregion
+
+
+        #region View Models
+
+        public static IMainViewModel Main
         {
             get
             {
                 return ServiceLocator.Current.GetInstance<IMainViewModel>();
             }
         }
-        
-        public static void Cleanup()
+
+        #endregion
+
+
+        #region Services
+
+        public static IGitHubManager GitHubManager
         {
-            // TODO Clear the ViewModels
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IGitHubManager>();
+            }
         }
+
+        #endregion
     }
 }
