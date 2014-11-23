@@ -121,6 +121,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="GitHub.UnitTests_TemporaryKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\UnitTestLogo.scale-100.png">
@@ -145,6 +146,11 @@
       <Project>{68ee515a-e20b-4dc7-a173-2d76130e4fd6}</Project>
       <Name>GitHub.ViewModels</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Octokit">
+      <HintPath>..\packages\Octokit.0.5.2\lib\netcore45\Octokit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
