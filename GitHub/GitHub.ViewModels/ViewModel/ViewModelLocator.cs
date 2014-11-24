@@ -13,7 +13,8 @@
 */
 
 using GalaSoft.MvvmLight.Ioc;
-using GitHub.Core;
+using GitHub.Core.Abstract;
+using GitHub.Core.Concrete;
 using GitHub.ViewModels.ViewModel.Abstract;
 using GitHub.ViewModels.ViewModel.Concrete;
 using Microsoft.Practices.ServiceLocation;

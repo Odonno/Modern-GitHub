@@ -38,8 +38,10 @@
     <TargetPlatform Include="Windows, Version=8.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GitHubManager.cs" />
-    <Compile Include="IGitHubManager.cs" />
+    <Compile Include="Abstract\ICredentialManager.cs" />
+    <Compile Include="Concrete\CredentialManager.cs" />
+    <Compile Include="Concrete\GitHubManager.cs" />
+    <Compile Include="Abstract\IGitHubManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

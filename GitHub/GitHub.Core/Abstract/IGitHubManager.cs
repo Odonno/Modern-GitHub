@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using Octokit;
-using System.Threading.Tasks;
 
-namespace GitHub.Core
+namespace GitHub.Core.Abstract
 {
     public interface IGitHubManager
     {

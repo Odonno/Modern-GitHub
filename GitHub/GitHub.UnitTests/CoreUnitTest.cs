@@ -2,14 +2,18 @@
 using System.Threading.Tasks;
 using GitHub.Core;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using GitHub.Core.Abstract;
+using GitHub.Core.Concrete;
+using System;
 
 namespace GitHub.UnitTests
 {
     [TestClass]
     public class CoreUnitTest
     {
-        private readonly IGitHubManager _gitHubManager = new GitHubManager();
+        #region GitHub Manager
 
+        private readonly IGitHubManager _gitHubManager = new GitHubManager();
 
         [TestMethod]
         public async Task Can_Get_User()
@@ -62,5 +66,29 @@ namespace GitHub.UnitTests
             Assert.IsNotNull(repos);
             Assert.AreEqual(repos.TotalCount, 129);
         }
+
+        #endregion
+
+
+        #region Credential Manager
+
+        private readonly ICredentialManager _credentialManager = new CredentialManager();
+
+        [TestMethod]
+        public void Can_Create_Retrieve_And_Remove_Credential()
+        {
+            // arrange
+            
+            // act
+            _credentialManager.SaveCredential("test", "password");
+            var credentials = _credentialManager.GetCredential();
+            _credentialManager.RemoveCredential("test");
+
+            // assert
+            Assert.AreEqual("test", credentials.UserName);
+            Assert.AreEqual("password", credentials.Password);
+        }
+
+        #endregion
     }
 }

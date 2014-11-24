@@ -1,12 +1,14 @@
 ﻿using System;
-using Octokit;
 using System.Threading.Tasks;
+using GitHub.Core.Abstract;
+using Octokit;
 
-namespace GitHub.Core
+namespace GitHub.Core.Concrete
 {
     public class GitHubManager : IGitHubManager
     {
         private readonly GitHubClient _client;
+        private ICredentialManager _credentialManager = new CredentialManager();
 
         public GitHubManager()
         {
