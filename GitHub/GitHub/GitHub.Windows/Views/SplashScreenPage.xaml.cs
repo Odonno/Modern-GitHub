@@ -12,17 +12,19 @@ namespace GitHub.Views
     /// </summary>
     public sealed partial class SplashScreenPage : Page
     {
-
-        private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
-
-        /// <summary>
-        /// Cela peut être remplacé par un modèle d'affichage fortement typé.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel
+        public SplashScreenPage()
         {
-            get { return this.defaultViewModel; }
+            InitializeComponent();
+
+            _navigationHelper = new NavigationHelper(this);
+            _navigationHelper.LoadState += navigationHelper_LoadState;
+            _navigationHelper.SaveState += navigationHelper_SaveState;
         }
+
+
+        #region Navigation Helper
+
+        private readonly NavigationHelper _navigationHelper;
 
         /// <summary>
         /// NavigationHelper est utilisé sur chaque page pour faciliter la navigation et 
@@ -30,16 +32,7 @@ namespace GitHub.Views
         /// </summary>
         public NavigationHelper NavigationHelper
         {
-            get { return this.navigationHelper; }
-        }
-
-
-        public SplashScreenPage()
-        {
-            this.InitializeComponent();
-            this.navigationHelper = new NavigationHelper(this);
-            this.navigationHelper.LoadState += navigationHelper_LoadState;
-            this.navigationHelper.SaveState += navigationHelper_SaveState;
+            get { return _navigationHelper; }
         }
 
         /// <summary>
@@ -82,13 +75,15 @@ namespace GitHub.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            navigationHelper.OnNavigatedTo(e);
+            _navigationHelper.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            navigationHelper.OnNavigatedFrom(e);
+            _navigationHelper.OnNavigatedFrom(e);
         }
+
+        #endregion
 
         #endregion
     }

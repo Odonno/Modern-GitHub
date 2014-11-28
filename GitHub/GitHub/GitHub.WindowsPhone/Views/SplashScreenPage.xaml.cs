@@ -14,34 +14,28 @@ namespace GitHub.Views
     /// </summary>
     public sealed partial class SplashScreenPage : Page, IWebAuthenticationContinuable
     {
-        private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
-
         public SplashScreenPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.navigationHelper = new NavigationHelper(this);
-            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
-            this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+            _navigationHelper = new NavigationHelper(this);
+            _navigationHelper.LoadState += NavigationHelper_LoadState;
+            _navigationHelper.SaveState += NavigationHelper_SaveState;
         }
+
+
+        #region Navigation Helper
+
+        private readonly NavigationHelper _navigationHelper;
 
         /// <summary>
         /// Obtient le <see cref="NavigationHelper"/> associé à ce <see cref="Page"/>.
         /// </summary>
         public NavigationHelper NavigationHelper
         {
-            get { return this.navigationHelper; }
+            get { return _navigationHelper; }
         }
 
-        /// <summary>
-        /// Obtient le modèle d'affichage pour ce <see cref="Page"/>.
-        /// Cela peut être remplacé par un modèle d'affichage fortement typé.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel
-        {
-            get { return this.defaultViewModel; }
-        }
 
         /// <summary>
         /// Remplit la page à l'aide du contenu passé lors de la navigation. Tout état enregistré est également
@@ -87,16 +81,17 @@ namespace GitHub.Views
         /// les gestionnaires d'événements qui ne peuvent pas annuler la requête de navigation.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.navigationHelper.OnNavigatedTo(e);
+            _navigationHelper.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            this.navigationHelper.OnNavigatedFrom(e);
+            _navigationHelper.OnNavigatedFrom(e);
         }
 
         #endregion
 
+        #endregion
 
 
         public void ContinueWebAuthentication(WebAuthenticationBrokerContinuationEventArgs args)
