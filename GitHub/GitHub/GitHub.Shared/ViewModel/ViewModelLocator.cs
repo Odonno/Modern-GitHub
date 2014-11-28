@@ -18,6 +18,7 @@ using GitHub.Services.Abstract;
 using GitHub.Services.Concrete;
 using GitHub.ViewModel.Abstract;
 using GitHub.ViewModel.Concrete;
+using GitHub.Views;
 using Microsoft.Practices.ServiceLocation;
 using Octokit;
 

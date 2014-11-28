@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Navigation;
 using GitHub.Common;
 
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955
+using GitHub.Views;
 
 namespace GitHub
 {
