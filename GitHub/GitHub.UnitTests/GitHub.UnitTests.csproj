@@ -138,19 +138,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GitHub.Core\GitHub.Core.csproj">
-      <Project>{3321ec25-43da-4a25-a8df-f7a01ac6de4e}</Project>
-      <Name>GitHub.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GitHub.ViewModels\GitHub.ViewModels.csproj">
-      <Project>{68ee515a-e20b-4dc7-a173-2d76130e4fd6}</Project>
-      <Name>GitHub.ViewModels</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="Octokit">
       <HintPath>..\packages\Octokit.0.5.2\lib\netcore45\Octokit.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GitHub\GitHub.Windows\GitHub.Windows.csproj">
+      <Project>{ecf0c453-5632-4e02-9f37-a21663eeaa07}</Project>
+      <Name>GitHub.Windows</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

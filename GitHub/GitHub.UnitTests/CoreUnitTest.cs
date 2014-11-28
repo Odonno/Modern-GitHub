@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using GitHub.Core;
+﻿using System.Threading.Tasks;
+using System.Linq;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using GitHub.Core.Abstract;
-using GitHub.Core.Concrete;
-using System;
+using GitHub.Services.Abstract;
+using GitHub.Services.Concrete;
 
 namespace GitHub.UnitTests
 {
@@ -13,7 +11,7 @@ namespace GitHub.UnitTests
     {
         #region GitHub Manager
 
-        private readonly IGitHubManager _gitHubManager = new GitHubManager();
+        private readonly IGitHubService _gitHubService = new GitHubService();
 
         [TestMethod]
         public async Task Can_Get_User()
@@ -21,7 +19,7 @@ namespace GitHub.UnitTests
             // arrange
 
             // act
-            var user = await _gitHubManager.GetUserAsync("Odonno");
+            var user = await _gitHubService.GetUserAsync("Odonno");
 
             // assert
             Assert.IsNotNull(user);
@@ -34,7 +32,7 @@ namespace GitHub.UnitTests
             // arrange
 
             // act
-            var user = await _gitHubManager.GetUserAsync("oooooooooooooooooooo");
+            var user = await _gitHubService.GetUserAsync("oooooooooooooooooooo");
 
             // assert
             Assert.IsNull(user);
@@ -46,7 +44,7 @@ namespace GitHub.UnitTests
             // arrange
 
             // act
-            var users = await _gitHubManager.SearchUsers("Odon");
+            var users = await _gitHubService.SearchUsers("Odon");
 
             // assert
             Assert.IsNotNull(users);
@@ -60,33 +58,11 @@ namespace GitHub.UnitTests
             // arrange
 
             // act
-            var repos = await _gitHubManager.SearchRepos("tez");
+            var repos = await _gitHubService.SearchRepos("tez");
 
             // assert
             Assert.IsNotNull(repos);
             Assert.AreEqual(repos.TotalCount, 129);
-        }
-
-        #endregion
-
-
-        #region Credential Manager
-
-        private readonly ICredentialManager _credentialManager = new CredentialManager();
-
-        [TestMethod]
-        public void Can_Create_Retrieve_And_Remove_Credential()
-        {
-            // arrange
-            
-            // act
-            _credentialManager.SaveCredential("test", "password");
-            var credentials = _credentialManager.GetCredential();
-            _credentialManager.RemoveCredential("test");
-
-            // assert
-            Assert.AreEqual("test", credentials.UserName);
-            Assert.AreEqual("password", credentials.Password);
         }
 
         #endregion

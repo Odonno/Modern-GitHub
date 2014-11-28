@@ -1,4 +1,5 @@
-﻿using GitHub.Common;
+﻿using Windows.ApplicationModel.Activation;
+using GitHub.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,13 +18,15 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // Pour en savoir plus sur le modèle d'élément Page de base, consultez la page http://go.microsoft.com/fwlink/?LinkID=390556
+using GitHub.Services;
+using GitHub.ViewModel;
 
 namespace GitHub
 {
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
     /// </summary>
-    public sealed partial class SplashScreenPage : Page
+    public sealed partial class SplashScreenPage : Page, IWebAuthenticationContinuable
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
@@ -107,5 +110,12 @@ namespace GitHub
         }
 
         #endregion
+
+
+
+        public void ContinueWebAuthentication(WebAuthenticationBrokerContinuationEventArgs args)
+        {
+            ViewModelLocator.Login.Finalize(args);
+        }
     }
 }
