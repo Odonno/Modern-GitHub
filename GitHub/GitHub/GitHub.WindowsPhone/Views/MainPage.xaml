@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+    DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+    Background="White" Foreground="Black">
 
     <Grid x:Name="LayoutRoot">
 
@@ -22,14 +22,42 @@
         </Grid.RowDefinitions>
 
         <!-- Panneau Titre -->
-        <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="MY APPLICATION" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="page title" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        <StackPanel Grid.Row="0" Margin="19,0,0,0" Orientation="Horizontal">
+            <Image MaxHeight="100" Width="50" Source="/Assets/github-logo.png" Margin="12 -6.5 0 6.5" />
+            <TextBlock Text="github" Margin="12 -6.5 0 26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}">
+                <TextBlock.Foreground>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="1,1">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+            </TextBlock>
         </StackPanel>
 
         <!--TODO: le contenu doit être placé dans la grille suivante-->
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
-
+            <Hub>
+                <HubSection Header="me" DataContext="{Binding Path=ProfileViewModel}">
+                    <DataTemplate>
+                        <Grid/>
+                    </DataTemplate>
+                </HubSection>
+                <HubSection Header="activities" DataContext="{Binding Path=ActivitiesViewModel}">
+                    <DataTemplate>
+                        <Grid/>
+                    </DataTemplate>
+                </HubSection>
+                <HubSection Header="repositories" DataContext="{Binding Path=ReposViewModel}">
+                    <DataTemplate>
+                        <Grid/>
+                    </DataTemplate>
+                </HubSection>
+                <HubSection Header="users" DataContext="{Binding Path=UsersViewModel}">
+                    <DataTemplate>
+                        <Grid/>
+                    </DataTemplate>
+                </HubSection>
+            </Hub>
         </Grid>
     </Grid>
 </Page>
