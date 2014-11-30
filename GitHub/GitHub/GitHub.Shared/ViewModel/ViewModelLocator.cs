@@ -108,6 +108,38 @@ namespace GitHub.ViewModel
             }
         }
 
+        public static IProfileViewModel Profile
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IProfileViewModel>();
+            }
+        }
+
+        public static IActivitiesViewModel Activities
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IActivitiesViewModel>();
+            }
+        }
+
+        public static IReposViewModel Repos
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IReposViewModel>();
+            }
+        }
+
+        public static IUsersViewModel Users
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IUsersViewModel>();
+            }
+        }
+
         #endregion View Models
 
         #region Services

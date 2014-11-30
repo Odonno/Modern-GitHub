@@ -7,17 +7,17 @@ namespace GitHub.Services.Abstract
     {
         #region Get items
 
-        Task<User> GetCurrentUser();
+        Task<User> GetCurrentUserAsync();
         Task<User> GetUserAsync(string name);
-        Task GetActivities();
+        Task GetActivitiesAsync();
 
         #endregion
 
 
         #region Search items
 
-        Task<SearchUsersResult> SearchUsers(string searchName);
-        Task<SearchRepositoryResult> SearchRepos(string searchName);
+        Task<SearchUsersResult> SearchUsersAsync(string searchName);
+        Task<SearchRepositoryResult> SearchReposAsync(string searchName);
 
         #endregion
     }

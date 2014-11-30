@@ -6,17 +6,18 @@ namespace GitHub.ViewModel.Concrete
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
         public IProfileViewModel ProfileViewModel { get; private set; }
-
         public IActivitiesViewModel ActivitiesViewModel { get; private set; }
-
         public IReposViewModel ReposViewModel { get; private set; }
-
         public IUsersViewModel UsersViewModel { get; private set; }
 
 
-        public MainViewModel(IProfileViewModel profileViewModel, IActivitiesViewModel activitiesViewModel,
-            IReposViewModel reposViewModel, IUsersViewModel usersViewModel)
+        public MainViewModel()
         {
+            ProfileViewModel = ViewModelLocator.Profile;
+            ActivitiesViewModel = ViewModelLocator.Activities;
+            ReposViewModel = ViewModelLocator.Repos;
+            UsersViewModel = ViewModelLocator.Users;
+
             //if (IsInDesignMode)
             //{
             //    // Code runs in Blend --> create design time data.
@@ -25,11 +26,6 @@ namespace GitHub.ViewModel.Concrete
             //{
             //    // Code runs "for real"
             //}
-
-            ProfileViewModel = profileViewModel;
-            ActivitiesViewModel = activitiesViewModel;
-            ReposViewModel = reposViewModel;
-            UsersViewModel = usersViewModel;
         }
     }
 }

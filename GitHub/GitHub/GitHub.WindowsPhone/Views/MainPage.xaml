@@ -37,24 +37,45 @@
         <!--TODO: le contenu doit être placé dans la grille suivante-->
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
             <Hub>
-                <HubSection Header="me" DataContext="{Binding Path=ProfileViewModel}">
+                <HubSection x:Name="profileSection" Header="me" DataContext="{Binding Path=ProfileViewModel}">
                     <DataTemplate>
-                        <Grid/>
+                        <Grid DataContext="{Binding Path=CurrentUser, Mode=OneWay}">
+                            <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="{Binding Path=AvatarUrl}"/>
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=Login}" VerticalAlignment="Top"/>
+                        </Grid>
                     </DataTemplate>
                 </HubSection>
-                <HubSection Header="activities" DataContext="{Binding Path=ActivitiesViewModel}">
+                <HubSection x:Name="activitiesSection" Header="activities" DataContext="{Binding Path=ActivitiesViewModel}">
                     <DataTemplate>
-                        <Grid/>
+                        <ListView ItemsSource="{Binding Path=Activities}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Type}" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </DataTemplate>
                 </HubSection>
-                <HubSection Header="repositories" DataContext="{Binding Path=ReposViewModel}">
+                <HubSection x:Name="reposSection" Header="repositories" DataContext="{Binding Path=ReposViewModel}">
                     <DataTemplate>
-                        <Grid/>
+                        <ListView ItemsSource="{Binding Path=Repositories}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </DataTemplate>
                 </HubSection>
-                <HubSection Header="users" DataContext="{Binding Path=UsersViewModel}">
+                <HubSection x:Name="usersSection" Header="users" DataContext="{Binding Path=UsersViewModel}">
                     <DataTemplate>
-                        <Grid/>
+                        <ListView ItemsSource="{Binding Path=Users}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Login}" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </DataTemplate>
                 </HubSection>
             </Hub>

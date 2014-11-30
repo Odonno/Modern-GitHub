@@ -29,16 +29,16 @@ namespace GitHub.ViewModel.Concrete
             _dialogService = dialogService;
             _sessionService = sessionService;
 
-            //if (IsInDesignMode)
-            //{
-            //    // Code runs in Blend --> create design time data.
-            //}
-            //else
-            //{
-            //    // Code runs "for real"
-            //}
+            if (IsInDesignMode)
+            {
+                // Code runs in Blend --> create design time data.
+            }
+            else
+            {
+                // Code runs "for real"
 
-            LoginCommand = new RelayCommand(Login);
+                LoginCommand = new RelayCommand(Login);
+            }
         }
 
 

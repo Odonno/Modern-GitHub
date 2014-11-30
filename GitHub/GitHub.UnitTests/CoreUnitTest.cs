@@ -44,7 +44,7 @@ namespace GitHub.UnitTests
             // arrange
 
             // act
-            var users = await _gitHubService.SearchUsers("Odon");
+            var users = await _gitHubService.SearchUsersAsync("Odon");
 
             // assert
             Assert.IsNotNull(users);
@@ -58,7 +58,7 @@ namespace GitHub.UnitTests
             // arrange
 
             // act
-            var repos = await _gitHubService.SearchRepos("tez");
+            var repos = await _gitHubService.SearchReposAsync("tez");
 
             // assert
             Assert.IsNotNull(repos);

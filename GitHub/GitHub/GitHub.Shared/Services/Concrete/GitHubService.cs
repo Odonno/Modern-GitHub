@@ -17,7 +17,7 @@ namespace GitHub.Services.Concrete
 
         #region Get single item
         
-        public Task<User> GetCurrentUser()
+        public async Task<User> GetCurrentUserAsync()
         {
             throw new NotImplementedException();
         }
@@ -34,7 +34,7 @@ namespace GitHub.Services.Concrete
             }
         }
 
-        public Task GetActivities()
+        public async Task GetActivitiesAsync()
         {
             throw new NotImplementedException();
         }
@@ -43,12 +43,12 @@ namespace GitHub.Services.Concrete
         
         #region Search items
 
-        public async Task<SearchUsersResult> SearchUsers(string searchName)
+        public async Task<SearchUsersResult> SearchUsersAsync(string searchName)
         {
             return await _client.Search.SearchUsers(new SearchUsersRequest(searchName));
         }
 
-        public async Task<SearchRepositoryResult> SearchRepos(string searchName)
+        public async Task<SearchRepositoryResult> SearchReposAsync(string searchName)
         {
             return await _client.Search.SearchRepo(new SearchRepositoriesRequest(searchName));
         }
