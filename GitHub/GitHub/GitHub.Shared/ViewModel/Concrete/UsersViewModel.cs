@@ -20,6 +20,9 @@ namespace GitHub.ViewModel.Concrete
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
+
+                _users.Add(new User { Login = "Odonno" });
+                _users.Add(new User { Login = "CorMiq" });
             }
             else
             {

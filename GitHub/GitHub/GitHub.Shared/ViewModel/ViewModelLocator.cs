@@ -60,17 +60,28 @@ namespace GitHub.ViewModel
             SimpleIoc.Default.Register<IUsersViewModel, UsersViewModel>();
 
             // services
-            var navigationService = CreateNavigationService();
-            SimpleIoc.Default.Register<INavigationService>(() => navigationService);
+            if (!SimpleIoc.Default.IsRegistered<INavigationService>())
+            {
+                var navigationService = CreateNavigationService();
+                SimpleIoc.Default.Register<INavigationService>(() => navigationService);
+            }
 
-            var dialogService = new DialogService();
-            SimpleIoc.Default.Register<IDialogService>(() => dialogService);
+            if (!SimpleIoc.Default.IsRegistered<IDialogService>())
+            {
+                var dialogService = new DialogService();
+                SimpleIoc.Default.Register<IDialogService>(() => dialogService);
+            }
 
             SimpleIoc.Default.Register<ISessionService, SessionService>();
             SimpleIoc.Default.Register<IGitHubService, GitHubService>();
 
             // model
-            SimpleIoc.Default.Register<IGitHubClient>(() => new GitHubClient(new ProductHeaderValue("UniversalGitHub")));
+            // model
+            if (!SimpleIoc.Default.IsRegistered<IGitHubClient>())
+            {
+                var client = new GitHubClient(new ProductHeaderValue("UniversalGitHub"));
+                SimpleIoc.Default.Register<IGitHubClient>(() => client);
+            }
         }
 
         #endregion Constructor
