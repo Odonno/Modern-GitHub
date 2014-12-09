@@ -4,5 +4,7 @@
              xmlns:viewModel="using:GitHub.ViewModel">
     <Application.Resources>
         <viewModel:ViewModelLocator x:Key="Locator" />
+
+        <SolidColorBrush x:Key="GreyBlue" Color="#FF445464" />    
     </Application.Resources>
 </Application>
