@@ -7,8 +7,8 @@ namespace GitHub.ViewModel.Abstract
     public interface IUsersViewModel
     {
         ObservableCollection<User> Users { get; }
-        string SearchName { get; set; }
-
+        string SearchValue { get; set; }
+        
         ICommand SearchCommand { get; }
     }
 }

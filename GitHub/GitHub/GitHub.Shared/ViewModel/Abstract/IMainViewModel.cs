@@ -1,4 +1,6 @@
-﻿namespace GitHub.ViewModel.Abstract
+﻿using System.Windows.Input;
+
+namespace GitHub.ViewModel.Abstract
 {
     public interface IMainViewModel
     {
@@ -6,5 +8,8 @@
         IActivitiesViewModel ActivitiesViewModel { get; }
         IReposViewModel ReposViewModel { get; }
         IUsersViewModel UsersViewModel { get; }
+
+        bool SearchingEnabled { get; }
+        ICommand ToggleEnableSearchCommand { get; }
     }
 }

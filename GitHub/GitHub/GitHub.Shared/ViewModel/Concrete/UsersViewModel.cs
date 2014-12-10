@@ -12,19 +12,20 @@ namespace GitHub.ViewModel.Concrete
         private readonly ObservableCollection<User> _users = new ObservableCollection<User>();
         public ObservableCollection<User> Users { get { return _users; } }
 
-        private string _searchName;
-        public string SearchName
+        private string _searchValue;
+        public string SearchValue
         {
-            get { return _searchName; }
+            get { return _searchValue; }
             set
             {
-                _searchName = value;
+                _searchValue = value;
                 RaisePropertyChanged();
                 ((RelayCommand)SearchCommand).RaiseCanExecuteChanged();
             }
         }
-
+        
         public ICommand SearchCommand { get; private set; }
+        
 
 
         public UsersViewModel()
@@ -61,12 +62,12 @@ namespace GitHub.ViewModel.Concrete
 
         private bool CanLoad()
         {
-            return !string.IsNullOrWhiteSpace(SearchName);
+            return !string.IsNullOrWhiteSpace(SearchValue);
         }
         private async void Load()
         {
             // TODO : instead request for last registered users
-            var result = await ViewModelLocator.GitHubService.SearchUsersAsync(SearchName);
+            var result = await ViewModelLocator.GitHubService.SearchUsersAsync(SearchValue);
 
             Users.Clear();
             foreach (var item in result.Items)
