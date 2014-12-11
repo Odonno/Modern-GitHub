@@ -16,8 +16,8 @@ namespace GitHub.Services.Abstract
 
         #region Search items
 
-        Task<SearchUsersResult> SearchUsersAsync(string searchName);
-        Task<SearchRepositoryResult> SearchReposAsync(string searchName);
+        Task<SearchUsersResult> SearchUsersAsync(string searchName, int page = 1, int elementPerPage = 100);
+        Task<SearchRepositoryResult> SearchReposAsync(string searchName, int page = 1, int elementPerPage = 100);
 
         #endregion
     }

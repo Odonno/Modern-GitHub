@@ -56,7 +56,7 @@ namespace GitHub.ViewModel.Concrete
 
             // Search part
             var canSearch = this.WhenAny(x => x.SearchValue, x => !string.IsNullOrWhiteSpace(x.Value));
-            Search = ReactiveCommand.CreateAsyncTask(canSearch, async _ => await ViewModelLocator.GitHubService.SearchUsersAsync(SearchValue));
+            Search = ReactiveCommand.CreateAsyncTask(canSearch, async _ => await ViewModelLocator.GitHubService.SearchUsersAsync(SearchValue, 1, 40));
             
 
             Search.Subscribe(results =>
