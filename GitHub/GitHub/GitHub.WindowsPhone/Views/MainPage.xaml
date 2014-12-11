@@ -79,8 +79,8 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBox TextWrapping="Wrap" PlaceholderText="username" Text="{Binding SearchValue, Mode=TwoWay}" />
-                                    <Button Grid.Column="1" Content="&#xE11A;" FontFamily="Segoe UI Symbol" Foreground="Black" Command="{Binding SearchCommand}" />
+                                    <TextBox TextWrapping="Wrap" PlaceholderText="username"
+                                             Text="{Binding SearchValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </Grid>
 
                                 <ListView ItemsSource="{Binding Users}">

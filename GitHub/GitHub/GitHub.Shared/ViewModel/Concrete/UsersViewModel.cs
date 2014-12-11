@@ -1,13 +1,13 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Reactive.Linq;
 using GitHub.ViewModel.Abstract;
 using Octokit;
+using ReactiveUI;
 
 namespace GitHub.ViewModel.Concrete
 {
-    public class UsersViewModel : ViewModelBase, IUsersViewModel
+    public class UsersViewModel : ReactiveViewModelBase, IUsersViewModel
     {
         private readonly ObservableCollection<User> _users = new ObservableCollection<User>();
         public ObservableCollection<User> Users { get { return _users; } }
@@ -19,13 +19,11 @@ namespace GitHub.ViewModel.Concrete
             set
             {
                 _searchValue = value;
-                RaisePropertyChanged();
-                ((RelayCommand)SearchCommand).RaiseCanExecuteChanged();
+                this.RaisePropertyChanged();
             }
         }
-        
-        public ICommand SearchCommand { get; private set; }
-        
+
+        public ReactiveCommand<SearchUsersResult> Search { get; private set; }
 
 
         public UsersViewModel()
@@ -56,22 +54,26 @@ namespace GitHub.ViewModel.Concrete
                 // Code runs "for real"
             }
 
-            SearchCommand = new RelayCommand(Load, CanLoad);
-        }
+            // Search part
+            var canSearch = this.WhenAny(x => x.SearchValue, x => !string.IsNullOrWhiteSpace(x.Value));
+            Search = ReactiveCommand.CreateAsyncTask(canSearch, async _ => await ViewModelLocator.GitHubService.SearchUsersAsync(SearchValue));
+            
 
+            Search.Subscribe(results =>
+            {
+                Users.Clear();
+                foreach (var item in results.Items)
+                    Users.Add(item);
+            });
 
-        private bool CanLoad()
-        {
-            return !string.IsNullOrWhiteSpace(SearchValue);
-        }
-        private async void Load()
-        {
-            // TODO : instead request for last registered users
-            var result = await ViewModelLocator.GitHubService.SearchUsersAsync(SearchValue);
+            Search.ThrownExceptions
+                .Subscribe(ex => UserError.Throw("Potential Network Connectivity Error", ex));
 
-            Users.Clear();
-            foreach (var item in result.Items)
-                Users.Add(item);
+            this.WhenAnyValue(x => x.SearchValue)
+                .Throttle(TimeSpan.FromSeconds(1), RxApp.MainThreadScheduler)
+                .InvokeCommand(this, x => x.Search);
+
+            // TODO : first request on last registered users ?
         }
     }
 }

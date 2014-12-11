@@ -29,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Abstract\IProfileViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Abstract\IReposViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Abstract\IUsersViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Abstract\ReactiveViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Concrete\ActivitiesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Concrete\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Concrete\MainViewModel.cs" />

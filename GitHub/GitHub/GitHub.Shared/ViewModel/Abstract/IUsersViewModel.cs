@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
 using Octokit;
+using ReactiveUI;
 
 namespace GitHub.ViewModel.Abstract
 {
@@ -9,6 +9,6 @@ namespace GitHub.ViewModel.Abstract
         ObservableCollection<User> Users { get; }
         string SearchValue { get; set; }
         
-        ICommand SearchCommand { get; }
+        ReactiveCommand<SearchUsersResult> Search { get; }
     }
 }
