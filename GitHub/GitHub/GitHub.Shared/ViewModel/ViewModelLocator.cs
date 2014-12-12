@@ -14,6 +14,8 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
+using GitHub.DataObjects.Abstract;
+using GitHub.DataObjects.Concrete;
 using GitHub.Services.Abstract;
 using GitHub.Services.Concrete;
 using GitHub.ViewModel.Abstract;
@@ -75,7 +77,9 @@ namespace GitHub.ViewModel
             SimpleIoc.Default.Register<ISessionService, SessionService>();
             SimpleIoc.Default.Register<IGitHubService, GitHubService>();
 
-            // model
+            // data objects
+            SimpleIoc.Default.Register<UsersIncrementalLoadingCollection>();
+
             // model
             if (!SimpleIoc.Default.IsRegistered<IGitHubClient>())
             {

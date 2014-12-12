@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Reactive;
 using System.Reactive.Linq;
+using GalaSoft.MvvmLight.Ioc;
+using GitHub.DataObjects.Concrete;
 using GitHub.ViewModel.Abstract;
 using Octokit;
 using ReactiveUI;
@@ -9,8 +11,7 @@ namespace GitHub.ViewModel.Concrete
 {
     public class UsersViewModel : ReactiveViewModelBase, IUsersViewModel
     {
-        private readonly ObservableCollection<User> _users = new ObservableCollection<User>();
-        public ObservableCollection<User> Users { get { return _users; } }
+        public UsersIncrementalLoadingCollection Users { get; set; }
 
         private string _searchValue;
         public string SearchValue
@@ -23,16 +24,18 @@ namespace GitHub.ViewModel.Concrete
             }
         }
 
-        public ReactiveCommand<SearchUsersResult> Search { get; private set; }
+        public ReactiveCommand<Unit> Search { get; private set; }
 
 
         public UsersViewModel()
         {
+            Users = SimpleIoc.Default.GetInstance<UsersIncrementalLoadingCollection>();
+
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
 
-                _users.Add(new User
+                Users.Add(new User
                 {
                     Login = "Odonno",
                     Followers = 144,
@@ -40,7 +43,7 @@ namespace GitHub.ViewModel.Concrete
                     PublicRepos = 44,
                     AvatarUrl = "https://github.com/identicons/odonno.png"
                 });
-                _users.Add(new User
+                Users.Add(new User
                 {
                     Login = "CorentinMiq",
                     Followers = 7,
@@ -54,16 +57,15 @@ namespace GitHub.ViewModel.Concrete
                 // Code runs "for real"
             }
 
+
+            // TODO : first request on last registered users ?
+
             // Search part
             var canSearch = this.WhenAny(x => x.SearchValue, x => !string.IsNullOrWhiteSpace(x.Value));
-            Search = ReactiveCommand.CreateAsyncTask(canSearch, async _ => await ViewModelLocator.GitHubService.SearchUsersAsync(SearchValue, 1, 40));
-            
-
-            Search.Subscribe(results =>
+            Search = ReactiveCommand.CreateAsyncTask(canSearch, async _ =>
             {
-                Users.Clear();
-                foreach (var item in results.Items)
-                    Users.Add(item);
+                Users.Reset(SearchValue);
+                await Users.LoadMoreItemsAsync((uint)Users.ItemsPerPage);
             });
 
             Search.ThrownExceptions
@@ -72,8 +74,6 @@ namespace GitHub.ViewModel.Concrete
             this.WhenAnyValue(x => x.SearchValue)
                 .Throttle(TimeSpan.FromSeconds(1), RxApp.MainThreadScheduler)
                 .InvokeCommand(this, x => x.Search);
-
-            // TODO : first request on last registered users ?
         }
     }
 }

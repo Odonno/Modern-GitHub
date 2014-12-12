@@ -16,6 +16,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Abstract\IncrementalLoadingCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Abstract\ISearchCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Concrete\UsersIncrementalLoadingCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Abstract\IGitHubService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Abstract\ISessionService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Concrete\GitHubService.cs" />

@@ -1,14 +1,14 @@
-﻿using System.Collections.ObjectModel;
-using Octokit;
+﻿using System.Reactive;
+using GitHub.DataObjects.Concrete;
 using ReactiveUI;
 
 namespace GitHub.ViewModel.Abstract
 {
     public interface IUsersViewModel
     {
-        ObservableCollection<User> Users { get; }
+        UsersIncrementalLoadingCollection Users { get; }
         string SearchValue { get; set; }
-        
-        ReactiveCommand<SearchUsersResult> Search { get; }
+
+        ReactiveCommand<Unit> Search { get; }
     }
 }
