@@ -14,7 +14,6 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
-using GitHub.DataObjects.Abstract;
 using GitHub.DataObjects.Concrete;
 using GitHub.Services.Abstract;
 using GitHub.Services.Concrete;
@@ -156,29 +155,5 @@ namespace GitHub.ViewModel
         }
 
         #endregion View Models
-
-        #region Services
-
-        public static IGitHubService GitHubService
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<IGitHubService>();
-            }
-        }
-
-        #endregion Services
-
-        #region Model
-
-        public static IGitHubClient GitHubClient
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<IGitHubClient>();
-            }
-        }
-
-        #endregion
     }
 }

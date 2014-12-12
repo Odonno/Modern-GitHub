@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using GitHub.ViewModel;
+using Microsoft.Practices.ServiceLocation;
 using Octokit;
 using GitHub.Services.Abstract;
 
@@ -12,7 +12,7 @@ namespace GitHub.Services.Concrete
 
         public GitHubService()
         {
-            _client = ViewModelLocator.GitHubClient;
+            _client = ServiceLocator.Current.GetInstance<IGitHubClient>();
         }
 
         #region Get single item

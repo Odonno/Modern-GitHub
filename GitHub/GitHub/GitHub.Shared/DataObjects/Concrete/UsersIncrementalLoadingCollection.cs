@@ -6,7 +6,8 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 using GitHub.DataObjects.Abstract;
-using GitHub.ViewModel;
+using GitHub.Services.Abstract;
+using Microsoft.Practices.ServiceLocation;
 using Octokit;
 
 namespace GitHub.DataObjects.Concrete
@@ -52,7 +53,7 @@ namespace GitHub.DataObjects.Concrete
 
         protected async override Task<IReadOnlyList<User>> LoadMoreItemsAsync()
         {
-            var result = await ViewModelLocator.GitHubService.SearchUsersAsync(SearchValue, ++Page, ItemsPerPage);
+            var result = await ServiceLocator.Current.GetInstance<IGitHubService>().SearchUsersAsync(SearchValue, ++Page, ItemsPerPage);
             TotalCount = result.TotalCount;
             return result.Items;
         }

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Security.Authentication.Web;
 using GitHub.Services.Abstract;
-using GitHub.ViewModel;
+using Microsoft.Practices.ServiceLocation;
 using Octokit;
 
 #if WINDOWS_PHONE_APP
@@ -23,7 +23,7 @@ namespace GitHub.Services.Concrete
 
         public SessionService()
         {
-            _client = ViewModelLocator.GitHubClient;
+            _client = ServiceLocator.Current.GetInstance<IGitHubClient>();
         }
 
 

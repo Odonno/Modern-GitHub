@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
+using Microsoft.Practices.ServiceLocation;
 using Octokit;
 
 namespace GitHub.ViewModel.Concrete
@@ -36,7 +38,7 @@ namespace GitHub.ViewModel.Concrete
         private async Task Load()
         {
             // TODO : instead request for last created repostiories
-            var result = await ViewModelLocator.GitHubService.SearchReposAsync("mvvm");
+            var result = await ServiceLocator.Current.GetInstance<IGitHubService>().SearchReposAsync("mvvm");
 
             Repositories.Clear();
             foreach (var item in result.Items)
