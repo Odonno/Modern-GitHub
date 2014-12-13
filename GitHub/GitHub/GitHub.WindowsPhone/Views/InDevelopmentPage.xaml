@@ -19,8 +19,8 @@
         <StackPanel x:Name="ContentRoot" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 120">
             <Image MaxHeight="150" Source="/Assets/github-logo.png" />
             <TextBlock Text="This page is currently under development..." 
-                       TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"
-                       Foreground="{StaticResource GreyBlue}" Margin="36" FontSize="16" />
+                       TextWrapping="Wrap" Margin="36" FontSize="24" FontWeight="SemiBold"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
         </StackPanel>
     </Grid>
 </Page>

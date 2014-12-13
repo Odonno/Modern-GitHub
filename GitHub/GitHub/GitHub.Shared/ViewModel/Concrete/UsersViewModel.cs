@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Views;
 using GitHub.DataObjects.Concrete;
 using GitHub.ViewModel.Abstract;
 using Octokit;
@@ -9,10 +12,16 @@ namespace GitHub.ViewModel.Concrete
 {
     public class UsersViewModel : SearchViewModelBase, IUsersViewModel
     {
+        private readonly INavigationService _navigationService;
+
         public UsersIncrementalLoadingCollection Users { get; set; }
 
-        public UsersViewModel()
+        public ICommand GoToUserCommand { get; private set; }
+
+
+        public UsersViewModel(INavigationService navigationService)
         {
+            _navigationService = navigationService;
             Users = SimpleIoc.Default.GetInstance<UsersIncrementalLoadingCollection>();
 
             if (IsInDesignMode)
@@ -41,6 +50,8 @@ namespace GitHub.ViewModel.Concrete
                 // Code runs "for real"
 
                 // TODO : first request on last registered users ?
+
+                GoToUserCommand = new RelayCommand<User>(GoToUser);
             }
         }
 
@@ -48,6 +59,12 @@ namespace GitHub.ViewModel.Concrete
         {
             Users.Reset(SearchValue);
             await Users.LoadMoreItemsAsync((uint)Users.ItemsPerPage);
+        }
+
+        private void GoToUser(User user)
+        {
+            // TODO : implement new page
+            _navigationService.NavigateTo("InDevelopment");
         }
     }
 }

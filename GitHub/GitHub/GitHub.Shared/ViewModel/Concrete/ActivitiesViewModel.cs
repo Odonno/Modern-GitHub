@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Views;
 using GitHub.DataObjects.Concrete;
 using GitHub.ViewModel.Abstract;
 using Octokit;
@@ -9,10 +12,16 @@ namespace GitHub.ViewModel.Concrete
 {
     public class ActivitiesViewModel : SearchViewModelBase, IActivitiesViewModel
     {
+        private readonly INavigationService _navigationService;
+
         public ActivitiesIncrementalLoadingCollection Activities { get; private set; }
 
-        public ActivitiesViewModel()
+        public ICommand GoToActivityCommand { get; private set; }
+
+
+        public ActivitiesViewModel(INavigationService navigationService)
         {
+            _navigationService = navigationService;
             Activities = SimpleIoc.Default.GetInstance<ActivitiesIncrementalLoadingCollection>();
 
             if (IsInDesignMode)
@@ -52,6 +61,8 @@ namespace GitHub.ViewModel.Concrete
 
                 // TODO : first request on last activities of current user ?
                 Refresh();
+
+                GoToActivityCommand = new RelayCommand<Activity>(GoToActivity);
             }
         }
         
@@ -59,6 +70,12 @@ namespace GitHub.ViewModel.Concrete
         {
             Activities.Reset(SearchValue);
             await Activities.LoadMoreItemsAsync((uint)Activities.ItemsPerPage);
+        }
+
+        private void GoToActivity(Activity activity)
+        {
+            // TODO : implement new page
+            _navigationService.NavigateTo("InDevelopment");
         }
     }
 }
