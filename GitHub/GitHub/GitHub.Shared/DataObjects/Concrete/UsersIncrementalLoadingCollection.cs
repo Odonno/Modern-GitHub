@@ -11,7 +11,7 @@ namespace GitHub.DataObjects.Concrete
     {
         public UsersIncrementalLoadingCollection()
         {
-            ItemsPerPage = 40;
+            ItemsPerPage = 30;
         }
 
         protected async override Task<IReadOnlyList<User>> LoadMoreItemsAsync()

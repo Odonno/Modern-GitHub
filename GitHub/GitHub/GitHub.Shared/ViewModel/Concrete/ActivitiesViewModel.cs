@@ -1,37 +1,64 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Ioc;
+using GitHub.DataObjects.Concrete;
 using GitHub.ViewModel.Abstract;
 using Octokit;
 
 namespace GitHub.ViewModel.Concrete
 {
-    public class ActivitiesViewModel : ViewModelBase, IActivitiesViewModel
+    public class ActivitiesViewModel : SearchViewModelBase, IActivitiesViewModel
     {
-        private readonly ObservableCollection<Activity> _activities = new ObservableCollection<Activity>();
-        public ObservableCollection<Activity> Activities { get { return _activities; } }
-
-        public ICommand SearchCommand { get; private set; }
-
+        public ActivitiesIncrementalLoadingCollection Activities { get; private set; }
 
         public ActivitiesViewModel()
         {
+            Activities = SimpleIoc.Default.GetInstance<ActivitiesIncrementalLoadingCollection>();
+
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
+
+                var odonno = new User
+                {
+                    Login = "Odonno",
+                    Followers = 144,
+                    Following = 3,
+                    PublicRepos = 44,
+                    AvatarUrl = "https://github.com/identicons/odonno.png"
+                };
+                var firstRepo = new Repository { Name = "First Repository" };
+
+                Activities.Add(new Activity
+                {
+                    Actor = odonno,
+                    CreatedAt = new DateTimeOffset(new DateTime(2014, 12, 11)),
+                    Public = true,
+                    Repo = firstRepo,
+                    Type = "CreateEvent"
+                });
+                Activities.Add(new Activity
+                {
+                    Actor = odonno,
+                    CreatedAt = new DateTimeOffset(new DateTime(2014, 12, 12)),
+                    Public = true,
+                    Repo = firstRepo,
+                    Type = "PushEvent"
+                });
             }
             else
             {
                 // Code runs "for real"
 
-                Load();
+                // TODO : first request on last activities of current user ?
+                Activities.LoadMoreItemsAsync(30);
             }
         }
 
-        private async Task Load()
+        protected async override Task CompleteSearch()
         {
-            // TODO : do Load method
+            Activities.Reset(SearchValue);
+            await Activities.LoadMoreItemsAsync((uint)Activities.ItemsPerPage);
         }
     }
 }

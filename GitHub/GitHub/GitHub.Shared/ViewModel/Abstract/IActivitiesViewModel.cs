@@ -1,13 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using Octokit;
+﻿using GitHub.DataObjects.Concrete;
 
 namespace GitHub.ViewModel.Abstract
 {
     public interface IActivitiesViewModel
     {
-        ObservableCollection<Activity> Activities { get; }
-
-        ICommand SearchCommand { get; }
+        ActivitiesIncrementalLoadingCollection Activities { get; }
     }
 }

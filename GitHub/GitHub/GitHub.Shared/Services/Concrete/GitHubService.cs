@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Practices.ServiceLocation;
 using Octokit;
@@ -34,9 +35,9 @@ namespace GitHub.Services.Concrete
             }
         }
 
-        public async Task GetActivitiesAsync()
+        public async Task<IReadOnlyList<Activity>> GetActivitiesAsync()
         {
-            throw new NotImplementedException();
+            return await _client.Activity.Events.GetAll();
         }
 
         #endregion

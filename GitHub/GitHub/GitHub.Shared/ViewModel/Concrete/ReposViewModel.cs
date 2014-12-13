@@ -20,8 +20,8 @@ namespace GitHub.ViewModel.Concrete
             {
                 // Code runs in Blend --> create design time data.
 
-                Repositories.Add(new Repository { Name = "First Repository" });
-                Repositories.Add(new Repository { Name = "Another Repository" });
+                Repositories.Add(new Repository { Name = "First-Repository", FullName = "Odonno/First-Repository" });
+                Repositories.Add(new Repository { Name = "Another-Repository", FullName = "Odonno/Another-Repository" });
             }
             else
             {

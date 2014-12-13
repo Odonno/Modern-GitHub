@@ -9,6 +9,8 @@
 
         <!-- Converters -->
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:EventStringToTextStringConverter x:Key="EventStringToTextStringConverter" />
+        <converters:DateTimeOffsetToTimeAgoConverter x:Key="DateTimeOffsetToTimeAgoConverter" />
         
         <!-- Colors -->
         <SolidColorBrush x:Key="GreyBlue" Color="#FF445464" />    

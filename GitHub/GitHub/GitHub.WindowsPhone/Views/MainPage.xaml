@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <!-- Panneau Titre -->
-        <StackPanel Grid.Row="0" Margin="19,0,0,0" Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Image MaxHeight="100" Width="50" Source="/Assets/github-logo.png" Margin="12 -6.5 0 6.5" />
             <TextBlock Text="github" Margin="12 -6.5 0 26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}">
                 <TextBlock.Foreground>
@@ -37,7 +37,7 @@
         </StackPanel>
 
         <!--TODO: le contenu doit être placé dans la grille suivante-->
-        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
+        <Grid Grid.Row="1" x:Name="ContentRoot">
             <Hub>
                 <HubSection x:Name="profileSection" Header="me" DataContext="{Binding Path=ProfileViewModel}">
                     <DataTemplate>
@@ -52,7 +52,26 @@
                         <ListView ItemsSource="{Binding Path=Activities}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path=Type}" />
+                                    <Grid Margin="0 6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="5*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image  Grid.Column="0" Source="{Binding Actor.AvatarUrl}" />
+
+                                        <StackPanel Grid.Column="1" Margin="12 0 0 0">
+                                            <RichTextBlock>
+                                               <Paragraph FontSize="16">
+                                                    <Run Text="{Binding Path=Actor.Login}" Foreground="{StaticResource GreyBlue}" />
+                                                    <Run Text="{Binding Path=Type, Converter={StaticResource EventStringToTextStringConverter}}" />
+                                                    <Run Text="{Binding Path=Repo.Name}" Foreground="{StaticResource GreyBlue}" />
+                                                </Paragraph>
+                                            </RichTextBlock>
+
+                                            <TextBlock Text="{Binding Path=CreatedAt, Converter={StaticResource DateTimeOffsetToTimeAgoConverter}}"  Foreground="Gray"/>
+                                        </StackPanel>
+                                    </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
@@ -88,11 +107,14 @@
 
                                             <Image Grid.Column="0" MaxHeight="30" Margin="12" Source="/Assets/icons/download_icon.png" />
 
-                                            <TextBlock Grid.Column="1" Text="{Binding Name}" FontSize="20" Margin="12 0 0 0" Foreground="White" />
+                                            <StackPanel Grid.Column="1">
+                                                <TextBlock Text="{Binding Name}" FontSize="20" Foreground="White" />
+                                                <TextBlock Text="{Binding FullName}" FontSize="10" Foreground="LightGray" />
+                                            </StackPanel>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
-                                
+
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -130,9 +152,8 @@
                                                 <ColumnDefinition Width="4*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <Rectangle Grid.Column="0" Fill="{StaticResource GreyBlue}" StrokeThickness="0" />
                                             <Image Grid.Column="0" Source="{Binding AvatarUrl}" />
-                                            
+
                                             <TextBlock Grid.Column="1" Text="{Binding Login}" FontSize="24" Margin="12 0 0 0" />
                                         </Grid>
                                     </DataTemplate>

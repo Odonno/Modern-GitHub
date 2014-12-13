@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Ioc;
 using GitHub.DataObjects.Concrete;
 using GitHub.ViewModel.Abstract;
 using Octokit;
-using ReactiveUI;
 
 namespace GitHub.ViewModel.Concrete
 {

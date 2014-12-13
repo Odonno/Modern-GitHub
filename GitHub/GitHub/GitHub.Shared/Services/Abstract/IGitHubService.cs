@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Octokit;
 
 namespace GitHub.Services.Abstract
@@ -9,7 +10,7 @@ namespace GitHub.Services.Abstract
 
         Task<User> GetCurrentUserAsync();
         Task<User> GetUserAsync(string name);
-        Task GetActivitiesAsync();
+        Task<IReadOnlyList<Activity>> GetActivitiesAsync();
 
         #endregion
 
