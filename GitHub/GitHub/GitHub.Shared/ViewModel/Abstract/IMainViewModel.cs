@@ -10,6 +10,8 @@ namespace GitHub.ViewModel.Abstract
         IUsersViewModel UsersViewModel { get; }
 
         bool SearchingEnabled { get; }
+
         ICommand ToggleEnableSearchCommand { get; }
+        ICommand RefreshCommand { get; }
     }
 }

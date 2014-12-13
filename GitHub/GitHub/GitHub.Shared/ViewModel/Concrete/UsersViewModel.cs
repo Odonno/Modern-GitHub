@@ -45,7 +45,7 @@ namespace GitHub.ViewModel.Concrete
             }
         }
 
-        protected async override Task CompleteSearch()
+        public async override Task Refresh()
         {
             Users.Reset(SearchValue);
             await Users.LoadMoreItemsAsync((uint)Users.ItemsPerPage);

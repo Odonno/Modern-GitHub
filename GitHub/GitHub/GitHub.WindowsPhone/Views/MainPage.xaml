@@ -169,6 +169,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Refresh" Label="refresh" Command="{Binding RefreshCommand}"/>
                 <AppBarToggleButton Icon="Find" Label="search" Command="{Binding ToggleEnableSearchCommand}" IsChecked="False"/>
             </CommandBar.PrimaryCommands>
         </CommandBar>

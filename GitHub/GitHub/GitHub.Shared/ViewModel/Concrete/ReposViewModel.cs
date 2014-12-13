@@ -31,9 +31,9 @@ namespace GitHub.ViewModel.Concrete
             }
         }
 
-        
 
-        protected async override Task CompleteSearch()
+
+        public async override Task Refresh()
         {
             Repositories.Reset(SearchValue);
             await Repositories.LoadMoreItemsAsync((uint)Repositories.ItemsPerPage);

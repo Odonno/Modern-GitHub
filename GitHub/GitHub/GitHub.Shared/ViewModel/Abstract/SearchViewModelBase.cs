@@ -32,7 +32,7 @@ namespace GitHub.ViewModel.Abstract
         private async Task CreateSearchCommand()
         {
             var canSearch = this.WhenAny(x => x.SearchValue, x => !string.IsNullOrWhiteSpace(x.Value));
-            Search = ReactiveCommand.CreateAsyncTask(canSearch, async _ => await CompleteSearch());
+            Search = ReactiveCommand.CreateAsyncTask(canSearch, async _ => await Refresh());
 
             Search.ThrownExceptions
                 .Subscribe(ex => UserError.Throw("Potential Network Connectivity Error", ex));
@@ -41,6 +41,6 @@ namespace GitHub.ViewModel.Abstract
                 .Throttle(TimeSpan.FromSeconds(1), RxApp.MainThreadScheduler)
                 .InvokeCommand(this, x => x.Search);
         }
-        protected abstract Task CompleteSearch();
+        public abstract Task Refresh();
     }
 }
