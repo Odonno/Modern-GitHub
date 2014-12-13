@@ -1,30 +1,15 @@
 ﻿using System;
-using System.Reactive;
-using System.Reactive.Linq;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Ioc;
 using GitHub.DataObjects.Concrete;
 using GitHub.ViewModel.Abstract;
 using Octokit;
-using ReactiveUI;
 
 namespace GitHub.ViewModel.Concrete
 {
-    public class ReposViewModel : ReactiveViewModelBase, IReposViewModel
+    public class ReposViewModel : SearchViewModelBase, IReposViewModel
     {
         public ReposIncrementalLoadingCollection Repositories { get; private set; }
-
-        private string _searchValue;
-        public string SearchValue
-        {
-            get { return _searchValue; }
-            set
-            {
-                _searchValue = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        public ReactiveCommand<Unit> Search { get; private set; }
 
 
         public ReposViewModel()
@@ -43,22 +28,15 @@ namespace GitHub.ViewModel.Concrete
                 // Code runs "for real"
 
                 // TODO : first request on last created repos ?
-
-                // Search part
-                var canSearch = this.WhenAny(x => x.SearchValue, x => !string.IsNullOrWhiteSpace(x.Value));
-                Search = ReactiveCommand.CreateAsyncTask(canSearch, async _ =>
-                {
-                    Repositories.Reset(SearchValue);
-                    await Repositories.LoadMoreItemsAsync((uint)Repositories.ItemsPerPage);
-                });
-
-                Search.ThrownExceptions
-                    .Subscribe(ex => UserError.Throw("Potential Network Connectivity Error", ex));
-
-                this.WhenAnyValue(x => x.SearchValue)
-                    .Throttle(TimeSpan.FromSeconds(1), RxApp.MainThreadScheduler)
-                    .InvokeCommand(this, x => x.Search);
             }
+        }
+
+        
+
+        protected async override Task CompleteSearch()
+        {
+            Repositories.Reset(SearchValue);
+            await Repositories.LoadMoreItemsAsync((uint)Repositories.ItemsPerPage);
         }
     }
 }

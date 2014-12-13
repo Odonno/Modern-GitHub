@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Reactive;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Ioc;
 using GitHub.DataObjects.Concrete;
 using GitHub.ViewModel.Abstract;
@@ -9,22 +9,9 @@ using ReactiveUI;
 
 namespace GitHub.ViewModel.Concrete
 {
-    public class UsersViewModel : ReactiveViewModelBase, IUsersViewModel
+    public class UsersViewModel : SearchViewModelBase, IUsersViewModel
     {
         public UsersIncrementalLoadingCollection Users { get; set; }
-
-        private string _searchValue;
-        public string SearchValue
-        {
-            get { return _searchValue; }
-            set
-            {
-                _searchValue = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        public ReactiveCommand<Unit> Search { get; private set; }
 
 
         public UsersViewModel()
@@ -55,25 +42,15 @@ namespace GitHub.ViewModel.Concrete
             else
             {
                 // Code runs "for real"
+
+                // TODO : first request on last registered users ?
             }
+        }
 
-
-            // TODO : first request on last registered users ?
-
-            // Search part
-            var canSearch = this.WhenAny(x => x.SearchValue, x => !string.IsNullOrWhiteSpace(x.Value));
-            Search = ReactiveCommand.CreateAsyncTask(canSearch, async _ =>
-            {
-                Users.Reset(SearchValue);
-                await Users.LoadMoreItemsAsync((uint)Users.ItemsPerPage);
-            });
-
-            Search.ThrownExceptions
-                .Subscribe(ex => UserError.Throw("Potential Network Connectivity Error", ex));
-
-            this.WhenAnyValue(x => x.SearchValue)
-                .Throttle(TimeSpan.FromSeconds(1), RxApp.MainThreadScheduler)
-                .InvokeCommand(this, x => x.Search);
+        protected async override Task CompleteSearch()
+        {
+            Users.Reset(SearchValue);
+            await Users.LoadMoreItemsAsync((uint)Users.ItemsPerPage);
         }
     }
 }

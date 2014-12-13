@@ -1,13 +1,9 @@
-﻿using System.Reactive;
-using GitHub.DataObjects.Concrete;
-using ReactiveUI;
+﻿using GitHub.DataObjects.Concrete;
 
 namespace GitHub.ViewModel.Abstract
 {
     public interface IReposViewModel
     {
         ReposIncrementalLoadingCollection Repositories { get; }
-
-        ReactiveCommand<Unit> Search { get; }
     }
 }
