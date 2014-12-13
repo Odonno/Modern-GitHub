@@ -1,13 +1,13 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using Octokit;
+﻿using System.Reactive;
+using GitHub.DataObjects.Concrete;
+using ReactiveUI;
 
 namespace GitHub.ViewModel.Abstract
 {
     public interface IReposViewModel
     {
-        ObservableCollection<Repository> Repositories { get; }
+        ReposIncrementalLoadingCollection Repositories { get; }
 
-        ICommand SearchCommand { get; }
+        ReactiveCommand<Unit> Search { get; }
     }
 }

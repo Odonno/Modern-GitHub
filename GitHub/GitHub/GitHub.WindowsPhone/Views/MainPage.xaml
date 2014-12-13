@@ -60,13 +60,46 @@
                 </HubSection>
                 <HubSection x:Name="reposSection" Header="repositories" DataContext="{Binding Path=ReposViewModel}">
                     <DataTemplate>
-                        <ListView ItemsSource="{Binding Path=Repositories}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Path=Name}" />
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Grid Visibility="{Binding Source={StaticResource Locator}, Path=Main.SearchingEnabled, Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox TextWrapping="Wrap" PlaceholderText="repo name"
+                                             Text="{Binding SearchValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+
+                            <ListView Grid.Row="1" ItemsSource="{Binding Path=Repositories}" 
+                                      IncrementalLoadingTrigger="Edge" IncrementalLoadingThreshold="2">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0 3" Background="{StaticResource GreyBlue}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="6*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image Grid.Column="0" MaxHeight="30" Margin="12" Source="/Assets/icons/download_icon.png" />
+
+                                            <TextBlock Grid.Column="1" Text="{Binding Name}" FontSize="20" Margin="12 0 0 0" Foreground="White" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+                        </Grid>
                     </DataTemplate>
                 </HubSection>
                 <HubSection x:Name="usersSection" Header="users" DataContext="{Binding Path=UsersViewModel}">
@@ -87,7 +120,8 @@
                                              Text="{Binding SearchValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
 
-                            <ListView Grid.Row="1" ItemsSource="{Binding Users}" IncrementalLoadingTrigger="Edge">
+                            <ListView Grid.Row="1" ItemsSource="{Binding Users}" 
+                                      IncrementalLoadingTrigger="Edge" IncrementalLoadingThreshold="2">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid Margin="0 6">
@@ -96,9 +130,10 @@
                                                 <ColumnDefinition Width="4*" />
                                             </Grid.ColumnDefinitions>
 
+                                            <Rectangle Grid.Column="0" Fill="{StaticResource GreyBlue}" StrokeThickness="0" />
                                             <Image Grid.Column="0" Source="{Binding AvatarUrl}" />
-
-                                            <TextBlock Grid.Column="1" Text="{Binding Login}" FontSize="32" Margin="12 0 0 0" />
+                                            
+                                            <TextBlock Grid.Column="1" Text="{Binding Login}" FontSize="24" Margin="12 0 0 0" />
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>

@@ -7,16 +7,16 @@ using Octokit;
 
 namespace GitHub.DataObjects.Concrete
 {
-    public class UsersIncrementalLoadingCollection : IncrementalLoadingCollection<User>
+    public class ReposIncrementalLoadingCollection : IncrementalLoadingCollection<Repository>
     {
-        public UsersIncrementalLoadingCollection()
+        public ReposIncrementalLoadingCollection()
         {
             ItemsPerPage = 40;
         }
 
-        protected async override Task<IReadOnlyList<User>> LoadMoreItemsAsync()
+        protected async override Task<IReadOnlyList<Repository>> LoadMoreItemsAsync()
         {
-            var result = await ServiceLocator.Current.GetInstance<IGitHubService>().SearchUsersAsync(SearchValue, ++Page, ItemsPerPage);
+            var result = await ServiceLocator.Current.GetInstance<IGitHubService>().SearchReposAsync(SearchValue, ++Page, ItemsPerPage);
             TotalCount = result.TotalCount;
             return result.Items;
         }

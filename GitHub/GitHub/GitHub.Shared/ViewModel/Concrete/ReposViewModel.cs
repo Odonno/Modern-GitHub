@@ -1,48 +1,64 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GitHub.Services.Abstract;
+﻿using System;
+using System.Reactive;
+using System.Reactive.Linq;
+using GalaSoft.MvvmLight.Ioc;
+using GitHub.DataObjects.Concrete;
 using GitHub.ViewModel.Abstract;
-using Microsoft.Practices.ServiceLocation;
 using Octokit;
+using ReactiveUI;
 
 namespace GitHub.ViewModel.Concrete
 {
-    public class ReposViewModel : ViewModelBase, IReposViewModel
+    public class ReposViewModel : ReactiveViewModelBase, IReposViewModel
     {
-        private readonly ObservableCollection<Repository> _repositories = new ObservableCollection<Repository>();
-        public ObservableCollection<Repository> Repositories { get { return _repositories; } }
+        public ReposIncrementalLoadingCollection Repositories { get; private set; }
 
-        public ICommand SearchCommand { get; private set; }
+        private string _searchValue;
+        public string SearchValue
+        {
+            get { return _searchValue; }
+            set
+            {
+                _searchValue = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public ReactiveCommand<Unit> Search { get; private set; }
 
 
         public ReposViewModel()
         {
+            Repositories = SimpleIoc.Default.GetInstance<ReposIncrementalLoadingCollection>();
+
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
 
-                _repositories.Add(new Repository { Name = "First Repository" });
-                _repositories.Add(new Repository { Name = "Another Repository" });
+                Repositories.Add(new Repository { Name = "First Repository" });
+                Repositories.Add(new Repository { Name = "Another Repository" });
             }
             else
             {
                 // Code runs "for real"
 
-                Load();
+                // TODO : first request on last created repos ?
+
+                // Search part
+                var canSearch = this.WhenAny(x => x.SearchValue, x => !string.IsNullOrWhiteSpace(x.Value));
+                Search = ReactiveCommand.CreateAsyncTask(canSearch, async _ =>
+                {
+                    Repositories.Reset(SearchValue);
+                    await Repositories.LoadMoreItemsAsync((uint)Repositories.ItemsPerPage);
+                });
+
+                Search.ThrownExceptions
+                    .Subscribe(ex => UserError.Throw("Potential Network Connectivity Error", ex));
+
+                this.WhenAnyValue(x => x.SearchValue)
+                    .Throttle(TimeSpan.FromSeconds(1), RxApp.MainThreadScheduler)
+                    .InvokeCommand(this, x => x.Search);
             }
-        }
-
-
-        private async Task Load()
-        {
-            // TODO : instead request for last created repostiories
-            var result = await ServiceLocator.Current.GetInstance<IGitHubService>().SearchReposAsync("mvvm");
-
-            Repositories.Clear();
-            foreach (var item in result.Items)
-                Repositories.Add(item);
         }
     }
 }

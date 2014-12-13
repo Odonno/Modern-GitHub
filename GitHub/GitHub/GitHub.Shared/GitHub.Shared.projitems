@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Abstract\IncrementalLoadingCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Abstract\ISearchCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Concrete\ReposIncrementalLoadingCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Concrete\UsersIncrementalLoadingCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Abstract\IGitHubService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Abstract\ISessionService.cs" />
@@ -47,5 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\github-logo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\icons\download_icon.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\icons\files_icon.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\icons\following_icon.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\icons\follow_icon.png" />
   </ItemGroup>
 </Project>
