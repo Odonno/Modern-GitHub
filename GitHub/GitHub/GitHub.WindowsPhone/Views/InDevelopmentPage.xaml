@@ -1,0 +1,26 @@
+﻿<Page
+    x:Class="GitHub.Views.InDevelopmentPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    RequestedTheme="Light" Background="White" Foreground="Black">
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <!-- Content -->
+        <StackPanel x:Name="ContentRoot" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 120">
+            <Image MaxHeight="150" Source="/Assets/github-logo.png" />
+            <TextBlock Text="This page is currently under development..." 
+                       TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Foreground="{StaticResource GreyBlue}" Margin="36" FontSize="16" />
+        </StackPanel>
+    </Grid>
+</Page>

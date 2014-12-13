@@ -98,6 +98,7 @@ namespace GitHub.ViewModel
             var navigationService = new NavigationService();
             navigationService.Configure("SplashScreen", typeof(SplashScreenPage));
             navigationService.Configure("Main", typeof(MainPage));
+            navigationService.Configure("InDevelopment", typeof(InDevelopmentPage));
 
             return navigationService;
         }
