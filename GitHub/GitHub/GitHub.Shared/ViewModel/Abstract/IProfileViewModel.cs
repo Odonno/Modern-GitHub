@@ -1,4 +1,4 @@
-﻿using System.Windows.Input;
+﻿using System.Threading.Tasks;
 using Octokit;
 
 namespace GitHub.ViewModel.Abstract
@@ -7,6 +7,6 @@ namespace GitHub.ViewModel.Abstract
     {
         User CurrentUser { get; }
 
-        ICommand LoadCommand { get; }
+        Task Load();
     }
 }
