@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Practices.ServiceLocation;
 using Octokit;
@@ -20,7 +19,7 @@ namespace GitHub.Services.Concrete
 
         public async Task<User> GetCurrentUserAsync()
         {
-            throw new NotImplementedException();
+            return await _client.User.Current();
         }
 
         public async Task<User> GetUserAsync(string name)
@@ -34,6 +33,10 @@ namespace GitHub.Services.Concrete
                 return null;
             }
         }
+
+        #endregion
+
+        #region Get multiple items
 
         public async Task<IReadOnlyList<Activity>> GetActivitiesAsync()
         {

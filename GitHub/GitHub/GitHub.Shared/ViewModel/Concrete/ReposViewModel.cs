@@ -11,7 +11,6 @@ namespace GitHub.ViewModel.Concrete
     {
         public ReposIncrementalLoadingCollection Repositories { get; private set; }
 
-
         public ReposViewModel()
         {
             Repositories = SimpleIoc.Default.GetInstance<ReposIncrementalLoadingCollection>();
@@ -30,9 +29,7 @@ namespace GitHub.ViewModel.Concrete
                 // TODO : first request on last created repos ?
             }
         }
-
-
-
+        
         public async override Task Refresh()
         {
             Repositories.Reset(SearchValue);

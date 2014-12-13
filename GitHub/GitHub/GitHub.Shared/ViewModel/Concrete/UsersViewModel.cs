@@ -11,7 +11,6 @@ namespace GitHub.ViewModel.Concrete
     {
         public UsersIncrementalLoadingCollection Users { get; set; }
 
-
         public UsersViewModel()
         {
             Users = SimpleIoc.Default.GetInstance<UsersIncrementalLoadingCollection>();

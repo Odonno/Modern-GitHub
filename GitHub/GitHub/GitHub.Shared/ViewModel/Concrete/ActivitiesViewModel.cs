@@ -54,7 +54,7 @@ namespace GitHub.ViewModel.Concrete
                 Refresh();
             }
         }
-
+        
         public async override Task Refresh()
         {
             Activities.Reset(SearchValue);

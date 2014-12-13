@@ -10,10 +10,14 @@ namespace GitHub.Services.Abstract
 
         Task<User> GetCurrentUserAsync();
         Task<User> GetUserAsync(string name);
-        Task<IReadOnlyList<Activity>> GetActivitiesAsync();
 
         #endregion
 
+        #region Get multiple items
+
+        Task<IReadOnlyList<Activity>> GetActivitiesAsync();
+
+        #endregion
 
         #region Search items
 

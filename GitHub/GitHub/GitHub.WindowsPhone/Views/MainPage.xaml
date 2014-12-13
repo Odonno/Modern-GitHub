@@ -41,10 +41,63 @@
             <Hub>
                 <HubSection x:Name="profileSection" Header="me" DataContext="{Binding Path=ProfileViewModel}">
                     <DataTemplate>
-                        <Grid DataContext="{Binding Path=CurrentUser, Mode=OneWay}">
-                            <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="{Binding Path=AvatarUrl}"/>
-                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=Login}" VerticalAlignment="Top"/>
-                        </Grid>
+                        <StackPanel DataContext="{Binding Path=CurrentUser, Mode=OneWay}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image HorizontalAlignment="Left" MaxHeight="40" VerticalAlignment="Top" Source="{Binding Path=AvatarUrl}"/>
+                                <TextBlock Margin="12 0 0 0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=Login}" VerticalAlignment="Top" FontSize="36"/>
+                            </StackPanel>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="100" />
+                                    <RowDefinition Height="100" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Row="0" Grid.Column="0" Margin="0 6 6 6" Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6">
+                                        <TextBlock Foreground="White" Text="{Binding Path=Followers}" FontSize="48" />
+                                        <TextBlock Foreground="White" Text="followers" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="1" Margin="6" Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6">
+                                        <TextBlock Foreground="White" Text="{Binding Path=Following}" FontSize="48" />
+                                        <TextBlock Foreground="White" Text="following" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="2" Margin="6 6 0 6" Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6">
+                                        <TextBlock Foreground="White" Text="{Binding Path=Collaborators}" FontSize="48" />
+                                        <TextBlock Foreground="White" Text="collaborators" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid Grid.Row="1" Grid.Column="0" Margin="0 6 6 6" Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6">
+                                        <TextBlock Foreground="White" Text="{Binding Path=PublicRepos}" FontSize="48" />
+                                        <TextBlock Foreground="White" Text="public repos" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="1" Margin="6" Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6">
+                                        <TextBlock Foreground="White" Text="{Binding Path=PublicGists}" FontSize="48" />
+                                        <TextBlock Foreground="White" Text="public gists" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="2" Margin="6 6 0 6" Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6">
+                                        <TextBlock Foreground="White" Text="{Binding Path=TotalPrivateRepos}" FontSize="48" />
+                                        <TextBlock Foreground="White" Text="private repos" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
                     </DataTemplate>
                 </HubSection>
                 <HubSection x:Name="activitiesSection" Header="activities" DataContext="{Binding Path=ActivitiesViewModel}">
@@ -62,7 +115,7 @@
 
                                         <StackPanel Grid.Column="1" Margin="12 0 0 0">
                                             <RichTextBlock>
-                                               <Paragraph FontSize="16">
+                                                <Paragraph FontSize="16">
                                                     <Run Text="{Binding Path=Actor.Login}" Foreground="{StaticResource GreyBlue}" />
                                                     <Run Text="{Binding Path=Type, Converter={StaticResource EventStringToTextStringConverter}}" />
                                                     <Run Text="{Binding Path=Repo.Name}" Foreground="{StaticResource GreyBlue}" />
