@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using GitHub.Common;
@@ -80,6 +81,10 @@ namespace GitHub.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedTo(e);
+
+            // Remove SplashScreen page
+            if (e.NavigationMode == NavigationMode.New)
+                Frame.BackStack.Remove(Frame.BackStack.LastOrDefault());
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
