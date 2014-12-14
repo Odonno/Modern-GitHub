@@ -27,9 +27,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Abstract\ISessionService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Concrete\GitHubService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Concrete\SessionService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Model\ServiceResponse.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Model\Session.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\Model\UserInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Abstract\IActivitiesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Abstract\ILoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Abstract\IMainViewModel.cs" />

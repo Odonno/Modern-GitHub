@@ -28,7 +28,7 @@ namespace GitHub
     public sealed partial class App : Application
     {
 #if WINDOWS_PHONE_APP
-        private TransitionCollection transitions;
+        private TransitionCollection _transitions;
 #endif
 
         /// <summary>
@@ -37,8 +37,8 @@ namespace GitHub
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += this.OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace GitHub
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                this.DebugSettings.EnableFrameRateCounter = true;
+                DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 
@@ -95,21 +95,21 @@ namespace GitHub
                 // Removes the turnstile navigation for startup.
                 if (rootFrame.ContentTransitions != null)
                 {
-                    this.transitions = new TransitionCollection();
+                    _transitions = new TransitionCollection();
                     foreach (var c in rootFrame.ContentTransitions)
                     {
-                        this.transitions.Add(c);
+                        _transitions.Add(c);
                     }
                 }
 
                 rootFrame.ContentTransitions = null;
-                rootFrame.Navigated += this.RootFrame_FirstNavigated;
+                //rootFrame.Navigated += RootFrame_FirstNavigated;
 #endif
 
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                if (!rootFrame.Navigate(typeof(SplashScreenPage), e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }
@@ -128,8 +128,11 @@ namespace GitHub
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
         {
             var rootFrame = sender as Frame;
-            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
-            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
+            if (rootFrame != null)
+            {
+                rootFrame.ContentTransitions = _transitions ?? new TransitionCollection { new NavigationThemeTransition() };
+                rootFrame.Navigated -= RootFrame_FirstNavigated;
+            }
         }
 #endif
 

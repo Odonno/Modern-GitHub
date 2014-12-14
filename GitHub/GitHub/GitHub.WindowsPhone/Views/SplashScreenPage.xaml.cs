@@ -1,11 +1,17 @@
 ﻿// Pour en savoir plus sur le modèle d'élément Page de base, consultez la page http://go.microsoft.com/fwlink/?LinkID=390556
 using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using GalaSoft.MvvmLight.Views;
 using GitHub.Common;
 using GitHub.Services;
+#if DEBUG
+using Microsoft.Practices.ServiceLocation;
+#else
 using GitHub.ViewModel;
+#endif
 
 namespace GitHub.Views
 {
@@ -79,9 +85,14 @@ namespace GitHub.Views
         /// </summary>
         /// <param name="e">Fournit des données pour les méthodes de navigation et
         /// les gestionnaires d'événements qui ne peuvent pas annuler la requête de navigation.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedTo(e);
+
+#if DEBUG
+            await Task.Delay(5000);
+            ServiceLocator.Current.GetInstance<INavigationService>().NavigateTo("Main");
+#endif
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -96,7 +107,9 @@ namespace GitHub.Views
 
         public void ContinueWebAuthentication(WebAuthenticationBrokerContinuationEventArgs args)
         {
+#if !DEBUG
             ViewModelLocator.Login.Finalize(args);
+#endif
         }
     }
 }
