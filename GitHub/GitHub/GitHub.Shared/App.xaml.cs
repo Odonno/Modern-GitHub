@@ -20,6 +20,10 @@ using GitHub.Common;
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955
 using GitHub.Views;
 
+#if WINDOWS_PHONE_APP
+using GitHub.Services;
+#endif
+
 namespace GitHub
 {
     /// <summary>
@@ -28,7 +32,8 @@ namespace GitHub
     public sealed partial class App : Application
     {
 #if WINDOWS_PHONE_APP
-        private TransitionCollection _transitions;
+        private static TransitionCollection _transitions;
+        private ContinuationManager _continuationManager;
 #endif
 
         /// <summary>
@@ -56,7 +61,7 @@ namespace GitHub
             }
 #endif
 
-            Frame rootFrame = Window.Current.Content as Frame;
+            var rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -103,7 +108,6 @@ namespace GitHub
                 }
 
                 rootFrame.ContentTransitions = null;
-                //rootFrame.Navigated += RootFrame_FirstNavigated;
 #endif
 
                 // When the navigation stack isn't restored navigate to the first page,
@@ -119,23 +123,6 @@ namespace GitHub
             Window.Current.Activate();
         }
 
-#if WINDOWS_PHONE_APP
-        /// <summary>
-        /// Restores the content transitions after the app has launched.
-        /// </summary>
-        /// <param name="sender">The object where the handler is attached.</param>
-        /// <param name="e">Details about the navigation event.</param>
-        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
-        {
-            var rootFrame = sender as Frame;
-            if (rootFrame != null)
-            {
-                rootFrame.ContentTransitions = _transitions ?? new TransitionCollection { new NavigationThemeTransition() };
-                rootFrame.Navigated -= RootFrame_FirstNavigated;
-            }
-        }
-#endif
-
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved
         /// without knowing whether the application will be terminated or resumed with the contents
@@ -147,5 +134,15 @@ namespace GitHub
             await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
+
+
+#if WINDOWS_PHONE_APP
+        public static void FirstNavigate()
+        {
+            var rootFrame = Window.Current.Content as Frame;
+            if (rootFrame != null)
+                rootFrame.ContentTransitions = _transitions ?? new TransitionCollection { new NavigationThemeTransition() };
+        }
+#endif
     }
 }

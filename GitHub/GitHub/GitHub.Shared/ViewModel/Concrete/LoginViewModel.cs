@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
 using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
@@ -20,8 +18,6 @@ namespace GitHub.ViewModel.Concrete
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public ICommand LoginCommand { get; private set; }
-
 
         public LoginViewModel(INavigationService navigationService, IDialogService dialogService, ISessionService sessionService)
         {
@@ -36,14 +32,12 @@ namespace GitHub.ViewModel.Concrete
             else
             {
                 // Code runs "for real"
-
-                LoginCommand = new RelayCommand(Login);
             }
         }
 
 
 
-        private async void Login()
+        public async void Login()
         {
             bool isToShowMessage = false;
 
