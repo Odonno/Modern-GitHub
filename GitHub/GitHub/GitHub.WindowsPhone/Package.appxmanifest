@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="efe1b4c7-d435-430f-8009-c606cb9bccaf" Publisher="CN=David" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="efe1b4c7-d435-430f-8009-c606cb9bccaf" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="49142DavidBOTTIAU.ModernGitHub" Publisher="CN=519CD1E7-EAA2-4CE2-92D3-BDEE98B243DC" Version="0.1.0.0" />
+  <mp:PhoneIdentity PhoneProductId="fa606241-b5e8-47f4-8383-0265e849ace7" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>GitHub.WindowsPhone</DisplayName>
-    <PublisherDisplayName>David</PublisherDisplayName>
+    <DisplayName>Modern GitHub</DisplayName>
+    <PublisherDisplayName>David BOTTIAU</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
@@ -16,7 +16,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="GitHub.WindowsPhone.App">
-      <m3:VisualElements DisplayName="GitHub" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="A GitHub client for Windows Phone" ForegroundText="light" BackgroundColor="transparent">
+      <m3:VisualElements DisplayName="Modern GitHub" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="A GitHub client for Windows Phone" ForegroundText="light" BackgroundColor="transparent">
         <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png">
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\SplashScreen.png" />
