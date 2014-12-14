@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Octokit;
 
 namespace GitHub.ViewModel.Abstract
@@ -15,6 +14,6 @@ namespace GitHub.ViewModel.Abstract
         ICommand GoToPublicGistsCommand { get; }  
         ICommand GoToPrivateReposCommand { get; }
 
-        Task Load();
+        void Load();
     }
 }

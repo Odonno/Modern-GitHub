@@ -84,7 +84,11 @@ namespace GitHub.ViewModel
             // model
             if (!SimpleIoc.Default.IsRegistered<IGitHubClient>())
             {
+#if WINDOWS_PHONE_APP
                 var client = new GitHubClient(new ProductHeaderValue("UniversalGitHub"));
+#else
+                var client = new GitHubClient(new ProductHeaderValue("UniversalGitHubW8"));
+#endif
                 SimpleIoc.Default.Register<IGitHubClient>(() => client);
             }
         }

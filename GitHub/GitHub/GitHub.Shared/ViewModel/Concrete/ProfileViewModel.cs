@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
@@ -59,13 +58,14 @@ namespace GitHub.ViewModel.Concrete
             }
         }
 
-        public async Task Load()
+        public async void Load()
         {
 #if DEBUG
             CurrentUser = await ServiceLocator.Current.GetInstance<IGitHubService>().GetUserAsync("Odonno");
 #else
             CurrentUser = await ServiceLocator.Current.GetInstance<IGitHubService>().GetCurrentUserAsync();
 #endif
+            RaisePropertyChanged("CurrentUser");
         }
 
         private void GoToFollowers()

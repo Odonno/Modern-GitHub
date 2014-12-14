@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -31,10 +32,16 @@ namespace GitHub
     /// </summary>
     public sealed partial class App : Application
     {
+        #region fields
+
 #if WINDOWS_PHONE_APP
         private static TransitionCollection _transitions;
         private ContinuationManager _continuationManager;
 #endif
+
+        #endregion
+
+        #region Constructor
 
         /// <summary>
         /// Initializes the singleton instance of the <see cref="App"/> class. This is the first line of authored code
@@ -46,21 +53,29 @@ namespace GitHub
             Suspending += OnSuspending;
         }
 
+        #endregion
+
+        #region Launched events
+
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used when the application is launched to open a specific file, to display
         /// search results, and so forth.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected async override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                DebugSettings.EnableFrameRateCounter = true;
-            }
-#endif
+            var rootFrame = CreateRootFrame();
+            await RestoreStatusAsync(e.PreviousExecutionState);
 
+            rootFrame.Navigate(typeof(SplashScreenPage), e.Arguments);
+
+            // Ensure the current window is active
+            Window.Current.Activate();
+        }
+
+        private Frame CreateRootFrame()
+        {
             var rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -68,60 +83,68 @@ namespace GitHub
             if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
-                //Associate the frame with a SuspensionManager key                                
-                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
-
-                // TODO: change this value to a cache size that is appropriate for your application
-                rootFrame.CacheSize = 1;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    // Restore the saved session state only when appropriate
-                    try
-                    {
-                        await SuspensionManager.RestoreAsync();
-                    }
-                    catch (SuspensionManagerException)
-                    {
-                        // Something went wrong restoring state.
-                        // Assume there is no state and continue
-                    }
-                }
+                // Set the default language
+                rootFrame = new Frame { Language = Windows.Globalization.ApplicationLanguages.Languages[0] };
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
 
-            if (rootFrame.Content == null)
+            return rootFrame;
+        }
+
+        private async Task RestoreStatusAsync(ApplicationExecutionState previousExecutionState)
+        {
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
+            if (previousExecutionState == ApplicationExecutionState.Terminated)
             {
-#if WINDOWS_PHONE_APP
-                // Removes the turnstile navigation for startup.
-                if (rootFrame.ContentTransitions != null)
+                // Restore the saved session state only when appropriate
+                try
                 {
-                    _transitions = new TransitionCollection();
-                    foreach (var c in rootFrame.ContentTransitions)
-                    {
-                        _transitions.Add(c);
-                    }
+                    await SuspensionManager.RestoreAsync();
                 }
-
-                rootFrame.ContentTransitions = null;
-#endif
-
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                if (!rootFrame.Navigate(typeof(SplashScreenPage), e.Arguments))
+                catch (SuspensionManagerException)
                 {
-                    throw new Exception("Failed to create initial page");
+                    // Something went wrong restoring state.
+                    // Assume there is no state and continue
                 }
             }
+        }
 
-            // Ensure the current window is active
+#if WINDOWS_PHONE_APP
+        /// <summary>
+        /// Handle OnActivated event to deal with File Open/Save continuation activation kinds
+        /// </summary>
+        /// <param name="e">Application activated event arguments, it can be casted to proper sub-type based on ActivationKind</param>
+        protected async override void OnActivated(IActivatedEventArgs e)
+        {
+            base.OnActivated(e);
+
+            _continuationManager = new ContinuationManager();
+
+            Frame rootFrame = CreateRootFrame();
+            await RestoreStatusAsync(e.PreviousExecutionState);
+
+            if (rootFrame.Content == null)
+            {
+                rootFrame.Navigate(typeof(SplashScreenPage));
+            }
+
+            var continuationEventArgs = e as IContinuationActivatedEventArgs;
+            if (continuationEventArgs != null)
+            {
+                // Call ContinuationManager to handle continuation activation
+                _continuationManager.Continue(continuationEventArgs, rootFrame);
+            }
+
             Window.Current.Activate();
         }
+#endif
+
+        #endregion
+
+        #region Suspending events
 
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved
@@ -135,6 +158,9 @@ namespace GitHub
             deferral.Complete();
         }
 
+        #endregion
+
+        #region Transitions management
 
 #if WINDOWS_PHONE_APP
         public static void FirstNavigate()
@@ -144,5 +170,7 @@ namespace GitHub
                 rootFrame.ContentTransitions = _transitions ?? new TransitionCollection { new NavigationThemeTransition() };
         }
 #endif
+
+        #endregion
     }
 }

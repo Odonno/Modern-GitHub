@@ -28,9 +28,11 @@ namespace GitHub.Views
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             _navigationHelper.SaveState += NavigationHelper_SaveState;
+
+            Loaded += SplashScreenPage_Loaded;
         }
 
-
+        
         #region Navigation Helper
 
         private readonly NavigationHelper _navigationHelper;
@@ -86,25 +88,30 @@ namespace GitHub.Views
         /// </summary>
         /// <param name="e">Fournit des données pour les méthodes de navigation et
         /// les gestionnaires d'événements qui ne peuvent pas annuler la requête de navigation.</param>
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedTo(e);
 
             // restore transitions
             App.FirstNavigate();
-
-#if DEBUG
-            await Task.Delay(5000);
-            ServiceLocator.Current.GetInstance<INavigationService>().NavigateTo("Main");
-#else
-            ViewModelLocator.Login.Login();
-#endif
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedFrom(e);
         }
+
+        private async void SplashScreenPage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+#if DEBUG
+            await Task.Delay(2000);
+            ServiceLocator.Current.GetInstance<INavigationService>().NavigateTo("Main");
+#else
+            await Task.Delay(100);
+            ViewModelLocator.Login.Login();
+#endif
+        }
+
 
         #endregion
 

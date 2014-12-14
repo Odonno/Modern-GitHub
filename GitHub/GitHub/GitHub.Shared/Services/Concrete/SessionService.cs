@@ -14,8 +14,13 @@ namespace GitHub.Services.Concrete
 {
     public class SessionService : ISessionService
     {
+#if WINDOWS_PHONE_APP
         private const string _clientId = "cf9380704e8a73863446";
         private const string _clientSecret = "65235fc4bef14b408f43ac1a971e1c16c0a310cd";
+#else
+        private const string _clientId = "fea5e25a11932b2d3f96";
+        private const string _clientSecret = "1e60e28b73bd561715be6f8d149483537d627d3e";
+#endif
 
         private OauthToken _oauthToken;
 
