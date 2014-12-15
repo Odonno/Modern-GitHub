@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.System;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GitHub.ViewModel.Abstract;
@@ -39,6 +41,8 @@ namespace GitHub.ViewModel.Concrete
 
         public ICommand ToggleEnableSearchCommand { get; private set; }
         public ICommand RefreshCommand { get; private set; }
+        public ICommand ShareIdeaCommand { get; private set; }
+        public ICommand ContactSupportCommand { get; private set; }
 
 
         public MainViewModel()
@@ -58,6 +62,8 @@ namespace GitHub.ViewModel.Concrete
 
                 ToggleEnableSearchCommand = new RelayCommand(ToggleEnableSearch);
                 RefreshCommand = new RelayCommand(Refresh, CanRefresh);
+                ShareIdeaCommand = new RelayCommand(GoToFeedbackWebsite);
+                ContactSupportCommand = new RelayCommand(SendTicket);
 
                 WaitForRefresh();
             }
@@ -103,6 +109,20 @@ namespace GitHub.ViewModel.Concrete
         {
             await Task.Delay(60 * 1000);
             CanRefreshProperty = true;
+        }
+
+
+        private async void GoToFeedbackWebsite()
+        {
+            var feedbackUri = new Uri("http://dbottiau.uservoice.com/");
+            await Launcher.LaunchUriAsync(feedbackUri);
+        }
+
+
+        private async void SendTicket()
+        {
+            var mailtoUri = new Uri("mailto:?to=tickets@dbottiau.uservoice.com&subject=[Modern GitHub] The subject&body=Describe your trouble about Modern GitHub here.");
+            await Launcher.LaunchUriAsync(mailtoUri);
         }
     }
 }
