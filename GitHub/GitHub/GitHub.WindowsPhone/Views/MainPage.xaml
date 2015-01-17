@@ -86,6 +86,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- Header Template (of the hub) -->
+        <DataTemplate x:Key="HeaderTemplate">
+            <TextBlock Text="{Binding}" Style="{ThemeResource HeaderTextBlockStyle}" />
+        </DataTemplate>
     </Page.Resources>
 
 
@@ -97,28 +102,25 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!-- Title -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Image MaxHeight="100" Width="50" Source="/Assets/github-logo.png" Margin="12 -6.5 0 6.5" />
-            <TextBlock Text="github" Margin="12 -6.5 0 26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}">
-                <TextBlock.Foreground>
-                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="1,1">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </TextBlock.Foreground>
-            </TextBlock>
-        </StackPanel>
-
         <!-- Content -->
-        <Grid Grid.Row="1" x:Name="ContentRoot">
+        <Grid x:Name="ContentRoot">
             <Hub>
-                <HubSection x:Name="profileSection" Header="me" DataContext="{Binding Path=ProfileViewModel}">
+                <!-- Title (header) -->
+                <Hub.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="0 12 0 0">
+                            <Image MaxHeight="125" MaxWidth="125" Source="/Assets/github-logo.png" />
+                            <TextBlock Text="GitHub" Margin="24 -12 0 0" FontSize="100"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Hub.HeaderTemplate>
+
+                <!-- Content (sections) -->
+                <HubSection x:Name="profileSection" Header="me" 
+                            DataContext="{Binding Path=ProfileViewModel}" 
+                            HeaderTemplate="{StaticResource HeaderTemplate}">
                     <DataTemplate>
                         <StackPanel DataContext="{Binding Path=CurrentUser, Mode=OneWay}">
                             <StackPanel Orientation="Horizontal">
@@ -203,7 +205,9 @@
                         </StackPanel>
                     </DataTemplate>
                 </HubSection>
-                <HubSection x:Name="activitiesSection" Header="activities" DataContext="{Binding Path=ActivitiesViewModel}">
+                <HubSection x:Name="activitiesSection" Header="activities" 
+                            DataContext="{Binding Path=ActivitiesViewModel}"
+                            HeaderTemplate="{StaticResource HeaderTemplate}">
                     <DataTemplate>
                         <ListView ItemsSource="{Binding Path=Activities}">
                             <ListView.ItemTemplate>
@@ -234,7 +238,9 @@
                         </ListView>
                     </DataTemplate>
                 </HubSection>
-                <HubSection x:Name="reposSection" Header="repositories" DataContext="{Binding Path=ReposViewModel}">
+                <HubSection x:Name="reposSection" Header="repositories" 
+                            DataContext="{Binding Path=ReposViewModel}"
+                            HeaderTemplate="{StaticResource HeaderTemplate}">
                     <DataTemplate>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -278,7 +284,9 @@
                         </Grid>
                     </DataTemplate>
                 </HubSection>
-                <HubSection x:Name="usersSection" Header="users" DataContext="{Binding Path=UsersViewModel}">
+                <HubSection x:Name="usersSection" Header="users" 
+                            DataContext="{Binding Path=UsersViewModel}"
+                            HeaderTemplate="{StaticResource HeaderTemplate}">
                     <DataTemplate>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -329,7 +337,7 @@
                 <AppBarButton Icon="Refresh" Label="refresh" Command="{Binding RefreshCommand}"/>
                 <AppBarToggleButton Icon="Find" Label="search" Command="{Binding ToggleEnableSearchCommand}" IsChecked="False"/>
             </CommandBar.PrimaryCommands>
-            
+
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="share an idea" Command="{Binding Path=ShareIdeaCommand}" />
                 <AppBarButton Label="contact support" Command="{Binding Path=ContactSupportCommand}" />
