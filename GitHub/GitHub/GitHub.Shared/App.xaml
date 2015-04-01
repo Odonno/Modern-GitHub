@@ -13,6 +13,6 @@
         <converters:DateTimeOffsetToTimeAgoConverter x:Key="DateTimeOffsetToTimeAgoConverter" />
         
         <!-- Colors -->
-        <SolidColorBrush x:Key="GreyBlue" Color="#FF445464" />    
+        <SolidColorBrush x:Key="GreyBlue" Color="#FF445464" />
     </Application.Resources>
 </Application>

@@ -108,6 +108,10 @@
     <Content Include="Assets\WideLogo.scale-240.png" />
     <Content Include="Assets\HubBackground.theme-dark.png" />
     <Content Include="Assets\HubBackground.theme-light.png" />
+    <Content Include="Fonts\octicons.svg" />
+    <Content Include="Fonts\octicons.ttf" />
+    <None Include="Fonts\octicons.eot" />
+    <None Include="Fonts\octicons.woff" />
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>

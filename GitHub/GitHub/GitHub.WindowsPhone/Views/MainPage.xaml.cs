@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using GitHub.Common;
@@ -16,6 +17,9 @@ namespace GitHub.Views
         public MainPage()
         {
             InitializeComponent();
+
+            StatusBar statusBar = StatusBar.GetForCurrentView();
+            statusBar.HideAsync();
 
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
