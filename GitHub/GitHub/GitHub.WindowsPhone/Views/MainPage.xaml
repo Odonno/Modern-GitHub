@@ -218,7 +218,7 @@
                     </StackPanel>
                 </DataTemplate>
             </HubSection>
-            <HubSection x:Name="activitiesSection" Header="activities" 
+            <HubSection x:Name="activitiesSection" Header="my activities" 
                             DataContext="{Binding Path=ActivitiesViewModel}"
                             HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>

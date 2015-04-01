@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
@@ -47,7 +48,7 @@ namespace GitHub.ViewModel.Concrete
             {
                 // Code runs "for real"
 
-                Load();
+                //Load();
 
                 GoToFollowersCommand = new RelayCommand(GoToFollowers);
                 GoToFollowingsCommand = new RelayCommand(GoToFollowings);
@@ -58,7 +59,7 @@ namespace GitHub.ViewModel.Concrete
             }
         }
 
-        public async void Load()
+        public async Task LoadAsync()
         {
 #if DEBUG
             CurrentUser = await ServiceLocator.Current.GetInstance<IGitHubService>().GetUserAsync("Odonno");

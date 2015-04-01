@@ -16,6 +16,7 @@ namespace GitHub.Services.Abstract
         #region Get multiple items
 
         Task<IReadOnlyList<Activity>> GetActivitiesAsync();
+        Task<IReadOnlyList<Activity>> GetUserActivitiesAsync(string user);
 
         #endregion
 

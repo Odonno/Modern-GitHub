@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Practices.ServiceLocation;
 using Octokit;
@@ -41,6 +42,14 @@ namespace GitHub.Services.Concrete
         public async Task<IReadOnlyList<Activity>> GetActivitiesAsync()
         {
             return await _client.Activity.Events.GetAll();
+        }
+
+        public async Task<IReadOnlyList<Activity>> GetUserActivitiesAsync(string user)
+        {
+            var performedActivities = await _client.Activity.Events.GetUserPerformed(user);
+            var receivedActivities = await _client.Activity.Events.GetUserReceived(user);
+
+            return performedActivities.Concat(receivedActivities).OrderByDescending(a => a.CreatedAt).ToArray();
         }
 
         #endregion

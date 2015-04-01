@@ -79,7 +79,6 @@ namespace GitHub.ViewModel
             // data objects
             SimpleIoc.Default.Register<UsersIncrementalLoadingCollection>();
             SimpleIoc.Default.Register<ReposIncrementalLoadingCollection>();
-            SimpleIoc.Default.Register<ActivitiesIncrementalLoadingCollection>();
 
             // model
             if (!SimpleIoc.Default.IsRegistered<IGitHubClient>())

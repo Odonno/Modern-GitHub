@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using GalaSoft.MvvmLight.Views;
@@ -101,10 +102,11 @@ namespace GitHub.Views
             _navigationHelper.OnNavigatedFrom(e);
         }
 
-        private async void SplashScreenPage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void SplashScreenPage_Loaded(object sender, RoutedEventArgs e)
         {
 #if DEBUG
             await Task.Delay(2000);
+            await ViewModelLocator.Profile.LoadAsync();
             ServiceLocator.Current.GetInstance<INavigationService>().NavigateTo("Main");
 #else
             await Task.Delay(100);

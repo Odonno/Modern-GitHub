@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
-using GitHub.DataObjects.Concrete;
+using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
+using Microsoft.Practices.ServiceLocation;
 using Octokit;
 
 namespace GitHub.ViewModel.Concrete
@@ -14,7 +15,8 @@ namespace GitHub.ViewModel.Concrete
     {
         private readonly INavigationService _navigationService;
 
-        public ActivitiesIncrementalLoadingCollection Activities { get; private set; }
+        private readonly ObservableCollection<Activity> _activities = new ObservableCollection<Activity>();
+        public ObservableCollection<Activity> Activities { get { return _activities; } }
 
         public ICommand GoToActivityCommand { get; private set; }
 
@@ -22,7 +24,6 @@ namespace GitHub.ViewModel.Concrete
         public ActivitiesViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            Activities = SimpleIoc.Default.GetInstance<ActivitiesIncrementalLoadingCollection>();
 
             if (IsInDesignMode)
             {
@@ -59,17 +60,22 @@ namespace GitHub.ViewModel.Concrete
             {
                 // Code runs "for real"
 
-                // TODO : first request on last activities of current user ?
+                // first request on last activities of current user ?
                 Refresh();
 
                 GoToActivityCommand = new RelayCommand<Activity>(GoToActivity);
             }
         }
-        
+
         public async override Task Refresh()
         {
-            Activities.Reset(SearchValue);
-            await Activities.LoadMoreItemsAsync((uint)Activities.ItemsPerPage);
+            var activities = await ServiceLocator.Current.GetInstance<IGitHubService>().GetUserActivitiesAsync(ViewModelLocator.Profile.CurrentUser.Login);
+
+            Activities.Clear();
+            foreach (var activity in activities)
+            {
+                Activities.Add(activity);
+            }
         }
 
         private void GoToActivity(Activity activity)

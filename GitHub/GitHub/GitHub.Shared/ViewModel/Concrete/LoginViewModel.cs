@@ -17,9 +17,6 @@ namespace GitHub.ViewModel.Concrete
         private readonly ISessionService _sessionService;
         private readonly IDialogService _dialogService;
 
-        public string Username { get; set; }
-        public string Password { get; set; }
-
         public ICommand LoginCommand { get; private set; }
 
 
@@ -54,7 +51,10 @@ namespace GitHub.ViewModel.Concrete
                     return;
 
                 if (auth.Value)
+                {
+                    await ViewModelLocator.Profile.LoadAsync();
                     _navigationService.NavigateTo("Main");
+                }
             }
             catch
             {
