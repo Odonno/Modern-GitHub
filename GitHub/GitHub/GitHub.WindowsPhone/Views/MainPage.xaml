@@ -349,11 +349,6 @@
                 <AppBarButton Icon="Refresh" Label="refresh" Command="{Binding RefreshCommand}"/>
                 <AppBarToggleButton Icon="Find" Label="search" Command="{Binding ToggleEnableSearchCommand}" IsChecked="False"/>
             </CommandBar.PrimaryCommands>
-
-            <CommandBar.SecondaryCommands>
-                <AppBarButton Label="share an idea" Command="{Binding Path=ShareIdeaCommand}" />
-                <AppBarButton Label="contact support" Command="{Binding Path=ContactSupportCommand}" />
-            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

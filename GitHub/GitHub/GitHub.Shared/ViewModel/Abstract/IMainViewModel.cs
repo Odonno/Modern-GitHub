@@ -13,7 +13,5 @@ namespace GitHub.ViewModel.Abstract
 
         ICommand ToggleEnableSearchCommand { get; }
         ICommand RefreshCommand { get; }
-        ICommand ShareIdeaCommand { get; }
-        ICommand ContactSupportCommand { get; }
     }
 }
