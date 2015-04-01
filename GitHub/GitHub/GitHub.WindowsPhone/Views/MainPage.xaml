@@ -123,12 +123,25 @@
                             HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
                     <StackPanel DataContext="{Binding Path=CurrentUser, Mode=OneWay}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image HorizontalAlignment="Left" MaxHeight="40" VerticalAlignment="Top" Source="{Binding Path=AvatarUrl}"/>
-                            <TextBlock Margin="12 0 0 0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=Login}" VerticalAlignment="Top" FontSize="36"/>
-                        </StackPanel>
-
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            
+                            <Grid Grid.Column="0" Background="{StaticResource GreyBlue}">
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Path=AvatarUrl}"/>
+                            </Grid>
+
+                            <Grid Grid.Column="1" Background="{StaticResource GreyBlue}" Margin="0 0 12 0">
+                                <TextBlock Foreground="White" Margin="12 0" FontWeight="Bold" Padding="6 12 0 0"
+                                           HorizontalAlignment="Left" TextWrapping="Wrap"
+                                           Text="{Binding Path=Login}" VerticalAlignment="Top" 
+                                           FontSize="36"/>
+                            </Grid>
+                        </Grid>
+
+                        <Grid Margin="0 12 0 0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100" />
                                 <RowDefinition Height="100" />
@@ -140,62 +153,62 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <Button Grid.Row="0" Grid.Column="0" Margin="0 6 6 6"
+                            <Button Grid.Row="0" Grid.Column="0" Margin="0 0 0 6"
                                         Style="{StaticResource TextBlockButtonStyle}" 
                                         Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToFollowersCommand}">
                                 <Grid Background="{StaticResource GreyBlue}" Width="100" Height="100">
-                                    <StackPanel Margin="6 -6">
+                                    <StackPanel Margin="6 0">
                                         <TextBlock Foreground="White" Text="{Binding Path=Followers}" FontSize="48" />
                                         <TextBlock Foreground="White" Text="followers" FontSize="12" />
                                     </StackPanel>
                                 </Grid>
                             </Button>
-                            <Button Grid.Row="0" Grid.Column="1" Margin="6"
+                            <Button Grid.Row="0" Grid.Column="1" Margin="0 0 0 6"
                                         Style="{StaticResource TextBlockButtonStyle}" 
                                         Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToFollowingsCommand}">
                                 <Grid Background="{StaticResource GreyBlue}" Width="100" Height="100">
-                                    <StackPanel Margin="6 -6">
+                                    <StackPanel Margin="6 0">
                                         <TextBlock Foreground="White" Text="{Binding Path=Following}" FontSize="48" />
                                         <TextBlock Foreground="White" Text="following" FontSize="12" />
                                     </StackPanel>
                                 </Grid>
                             </Button>
-                            <Button Grid.Row="0" Grid.Column="2" Margin="6 6 0 6"
+                            <Button Grid.Row="0" Grid.Column="2" Margin="0 0 0 6"
                                         Style="{StaticResource TextBlockButtonStyle}" 
                                         Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToCollaboratorsCommand}">
                                 <Grid Background="{StaticResource GreyBlue}" Width="100" Height="100">
-                                    <StackPanel Margin="6 -6">
+                                    <StackPanel Margin="6 0">
                                         <TextBlock Foreground="White" Text="{Binding Path=Collaborators}" FontSize="48" />
                                         <TextBlock Foreground="White" Text="collaborators" FontSize="12" />
                                     </StackPanel>
                                 </Grid>
                             </Button>
 
-                            <Button Grid.Row="1" Grid.Column="0" Margin="0 6 6 6"
+                            <Button Grid.Row="1" Grid.Column="0" Margin="0 6 0 0"
                                         Style="{StaticResource TextBlockButtonStyle}" 
                                         Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToPublicReposCommand}">
                                 <Grid Background="{StaticResource GreyBlue}" Width="100" Height="100">
-                                    <StackPanel Margin="6 -6">
+                                    <StackPanel Margin="6 0">
                                         <TextBlock Foreground="White" Text="{Binding Path=PublicRepos}" FontSize="48" />
                                         <TextBlock Foreground="White" Text="public repos" FontSize="12" />
                                     </StackPanel>
                                 </Grid>
                             </Button>
-                            <Button Grid.Row="1" Grid.Column="1" Margin="6"
+                            <Button Grid.Row="1" Grid.Column="1" Margin="0 6 0 0"
                                         Style="{StaticResource TextBlockButtonStyle}" 
                                         Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToPublicGistsCommand}">
                                 <Grid Background="{StaticResource GreyBlue}" Width="100" Height="100">
-                                    <StackPanel Margin="6 -6">
+                                    <StackPanel Margin="6 0">
                                         <TextBlock Foreground="White" Text="{Binding Path=PublicGists}" FontSize="48" />
                                         <TextBlock Foreground="White" Text="public gists" FontSize="12" />
                                     </StackPanel>
                                 </Grid>
                             </Button>
-                            <Button Grid.Row="1" Grid.Column="2" Margin="6 6 0 6"
+                            <Button Grid.Row="1" Grid.Column="2" Margin="0 6 0 0"
                                         Style="{StaticResource TextBlockButtonStyle}" 
                                         Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToPrivateReposCommand}">
                                 <Grid Background="{StaticResource GreyBlue}" Width="100" Height="100">
-                                    <StackPanel Margin="6 -6">
+                                    <StackPanel Margin="6 0">
                                         <TextBlock Foreground="White" Text="{Binding Path=TotalPrivateRepos}" FontSize="48" />
                                         <TextBlock Foreground="White" Text="private repos" FontSize="12" />
                                     </StackPanel>
