@@ -29,22 +29,20 @@ namespace GitHub.ViewModel.Concrete
             {
                 // Code runs in Blend --> create design time data.
 
-                //Users.Add(new User
-                //{
-                //    Login = "Odonno",
-                //    Followers = 144,
-                //    Following = 3,
-                //    PublicRepos = 44,
-                //    AvatarUrl = "https://github.com/identicons/odonno.png"
-                //});
-                //Users.Add(new User
-                //{
-                //    Login = "CorentinMiq",
-                //    Followers = 7,
-                //    Following = 84,
-                //    PublicRepos = 3,
-                //    AvatarUrl = "https://github.com/identicons/CorentinMiq.png"
-                //});
+                var odonno = new User("https://github.com/identicons/odonno.png",
+                    null, null, 100, null, new DateTimeOffset(), 0, null, 144, 3, null, null, 0,
+                    1, null,
+                    "Odonno", "David Bottiau",
+                    0, null, 0, 0, 44, null, false);
+
+                var corentinMiq = new User("https://github.com/identicons/CorentinMiq.png",
+                    null, null, 200, null, new DateTimeOffset(), 0, null, 7, 84, null, null, 0,
+                    2, null,
+                    "CorentinMiq", "Corentin Miquée",
+                    0, null, 0, 0, 3, null, false);
+
+                Users.Add(odonno);
+                Users.Add(corentinMiq);
             }
             else
             {

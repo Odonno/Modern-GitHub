@@ -52,26 +52,52 @@ namespace GitHub.ViewModel.Concrete
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data
-                
-                //Repositories.Add(new Repository { Name = "First-Repository", FullName = "Odonno/First-Repository" });
-                //Repositories.Add(new Repository { Name = "Another-Repository", FullName = "Odonno/Another-Repository" });
 
-                //Activities.Add(new Activity
-                //{
-                //    Actor = User,
-                //    CreatedAt = new DateTimeOffset(new DateTime(2014, 12, 12)),
-                //    Public = true,
-                //    Repo = Repositories.First(),
-                //    Type = "PushEvent"
-                //});
-                //Activities.Add(new Activity
-                //{
-                //    Actor = User,
-                //    CreatedAt = new DateTimeOffset(new DateTime(2014, 12, 11)),
-                //    Public = true,
-                //    Repo = Repositories.First(),
-                //    Type = "CreateEvent"
-                //});
+                User = new User("https://github.com/identicons/odonno.png",
+                    null, null, 100, null, new DateTimeOffset(), 0, null, 144, 3, null, null, 0,
+                    1, null,
+                    "Odonno", "David Bottiau",
+                    0, null, 0, 0, 44, null, false);
+
+                var firstRepo = new Repository(null, null, null, null, null, null, null,
+                    1,
+                    User,
+                    "First-Repository",
+                    "Odonno/First-Repository",
+                    null, null, null,
+                    false, false,
+                    0, 0, 0,
+                    "master",
+                    0,
+                    null, new DateTimeOffset(), new DateTimeOffset(),
+                    null, null, null, null,
+                    false, false, false);
+
+                var anotherRepo = new Repository(null, null, null, null, null, null, null,
+                    2,
+                    User,
+                    "Another-Repository",
+                    "Odonno/Another-Repository",
+                    null, null, null,
+                    false, false,
+                    0, 0, 0,
+                    "master",
+                    0,
+                    null, new DateTimeOffset(), new DateTimeOffset(),
+                    null, null, null, null,
+                    false, false, false);
+
+                Repositories.Add(firstRepo);
+                Repositories.Add(anotherRepo);
+
+                var pushActivity = new Activity("PushEvent", true, firstRepo, User, null,
+                    new DateTimeOffset(new DateTime(2014, 12, 12)), "1");
+
+                var createActivity = new Activity("CreateEvent", true, firstRepo, User, null,
+                    new DateTimeOffset(new DateTime(2014, 12, 11)), "2");
+
+                Activities.Add(pushActivity);
+                Activities.Add(createActivity);
             }
             else
             {

@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
-using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
-using Microsoft.Practices.ServiceLocation;
 using Octokit;
 
 namespace GitHub.ViewModel.Concrete
@@ -29,32 +27,34 @@ namespace GitHub.ViewModel.Concrete
             {
                 // Code runs in Blend --> create design time data.
 
-                //var odonno = new User
-                //{
-                //    Login = "Odonno",
-                //    Followers = 144,
-                //    Following = 3,
-                //    PublicRepos = 44,
-                //    AvatarUrl = "https://github.com/identicons/odonno.png"
-                //};
-                //var firstRepo = new Repository { Name = "First Repository" };
+                var odonno = new User("https://github.com/identicons/odonno.png",
+                    null, null, 100, null, new DateTimeOffset(), 0, null, 144, 3, null, null, 0,
+                    1, null,
+                    "Odonno", "David Bottiau",
+                    0, null, 0, 0, 44, null, false);
 
-                //Activities.Add(new Activity
-                //{
-                //    Actor = odonno,
-                //    CreatedAt = new DateTimeOffset(new DateTime(2014, 12, 12)),
-                //    Public = true,
-                //    Repo = firstRepo,
-                //    Type = "PushEvent"
-                //});
-                //Activities.Add(new Activity
-                //{
-                //    Actor = odonno,
-                //    CreatedAt = new DateTimeOffset(new DateTime(2014, 12, 11)),
-                //    Public = true,
-                //    Repo = firstRepo,
-                //    Type = "CreateEvent"
-                //});
+                var firstRepo = new Repository(null, null, null, null, null, null, null,
+                    1,
+                    odonno,
+                    "First-Repository",
+                    "Odonno/First-Repository",
+                    null, null, null,
+                    false, false,
+                    0, 0, 0,
+                    "master",
+                    0,
+                    null, new DateTimeOffset(), new DateTimeOffset(),
+                    null, null, null, null,
+                    false, false, false);
+
+                var pushActivity = new Activity("PushEvent", true, firstRepo, odonno, null,
+                    new DateTimeOffset(new DateTime(2014, 12, 12)), "1");
+
+                var createActivity = new Activity("CreateEvent", true, firstRepo, odonno, null,
+                    new DateTimeOffset(new DateTime(2014, 12, 11)), "2");
+
+                Activities.Add(pushActivity);
+                Activities.Add(createActivity);
             }
             else
             {

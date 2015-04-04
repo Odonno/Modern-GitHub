@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
-using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
-using Microsoft.Practices.ServiceLocation;
 using Octokit;
 
 namespace GitHub.ViewModel.Concrete
@@ -32,17 +31,11 @@ namespace GitHub.ViewModel.Concrete
             {
                 // Code runs in Blend --> create design time data.
 
-                //CurrentUser = new User
-                //{
-                //    Login = "Odonno",
-                //    AvatarUrl = "https://avatars3.githubusercontent.com/u/6053067",
-                //    Followers = 32,
-                //    Following = 4,
-                //    PublicRepos = 44,
-                //    PublicGists = 169,
-                //    Collaborators = 9,
-                //    TotalPrivateRepos = 0
-                //};
+                CurrentUser = new User("https://github.com/identicons/odonno.png",
+                    null, null, 100, null, new DateTimeOffset(), 0, null, 144, 3, null, null, 0,
+                    1, null,
+                    "Odonno", "David Bottiau",
+                    0, null, 0, 0, 44, null, false);
             }
             else
             {
