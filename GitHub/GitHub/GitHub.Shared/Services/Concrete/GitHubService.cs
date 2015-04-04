@@ -87,9 +87,9 @@ namespace GitHub.Services.Concrete
         {
             return await _client.User.Followers.IsFollowingForCurrent(user);
         }
-        public async Task FollowUser(string user)
+        public async Task<bool> FollowUser(string user)
         {
-            await _client.User.Followers.Follow(user);
+            return await _client.User.Followers.Follow(user);
         }
         public async Task UnfollowUser(string user)
         {

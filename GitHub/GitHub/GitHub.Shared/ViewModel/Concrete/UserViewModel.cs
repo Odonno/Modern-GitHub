@@ -111,8 +111,8 @@ namespace GitHub.ViewModel.Concrete
 
         private async void Follow()
         {
-            await ViewModelLocator.GitHubService.FollowUser(User.Login);
-            IsFollowing = true;
+            if (await ViewModelLocator.GitHubService.FollowUser(User.Login))
+                IsFollowing = true;
         }
 
         private async void Unfollow()

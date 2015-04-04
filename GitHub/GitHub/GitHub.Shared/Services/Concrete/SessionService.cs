@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Security.Authentication.Web;
@@ -22,6 +23,8 @@ namespace GitHub.Services.Concrete
         private const string _clientSecret = "1e60e28b73bd561715be6f8d149483537d627d3e";
 #endif
 
+        private static readonly Collection<string> Scopes = new Collection<string>(new[] { "user:follow" });
+
         private OauthToken _oauthToken;
 
         private readonly IGitHubClient _client;
@@ -36,7 +39,12 @@ namespace GitHub.Services.Concrete
         {
             try
             {
-                var startUri = _client.Oauth.GetGitHubLoginUrl(new OauthLoginRequest(_clientId));
+                // create OAuth request (with scopes)
+                var oauthLoginRequest = new OauthLoginRequest(_clientId);
+                foreach (var scope in Scopes)
+                    oauthLoginRequest.Scopes.Add(scope);
+
+                var startUri = _client.Oauth.GetGitHubLoginUrl(oauthLoginRequest);
                 var endUri = WebAuthenticationBroker.GetCurrentApplicationCallbackUri();
 
 #if WINDOWS_PHONE_APP

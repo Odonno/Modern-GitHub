@@ -32,7 +32,7 @@ namespace GitHub.Services.Abstract
         #region Actions
 
         Task<bool> IsFollowing(string user);
-        Task FollowUser(string user);
+        Task<bool> FollowUser(string user);
         Task UnfollowUser(string user);
 
         #endregion
