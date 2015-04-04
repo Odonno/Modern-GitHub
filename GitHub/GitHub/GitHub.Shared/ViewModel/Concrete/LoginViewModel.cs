@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
@@ -51,10 +52,7 @@ namespace GitHub.ViewModel.Concrete
                     return;
 
                 if (auth.Value)
-                {
-                    await ViewModelLocator.Profile.LoadAsync();
-                    _navigationService.NavigateTo("Main");
-                }
+                    await FinalizeLoginAsync();
             }
             catch
             {
@@ -70,13 +68,19 @@ namespace GitHub.ViewModel.Concrete
             }
         }
 
+        private async Task FinalizeLoginAsync()
+        {
+            await ViewModelLocator.Profile.LoadAsync();
+            _navigationService.NavigateTo("Main");
+        }
+
 
 #if WINDOWS_PHONE_APP
         public async void Finalize(WebAuthenticationBrokerContinuationEventArgs args)
         {
             var result = await _sessionService.Finalize(args);
             if (result)
-                _navigationService.NavigateTo("Main");
+                await FinalizeLoginAsync();
         }
 #endif
     }

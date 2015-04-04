@@ -104,14 +104,8 @@ namespace GitHub.Views
 
         private async void SplashScreenPage_Loaded(object sender, RoutedEventArgs e)
         {
-#if DEBUG
-            await Task.Delay(2000);
-            await ViewModelLocator.Profile.LoadAsync();
-            ServiceLocator.Current.GetInstance<INavigationService>().NavigateTo("Main");
-#else
             await Task.Delay(100);
             ViewModelLocator.Login.Login();
-#endif
         }
 
 
