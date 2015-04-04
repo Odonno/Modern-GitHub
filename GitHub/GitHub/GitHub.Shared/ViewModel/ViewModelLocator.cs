@@ -51,16 +51,22 @@ namespace GitHub.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            // view models
+            // ViewModels
+
+            // First ViewModel (Global)
             SimpleIoc.Default.Register<ILoginViewModel, LoginViewModel>();
             SimpleIoc.Default.Register<IMainViewModel, MainViewModel>();
 
+            // Top level ViewModels
             SimpleIoc.Default.Register<IProfileViewModel, ProfileViewModel>();
             SimpleIoc.Default.Register<IActivitiesViewModel, ActivitiesViewModel>();
             SimpleIoc.Default.Register<IReposViewModel, ReposViewModel>();
             SimpleIoc.Default.Register<IUsersViewModel, UsersViewModel>();
 
-            // services
+            // Second Level ViewModels
+            SimpleIoc.Default.Register<IUserViewModel, UserViewModel>();
+
+            // Services
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
             {
                 var navigationService = CreateNavigationService();
@@ -94,20 +100,35 @@ namespace GitHub.ViewModel
 
         #endregion Constructor
 
+
         #region Methods
 
         private INavigationService CreateNavigationService()
         {
             var navigationService = new NavigationService();
+
             navigationService.Configure("SplashScreen", typeof(SplashScreenPage));
             navigationService.Configure("Main", typeof(MainPage));
             navigationService.Configure("InDevelopment", typeof(InDevelopmentPage));
+            navigationService.Configure("User", typeof(UserPage));
 
             return navigationService;
         }
 
         #endregion
 
+
+        #region Services
+
+        public static IGitHubService GitHubService
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IGitHubService>();
+            }
+        }
+
+        #endregion
 
 
         #region View Models
@@ -157,6 +178,14 @@ namespace GitHub.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<IUsersViewModel>();
+            }
+        }
+
+        public static IUserViewModel User
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IUserViewModel>();
             }
         }
 

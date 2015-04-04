@@ -32,17 +32,17 @@ namespace GitHub.ViewModel.Concrete
             {
                 // Code runs in Blend --> create design time data.
 
-                CurrentUser = new User
-                {
-                    Login = "Odonno",
-                    AvatarUrl = "https://avatars3.githubusercontent.com/u/6053067",
-                    Followers = 32,
-                    Following = 4,
-                    PublicRepos = 44,
-                    PublicGists = 169,
-                    Collaborators = 9,
-                    TotalPrivateRepos = 0
-                };
+                //CurrentUser = new User
+                //{
+                //    Login = "Odonno",
+                //    AvatarUrl = "https://avatars3.githubusercontent.com/u/6053067",
+                //    Followers = 32,
+                //    Following = 4,
+                //    PublicRepos = 44,
+                //    PublicGists = 169,
+                //    Collaborators = 9,
+                //    TotalPrivateRepos = 0
+                //};
             }
             else
             {
@@ -62,9 +62,9 @@ namespace GitHub.ViewModel.Concrete
         public async Task LoadAsync()
         {
 #if DEBUG
-            CurrentUser = await ServiceLocator.Current.GetInstance<IGitHubService>().GetUserAsync("Odonno");
+            CurrentUser = await ViewModelLocator.GitHubService.GetUserAsync("Odonno");
 #else
-            CurrentUser = await ServiceLocator.Current.GetInstance<IGitHubService>().GetCurrentUserAsync();
+            CurrentUser = await ViewModelLocator.GitHubService.GetCurrentUserAsync();
 #endif
             RaisePropertyChanged("CurrentUser");
         }

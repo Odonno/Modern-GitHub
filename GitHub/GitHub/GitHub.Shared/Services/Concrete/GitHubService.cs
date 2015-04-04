@@ -52,6 +52,11 @@ namespace GitHub.Services.Concrete
             return performedActivities.Concat(receivedActivities).OrderByDescending(a => a.CreatedAt).ToArray();
         }
 
+        public async Task<IReadOnlyList<Repository>> GetUserRepositoriesAsync(string user)
+        {
+            return await _client.Repository.GetAllForUser(user);
+        }
+
         #endregion
 
         #region Search items
@@ -72,6 +77,23 @@ namespace GitHub.Services.Concrete
                 Page = page,
                 PerPage = elementPerPage
             });
+        }
+
+        #endregion
+
+        #region Actions
+
+        public async Task<bool> IsFollowing(string user)
+        {
+            return await _client.User.Followers.IsFollowingForCurrent(user);
+        }
+        public async Task FollowUser(string user)
+        {
+            await _client.User.Followers.Follow(user);
+        }
+        public async Task UnfollowUser(string user)
+        {
+            await _client.User.Followers.Unfollow(user);
         }
 
         #endregion

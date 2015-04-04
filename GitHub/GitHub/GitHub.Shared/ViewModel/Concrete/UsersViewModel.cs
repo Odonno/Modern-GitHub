@@ -14,7 +14,8 @@ namespace GitHub.ViewModel.Concrete
     {
         private readonly INavigationService _navigationService;
 
-        public UsersIncrementalLoadingCollection Users { get; set; }
+        private readonly UsersIncrementalLoadingCollection _users;
+        public UsersIncrementalLoadingCollection Users { get { return _users; } }
 
         public ICommand GoToUserCommand { get; private set; }
 
@@ -22,28 +23,28 @@ namespace GitHub.ViewModel.Concrete
         public UsersViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            Users = SimpleIoc.Default.GetInstance<UsersIncrementalLoadingCollection>();
+            _users = SimpleIoc.Default.GetInstance<UsersIncrementalLoadingCollection>();
 
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
 
-                Users.Add(new User
-                {
-                    Login = "Odonno",
-                    Followers = 144,
-                    Following = 3,
-                    PublicRepos = 44,
-                    AvatarUrl = "https://github.com/identicons/odonno.png"
-                });
-                Users.Add(new User
-                {
-                    Login = "CorentinMiq",
-                    Followers = 7,
-                    Following = 84,
-                    PublicRepos = 3,
-                    AvatarUrl = "https://github.com/identicons/CorentinMiq.png"
-                });
+                //Users.Add(new User
+                //{
+                //    Login = "Odonno",
+                //    Followers = 144,
+                //    Following = 3,
+                //    PublicRepos = 44,
+                //    AvatarUrl = "https://github.com/identicons/odonno.png"
+                //});
+                //Users.Add(new User
+                //{
+                //    Login = "CorentinMiq",
+                //    Followers = 7,
+                //    Following = 84,
+                //    PublicRepos = 3,
+                //    AvatarUrl = "https://github.com/identicons/CorentinMiq.png"
+                //});
             }
             else
             {
@@ -61,10 +62,12 @@ namespace GitHub.ViewModel.Concrete
             await Users.LoadMoreItemsAsync((uint)Users.ItemsPerPage);
         }
 
-        private void GoToUser(User user)
+        private async void GoToUser(User user)
         {
-            // TODO : implement new page
-            _navigationService.NavigateTo("InDevelopment");
+            ViewModelLocator.User.User = user;
+            _navigationService.NavigateTo("User");
+
+            await ViewModelLocator.User.LoadUserDataAsync();
         }
     }
 }

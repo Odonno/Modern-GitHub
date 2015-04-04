@@ -29,32 +29,32 @@ namespace GitHub.ViewModel.Concrete
             {
                 // Code runs in Blend --> create design time data.
 
-                var odonno = new User
-                {
-                    Login = "Odonno",
-                    Followers = 144,
-                    Following = 3,
-                    PublicRepos = 44,
-                    AvatarUrl = "https://github.com/identicons/odonno.png"
-                };
-                var firstRepo = new Repository { Name = "First Repository" };
+                //var odonno = new User
+                //{
+                //    Login = "Odonno",
+                //    Followers = 144,
+                //    Following = 3,
+                //    PublicRepos = 44,
+                //    AvatarUrl = "https://github.com/identicons/odonno.png"
+                //};
+                //var firstRepo = new Repository { Name = "First Repository" };
 
-                Activities.Add(new Activity
-                {
-                    Actor = odonno,
-                    CreatedAt = new DateTimeOffset(new DateTime(2014, 12, 12)),
-                    Public = true,
-                    Repo = firstRepo,
-                    Type = "PushEvent"
-                });
-                Activities.Add(new Activity
-                {
-                    Actor = odonno,
-                    CreatedAt = new DateTimeOffset(new DateTime(2014, 12, 11)),
-                    Public = true,
-                    Repo = firstRepo,
-                    Type = "CreateEvent"
-                });
+                //Activities.Add(new Activity
+                //{
+                //    Actor = odonno,
+                //    CreatedAt = new DateTimeOffset(new DateTime(2014, 12, 12)),
+                //    Public = true,
+                //    Repo = firstRepo,
+                //    Type = "PushEvent"
+                //});
+                //Activities.Add(new Activity
+                //{
+                //    Actor = odonno,
+                //    CreatedAt = new DateTimeOffset(new DateTime(2014, 12, 11)),
+                //    Public = true,
+                //    Repo = firstRepo,
+                //    Type = "CreateEvent"
+                //});
             }
             else
             {
@@ -69,7 +69,7 @@ namespace GitHub.ViewModel.Concrete
 
         public async override Task Refresh()
         {
-            var activities = await ServiceLocator.Current.GetInstance<IGitHubService>().GetUserActivitiesAsync(ViewModelLocator.Profile.CurrentUser.Login);
+            var activities = await ViewModelLocator.GitHubService.GetUserActivitiesAsync(ViewModelLocator.Profile.CurrentUser.Login);
 
             Activities.Clear();
             foreach (var activity in activities)
