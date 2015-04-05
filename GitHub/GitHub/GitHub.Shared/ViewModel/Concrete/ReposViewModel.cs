@@ -80,7 +80,7 @@ namespace GitHub.ViewModel.Concrete
             ViewModelLocator.Repository.Repository = repository;
             _navigationService.NavigateTo("Repository");
 
-            await ViewModelLocator.Repository.LoadRepoDataAsync();
+            await ViewModelLocator.Repository.LoadRepositoryDataAsync();
         }
     }
 }

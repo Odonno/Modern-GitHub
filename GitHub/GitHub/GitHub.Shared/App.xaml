@@ -12,6 +12,7 @@
         <converters:EventStringToTextStringConverter x:Key="EventStringToTextStringConverter" />
         <converters:DateTimeOffsetToTimeAgoConverter x:Key="DateTimeOffsetToTimeAgoConverter" />
         <converters:BoolToActiveColorConverter x:Key="BoolToActiveColorConverter" />
+        <converters:ShortingTextConverter x:Key="ShortingTextConverter" />
 
         <!-- Colors -->
         <SolidColorBrush x:Key="GreyBlue" Color="#FF445464" />
@@ -127,7 +128,7 @@
         <!-- Item Template (Activity) -->
         <DataTemplate x:Key="ActivitiesTemplate">
             <Button Style="{StaticResource TextBlockButtonStyle}" 
-                                            Command="{Binding Source={StaticResource Locator}, Path=Activities.GoToActivityCommand}" CommandParameter="{Binding}">
+                    Command="{Binding Source={StaticResource Locator}, Path=Activities.GoToActivityCommand}" CommandParameter="{Binding}">
                 <Grid Margin="0 6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -143,7 +144,8 @@
                             <Run Text="{Binding Path=Repo.Name}" Foreground="{StaticResource GreyBlue}" />
                         </TextBlock>
 
-                        <TextBlock Text="{Binding Path=CreatedAt, Converter={StaticResource DateTimeOffsetToTimeAgoConverter}}" FontSize="16" Foreground="Gray"/>
+                        <TextBlock Text="{Binding Path=CreatedAt, Converter={StaticResource DateTimeOffsetToTimeAgoConverter}}"
+                                   FontSize="16" Foreground="Gray"/>
                     </StackPanel>
                 </Grid>
             </Button>

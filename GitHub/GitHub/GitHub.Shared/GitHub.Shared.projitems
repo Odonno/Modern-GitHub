@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\DateTimeOffsetToTimeAgoConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EventStringToTextStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ShortingTextConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Abstract\IncrementalLoadingCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Abstract\ISearchCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Concrete\ReposIncrementalLoadingCollection.cs" />
