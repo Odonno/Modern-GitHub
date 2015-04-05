@@ -9,6 +9,7 @@ namespace GitHub.ViewModel.Abstract
     {
         User User { get; set; }
         bool IsFollowing { get; }
+        bool CanFollow { get; }
         ObservableCollection<Activity> Activities { get; }
         ObservableCollection<Repository> Repositories { get; }
 

@@ -40,9 +40,7 @@ namespace GitHub.ViewModel.Concrete
             else
             {
                 // Code runs "for real"
-
-                //Load();
-
+                
                 GoToFollowersCommand = new RelayCommand(GoToFollowers);
                 GoToFollowingsCommand = new RelayCommand(GoToFollowings);
                 GoToCollaboratorsCommand = new RelayCommand(GoToCollaborators);

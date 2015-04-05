@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -22,6 +20,8 @@ namespace GitHub.ViewModel.Concrete
                 _user = value;
                 RaisePropertyChanged();
                 Reset();
+                CanFollow = User.Login != ViewModelLocator.Profile.CurrentUser.Login &&
+                            User.Type == AccountType.User;
             }
         }
 
@@ -33,6 +33,18 @@ namespace GitHub.ViewModel.Concrete
             {
                 _isFollowing = value;
                 RaisePropertyChanged();
+            }
+        }
+
+        private bool _canFollow;
+        public bool CanFollow
+        {
+            get { return _canFollow; }
+            private set
+            {
+                _canFollow = value;
+                RaisePropertyChanged();
+                ((RelayCommand)FollowCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -49,6 +61,9 @@ namespace GitHub.ViewModel.Concrete
 
         public UserViewModel()
         {
+            FollowCommand = new RelayCommand(Follow, () => CanFollow);
+            UnfollowCommand = new RelayCommand(Unfollow);
+
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data
@@ -102,9 +117,6 @@ namespace GitHub.ViewModel.Concrete
             else
             {
                 // Code runs "for real"
-
-                FollowCommand = new RelayCommand(Follow);
-                UnfollowCommand = new RelayCommand(Unfollow);
             }
         }
 

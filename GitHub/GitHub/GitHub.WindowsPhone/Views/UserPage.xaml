@@ -39,7 +39,8 @@
                                 Command="{Binding Path=FollowCommand}"
                                 Visibility="{Binding Path=IsFollowing, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=inverse}"
                                 HorizontalAlignment="Stretch">
-                            <Grid Margin="0 3" Background="{StaticResource GreyBlue}" Height="50">
+                            <Grid Margin="0 3" Height="50"
+                                  Background="{Binding Path=CanFollow, Converter={StaticResource BoolToActiveColorConverter}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="6*" />
