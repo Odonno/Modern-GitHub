@@ -75,10 +75,12 @@ namespace GitHub.ViewModel.Concrete
             await Repositories.LoadMoreItemsAsync((uint)Repositories.ItemsPerPage);
         }
 
-        private void GoToRepostiory(Repository repository)
+        private async void GoToRepostiory(Repository repository)
         {
-            // TODO : implement new page
-            _navigationService.NavigateTo("InDevelopment");
+            ViewModelLocator.Repository.Repository = repository;
+            _navigationService.NavigateTo("Repository");
+
+            await ViewModelLocator.Repository.LoadRepoDataAsync();
         }
     }
 }
