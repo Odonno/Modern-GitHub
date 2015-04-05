@@ -46,10 +46,11 @@
             </HubSection>
 
             <!-- Code section -->
-            <HubSection x:Name="codeSection" Header="code"
+            <HubSection x:Name="browseSection" Header="browse"
                         HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
-
+                    <ListView ItemsSource="{Binding Path=TreeItems}" 
+                              ItemTemplateSelector="{StaticResource TreeItemTemplateSelector}" />
                 </DataTemplate>
             </HubSection>
 
@@ -57,34 +58,8 @@
             <HubSection x:Name="commitsSection" Header="commits"
                         HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
-                    <ListView ItemsSource="{Binding Path=Commits}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Button Style="{StaticResource TextBlockButtonStyle}">
-                                    <Grid Margin="0 6">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="5*" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <Image Grid.Column="0" Source="{Binding Committer.AvatarUrl}" VerticalAlignment="Top" Margin="0 6 0 0" />
-
-                                        <StackPanel Grid.Column="1" Margin="12 0 0 0" >
-                                            <TextBlock FontSize="18" TextWrapping="Wrap" 
-                                                       Text="{Binding Path=Commit.Message, Converter={StaticResource ShortingTextConverter}}"
-                                                       Foreground="{StaticResource GreyBlue}" />
-
-                                            <TextBlock FontSize="12" TextWrapping="Wrap">
-                                                <Run Text="by" />
-                                                <Run Text="{Binding Path=Committer.Login}" 
-                                                     Foreground="{StaticResource GreyBlue}" />
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <ListView ItemsSource="{Binding Path=Commits}"
+                              ItemTemplate="{StaticResource CommitTemplate}"/>
                 </DataTemplate>
             </HubSection>
 

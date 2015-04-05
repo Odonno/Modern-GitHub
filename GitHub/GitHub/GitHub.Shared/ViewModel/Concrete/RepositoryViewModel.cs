@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GitHub.ViewModel.Abstract;
@@ -21,6 +22,9 @@ namespace GitHub.ViewModel.Concrete
                 Reset();
             }
         }
+
+        private readonly ObservableCollection<TreeItem> _treeItems = new ObservableCollection<TreeItem>();
+        public ObservableCollection<TreeItem> TreeItems { get { return _treeItems; } }
 
         private readonly ObservableCollection<GitHubCommit> _commits = new ObservableCollection<GitHubCommit>();
         public ObservableCollection<GitHubCommit> Commits { get { return _commits; } }
@@ -90,6 +94,16 @@ namespace GitHub.ViewModel.Concrete
                 Commits.Add(firstCommit);
                 Commits.Add(longCommit);
                 Commits.Add(veryLongCommit);
+
+                var gitignore = new TreeItem(".gitignore", null, TreeType.Blob, 1, null, null);
+                var github = new TreeItem("GitHub", null, TreeType.Tree, 10, null, null);
+                var license = new TreeItem("LICENSE", null, TreeType.Blob, 5, null, null);
+                var readme = new TreeItem("README.md", null, TreeType.Blob, 40, null, null);
+
+                TreeItems.Add(gitignore);
+                TreeItems.Add(github);
+                TreeItems.Add(license);
+                TreeItems.Add(readme);
             }
             else
             {
@@ -100,6 +114,7 @@ namespace GitHub.ViewModel.Concrete
 
         private void Reset()
         {
+            TreeItems.Clear();
             Commits.Clear();
         }
 
@@ -110,6 +125,16 @@ namespace GitHub.ViewModel.Concrete
             foreach (var commit in commits)
             {
                 Commits.Add(commit);
+            }
+
+            var lastCommit = Commits.FirstOrDefault();
+            if (lastCommit != null)
+            {
+                var treeItems = await ViewModelLocator.GitHubService.GetRepositoryTree(Repository.Owner.Login, Repository.Name, lastCommit.Sha);
+                foreach (var treeItem in treeItems.Tree)
+                {
+                    TreeItems.Add(treeItem);
+                }
             }
         }
     }

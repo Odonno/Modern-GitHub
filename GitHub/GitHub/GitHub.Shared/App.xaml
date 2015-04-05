@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:viewModel="using:GitHub.ViewModel"
-             xmlns:converters="using:GitHub.Converters">
+             xmlns:converters="using:GitHub.Converters"
+             xmlns:templateSelectors="using:GitHub.TemplateSelectors">
     <Application.Resources>
         <!-- Service Locator -->
         <viewModel:ViewModelLocator x:Key="Locator" />
@@ -17,6 +18,7 @@
         <!-- Colors -->
         <SolidColorBrush x:Key="GreyBlue" Color="#FF445464" />
         <SolidColorBrush x:Key="GreyBlueDisable" Color="#7F445464" />
+        <SolidColorBrush x:Key="Grey" Color="#FFD9D9D9" />
         <SolidColorBrush x:Key="Green" Color="#FF68FF01" />
 
         <!-- Styles -->
@@ -117,7 +119,7 @@
 
                     <Image Grid.Column="0" MaxHeight="30" Margin="12" Source="/Assets/icons/download_icon.png" />
 
-                    <StackPanel Grid.Column="1" Width="400">
+                    <StackPanel Grid.Column="1" MinWidth="400">
                         <TextBlock Text="{Binding Name}" FontSize="20" Foreground="White" />
                         <TextBlock Text="{Binding FullName}" FontSize="10" Foreground="LightGray" />
                     </StackPanel>
@@ -150,6 +152,70 @@
                 </Grid>
             </Button>
         </DataTemplate>
+        
+        <!-- Item Template (Commit) -->
+        <DataTemplate x:Key="CommitTemplate">
+            <Button Style="{StaticResource TextBlockButtonStyle}">
+                <Grid Margin="0 6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5*" />
+                    </Grid.ColumnDefinitions>
 
+                    <Image Grid.Column="0" Source="{Binding Committer.AvatarUrl}" VerticalAlignment="Top" Margin="0 6 0 0" />
+
+                    <StackPanel Grid.Column="1" Margin="12 0 0 0" >
+                        <TextBlock FontSize="18" TextWrapping="Wrap" 
+                                   Text="{Binding Path=Commit.Message, Converter={StaticResource ShortingTextConverter}}"
+                                   Foreground="{StaticResource GreyBlue}" />
+
+                        <TextBlock FontSize="12" TextWrapping="Wrap">
+                            <Run Text="by" />
+                            <Run Text="{Binding Path=Committer.Login}" 
+                                 Foreground="{StaticResource GreyBlue}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Button>
+        </DataTemplate>
+
+        <!-- Item Template (Folder = Tree) -->
+        <DataTemplate x:Key="FolderTemplate">
+            <Button Style="{StaticResource TextBlockButtonStyle}">
+                <Grid Margin="0 3" Background="{StaticResource GreyBlue}" MinHeight="36" MinWidth="400">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Margin="6 0" FontFamily="/Fonts/octicons.ttf#octicons" 
+                               Text="&#xf016;" Foreground="White"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                    <TextBlock Grid.Column="1" Margin="12 3 0 0" Text="{Binding Path=Path}" Foreground="White" />
+                </Grid>
+            </Button>
+        </DataTemplate>
+
+        <!-- Item Template (File = Blob) -->
+        <DataTemplate x:Key="FileTemplate">
+            <Button Style="{StaticResource TextBlockButtonStyle}">
+                <Grid Margin="0 3" Background="{StaticResource Grey}" MinHeight="36" MinWidth="400">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="1" Margin="12 3 0 0" Text="{Binding Path=Path}" />
+                </Grid>
+            </Button>
+        </DataTemplate>
+
+        
+        <!-- DataTemplateSecletors -->
+        <templateSelectors:TreeItemTemplateSelector x:Key="TreeItemTemplateSelector" 
+                                                    FolderTemplate="{StaticResource FolderTemplate}"
+                                                    FileTemplate="{StaticResource FileTemplate}" />
+        
     </Application.Resources>
 </Application>

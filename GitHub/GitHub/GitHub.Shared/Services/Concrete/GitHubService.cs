@@ -102,5 +102,14 @@ namespace GitHub.Services.Concrete
         }
 
         #endregion
+
+        #region Tree management
+
+        public async Task<TreeResponse> GetRepositoryTree(string owner, string repository, string reference)
+        {
+            return await _client.GitDatabase.Tree.Get(owner, repository, reference);
+        }
+
+        #endregion
     }
 }

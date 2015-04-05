@@ -36,5 +36,11 @@ namespace GitHub.Services.Abstract
         Task UnfollowUser(string user);
 
         #endregion
+
+        #region Tree management
+
+        Task<TreeResponse> GetRepositoryTree(string owner, string repository, string reference);
+
+        #endregion
     }
 }
