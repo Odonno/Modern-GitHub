@@ -9,6 +9,7 @@ namespace GitHub.TemplateSelectors
     {
         public DataTemplate FolderTemplate { get; set; }
         public DataTemplate FileTemplate { get; set; }
+        public DataTemplate TopFolderTemplate { get; set; }
 
 
         protected override DataTemplate SelectTemplateCore(object item)
@@ -17,6 +18,9 @@ namespace GitHub.TemplateSelectors
 
             if (treeItem != null)
             {
+                if (treeItem.Path == "..")
+                    return TopFolderTemplate;
+
                 if (treeItem.Type == TreeType.Tree)
                     return FolderTemplate;
 

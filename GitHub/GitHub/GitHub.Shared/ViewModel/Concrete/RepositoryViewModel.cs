@@ -3,14 +3,26 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Views;
 using GitHub.ViewModel.Abstract;
 using Octokit;
+using GalaSoft.MvvmLight.Command;
 
 namespace GitHub.ViewModel.Concrete
 {
     public class RepositoryViewModel : ViewModelBase, IRepositoryViewModel
     {
+        #region Services
+
+        private readonly INavigationService _navigationService;
+
+        #endregion
+
+
+        #region Properties
+
         private Repository _repository;
         public Repository Repository
         {
@@ -29,9 +41,35 @@ namespace GitHub.ViewModel.Concrete
         private readonly ObservableCollection<GitHubCommit> _commits = new ObservableCollection<GitHubCommit>();
         public ObservableCollection<GitHubCommit> Commits { get { return _commits; } }
 
+        public string CurrentTopFolderSha { get; private set; }
 
-        public RepositoryViewModel()
+        private readonly IList<string> _topFoldersSha = new List<string>();
+        public IList<string> TopFoldersSha { get { return _topFoldersSha; } }
+
+        #endregion
+
+
+        #region Commands
+
+        public ICommand SelectTreeItemCommand { get; private set; }
+        public ICommand GoBackTreeCommand { get; private set; }
+        public ICommand SelectCommitCommand { get; private set; }
+        public ICommand SelectIssueCommand { get; private set; }
+
+        #endregion
+
+
+        #region Constructor
+
+        public RepositoryViewModel(INavigationService navigationService)
         {
+            _navigationService = navigationService;
+
+            SelectTreeItemCommand = new RelayCommand<TreeItem>(SelectTreeItem);
+            GoBackTreeCommand = new RelayCommand(GoBackTree);
+            SelectCommitCommand = new RelayCommand<GitHubCommit>(SelectCommit);
+            SelectIssueCommand = new RelayCommand<Issue>(SelectIssue);
+
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data
@@ -62,18 +100,18 @@ namespace GitHub.ViewModel.Concrete
                 var firstCommit = new GitHubCommit(null, null,
                     "4c66460", "4c66460e677296dc1e3229a70c3d3db39b795d10",
                     odonno, Repository, odonnoAuthor,
-                    null, 
+                    null,
                     new Commit(null, null, null, null, odonno, Repository, "Fix bugs",
                          null, null, null, new List<GitReference>(), 10),
                     odonnoAuthor, null,
-                    new GitHubCommitStats(22, 22, 0), 
+                    new GitHubCommitStats(22, 22, 0),
                     null, null);
 
                 var longCommit = new GitHubCommit(null, null,
                     "4c66460", "4c66460e677296dc1e3229a70c3d3db39b795d10",
                     odonno, Repository, odonnoAuthor,
                     null,
-                    new Commit(null, null, null, null, odonno, Repository, "This is a long long long commit !", 
+                    new Commit(null, null, null, null, odonno, Repository, "This is a long long long commit !",
                         null, null, null, new List<GitReference>(), 10),
                     odonnoAuthor, null,
                     new GitHubCommitStats(44, 34, 10),
@@ -111,9 +149,71 @@ namespace GitHub.ViewModel.Concrete
             }
         }
 
+        #endregion
+
+
+        #region Command methods
+
+        private async void SelectTreeItem(TreeItem treeItem)
+        {
+            if (treeItem.Type == TreeType.Tree)
+            {
+                // replace the top folder to go back recursively
+                CurrentTopFolderSha = TopFoldersSha.Last();
+
+                // add the node (top folder) to access it after
+                TopFoldersSha.Add(treeItem.Sha);
+
+                // create the new tree
+                await CreateTree(treeItem.Sha);
+
+                return;
+            }
+
+            if (treeItem.Type == TreeType.Blob)
+            {
+                // TODO : create a specific page
+                _navigationService.NavigateTo("InDevelopment");
+                return;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        private async void GoBackTree()
+        {
+            // remove the node (current top folder) cause it is useless now
+            TopFoldersSha.Remove(TopFoldersSha.Last());
+            
+            // replace the top folder to go back recursively
+            CurrentTopFolderSha = TopFoldersSha.Last();
+
+            // create the new tree
+            await CreateTree(CurrentTopFolderSha);
+        }
+
+        private void SelectCommit(GitHubCommit commit)
+        {
+            // TODO : create a specific page
+            _navigationService.NavigateTo("InDevelopment");
+        }
+
+        private void SelectIssue(Issue issue)
+        {
+            // TODO : create a specific page
+            _navigationService.NavigateTo("InDevelopment");
+        }
+
+        #endregion
+
+
+        #region Methods
 
         private void Reset()
         {
+            CurrentTopFolderSha = null;
+            TopFoldersSha.Clear();
+
             TreeItems.Clear();
             Commits.Clear();
         }
@@ -130,12 +230,24 @@ namespace GitHub.ViewModel.Concrete
             var lastCommit = Commits.FirstOrDefault();
             if (lastCommit != null)
             {
-                var treeItems = await ViewModelLocator.GitHubService.GetRepositoryTree(Repository.Owner.Login, Repository.Name, lastCommit.Sha);
-                foreach (var treeItem in treeItems.Tree)
-                {
-                    TreeItems.Add(treeItem);
-                }
+                TopFoldersSha.Add(lastCommit.Sha);
+                await CreateTree(lastCommit.Sha);
             }
         }
+
+        private async Task CreateTree(string sha)
+        {
+            TreeItems.Clear();
+
+            // add an access to top folder (if it is possible)
+            if (TopFoldersSha.Count > 1)
+                TreeItems.Add(new TreeItem("..", null, new TreeType(), 0, CurrentTopFolderSha, null));
+
+            var treeItems = await ViewModelLocator.GitHubService.GetRepositoryTree(Repository.Owner.Login, Repository.Name, sha);
+            foreach (var treeItem in treeItems.Tree)
+                TreeItems.Add(treeItem);
+        }
+
+        #endregion
     }
 }

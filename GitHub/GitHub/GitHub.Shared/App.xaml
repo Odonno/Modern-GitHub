@@ -155,7 +155,8 @@
         
         <!-- Item Template (Commit) -->
         <DataTemplate x:Key="CommitTemplate">
-            <Button Style="{StaticResource TextBlockButtonStyle}">
+            <Button Style="{StaticResource TextBlockButtonStyle}"
+                    Command="{Binding Source={StaticResource Locator}, Path=Repository.SelectCommitCommand}" CommandParameter="{Binding}">
                 <Grid Margin="0 6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -181,7 +182,8 @@
 
         <!-- Item Template (Folder = Tree) -->
         <DataTemplate x:Key="FolderTemplate">
-            <Button Style="{StaticResource TextBlockButtonStyle}">
+            <Button Style="{StaticResource TextBlockButtonStyle}"
+                    Command="{Binding Source={StaticResource Locator}, Path=Repository.SelectTreeItemCommand}" CommandParameter="{Binding}">
                 <Grid Margin="0 3" Background="{StaticResource GreyBlue}" MinHeight="36" MinWidth="400">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -199,23 +201,44 @@
 
         <!-- Item Template (File = Blob) -->
         <DataTemplate x:Key="FileTemplate">
-            <Button Style="{StaticResource TextBlockButtonStyle}">
+            <Button Style="{StaticResource TextBlockButtonStyle}"
+                    Command="{Binding Source={StaticResource Locator}, Path=Repository.SelectTreeItemCommand}" CommandParameter="{Binding}">
                 <Grid Margin="0 3" Background="{StaticResource Grey}" MinHeight="36" MinWidth="400">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="10*" />
                     </Grid.ColumnDefinitions>
 
+                    <TextBlock Grid.Column="0" Margin="6 0" FontFamily="/Fonts/octicons.ttf#octicons" 
+                               Text="&#xf011;" Foreground="Black"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" />
+
                     <TextBlock Grid.Column="1" Margin="12 3 0 0" Text="{Binding Path=Path}" />
                 </Grid>
             </Button>
         </DataTemplate>
 
-        
+        <!-- Item Template (Folder = Tree) -->
+        <DataTemplate x:Key="TopFolderTemplate">
+            <Button Style="{StaticResource TextBlockButtonStyle}"
+                    Command="{Binding Source={StaticResource Locator}, Path=Repository.GoBackTreeCommand}">
+                <Grid Margin="0 3" Background="{StaticResource GreyBlue}" MinHeight="36" MinWidth="400">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="1" Margin="12 3 0 0" Text="{Binding Path=Path}" Foreground="White" />
+                </Grid>
+            </Button>
+        </DataTemplate>
+
+
         <!-- DataTemplateSecletors -->
         <templateSelectors:TreeItemTemplateSelector x:Key="TreeItemTemplateSelector" 
                                                     FolderTemplate="{StaticResource FolderTemplate}"
-                                                    FileTemplate="{StaticResource FileTemplate}" />
+                                                    FileTemplate="{StaticResource FileTemplate}"
+                                                    TopFolderTemplate="{StaticResource TopFolderTemplate}" />
         
     </Application.Resources>
 </Application>
