@@ -1,4 +1,4 @@
-﻿<Page
+﻿<Page xmlns:WindowsPhone81="using:Microsoft.AdMediator.WindowsPhone81" 
     x:Class="GitHub.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -17,18 +17,30 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
+        
         <!-- Content -->
         <Hub>
             <!-- Title (header) -->
             <Hub.HeaderTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Height="120">
-                        <TextBlock FontFamily="/Fonts/octicons.ttf#octicons" FontSize="100"
+                    <Grid>
+                        <!-- Ad -->
+                        <WindowsPhone81:AdMediatorControl x:Name="AdMediator_A66EEE" 
+                                                          Id="AdMediator-Id-DFBE8D50-75AA-4DAF-94CC-AF900634EC86"
+                                                          HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                          Margin="-12 0 0 0" Width="640" Height="100"
+                                                          Background="White"
+                                                          Canvas.ZIndex="1" />
+
+                        <!-- Title (logo + name) -->
+                        <StackPanel Orientation="Horizontal" Height="100" Canvas.ZIndex="0">
+                            <TextBlock FontFamily="/Fonts/octicons.ttf#octicons" FontSize="90" Margin="0 0 0 -6"
                                    Text="&#xf00a;" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                        <TextBlock FontFamily="/Fonts/octicons.ttf#octicons" FontSize="100" Margin="24 0 0 -42"
+                            <TextBlock FontFamily="/Fonts/octicons.ttf#octicons" FontSize="100" Margin="24 0 0 -42"
                                    Text="&#xf092;" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    </StackPanel>
+                        </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </Hub.HeaderTemplate>
 
