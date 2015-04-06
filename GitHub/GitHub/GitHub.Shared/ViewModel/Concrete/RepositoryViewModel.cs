@@ -41,6 +41,9 @@ namespace GitHub.ViewModel.Concrete
         private readonly ObservableCollection<GitHubCommit> _commits = new ObservableCollection<GitHubCommit>();
         public ObservableCollection<GitHubCommit> Commits { get { return _commits; } }
 
+        private readonly ObservableCollection<Issue> _issues = new ObservableCollection<Issue>();
+        public ObservableCollection<Issue> Issues { get { return _issues; } }
+
         public string CurrentTopFolderSha { get; private set; }
 
         private readonly IList<string> _topFoldersSha = new List<string>();
@@ -142,6 +145,21 @@ namespace GitHub.ViewModel.Concrete
                 TreeItems.Add(github);
                 TreeItems.Add(license);
                 TreeItems.Add(readme);
+
+
+                var firstIssue = new Issue(null, null, 1, ItemState.Open,
+                    "Opened issue", "The long body of an issue !",
+                    odonno, null, null, new Milestone(0), 2, null, null, new DateTimeOffset(), null);
+
+                var closedIssue = new Issue(null, null, 1, ItemState.Closed,
+                    "Closed issue", "The long body of an issue !",
+                    odonno, null, null, new Milestone(0), 2, null, null, new DateTimeOffset(), null);
+
+                Issues.Add(firstIssue);
+                Issues.Add(closedIssue);
+                Issues.Add(firstIssue);
+                Issues.Add(closedIssue);
+                Issues.Add(firstIssue);
             }
             else
             {
@@ -216,6 +234,7 @@ namespace GitHub.ViewModel.Concrete
 
             TreeItems.Clear();
             Commits.Clear();
+            Issues.Clear();
         }
 
         public async Task LoadRepositoryDataAsync()
@@ -232,6 +251,12 @@ namespace GitHub.ViewModel.Concrete
             {
                 TopFoldersSha.Add(lastCommit.Sha);
                 await CreateTree(lastCommit.Sha);
+            }
+
+            var issues = await ViewModelLocator.GitHubService.GetRepositoryIssuesAsync(Repository.Owner.Login, Repository.Name);
+            foreach (var issue in issues)
+            {
+                Issues.Add(issue);
             }
         }
 

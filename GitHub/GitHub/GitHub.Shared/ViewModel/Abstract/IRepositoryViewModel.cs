@@ -11,6 +11,7 @@ namespace GitHub.ViewModel.Abstract
         Repository Repository { get; set; }
         ObservableCollection<TreeItem> TreeItems { get; }
         ObservableCollection<GitHubCommit> Commits { get; }
+        ObservableCollection<Issue> Issues { get; }
 
         string CurrentTopFolderSha { get; }
         IList<string> TopFoldersSha { get; }

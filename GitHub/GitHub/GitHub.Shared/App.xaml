@@ -14,6 +14,8 @@
         <converters:DateTimeOffsetToTimeAgoConverter x:Key="DateTimeOffsetToTimeAgoConverter" />
         <converters:BoolToActiveColorConverter x:Key="BoolToActiveColorConverter" />
         <converters:ShortingTextConverter x:Key="ShortingTextConverter" />
+        <converters:IssueStateToTextConverter x:Key="IssueStateToTextConverter" />
+        <converters:IssueStateToColorConverter x:Key="IssueStateToColorConverter" />
 
         <!-- Colors -->
         <SolidColorBrush x:Key="GreyBlue" Color="#FF445464" />
@@ -229,6 +231,36 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="1" Margin="12 3 0 0" Text="{Binding Path=Path}" Foreground="White" />
+                </Grid>
+            </Button>
+        </DataTemplate>
+
+        <!-- Item Template (Issue) -->
+        <DataTemplate x:Key="IssueTemplate">
+            <Button Style="{StaticResource TextBlockButtonStyle}"
+                    Command="{Binding Source={StaticResource Locator}, Path=Repository.SelectIssueCommand}" CommandParameter="{Binding}">
+                <Grid Margin="0 6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Margin="6 0" FontFamily="/Fonts/octicons.ttf#octicons" 
+                               Text="{Binding Path=State, Converter={StaticResource IssueStateToTextConverter}}" 
+                               Foreground="{Binding Path=State, Converter={StaticResource IssueStateToColorConverter}}"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                    <StackPanel Grid.Column="1" Margin="12 0 0 0" >
+                        <TextBlock FontSize="18" TextWrapping="Wrap" 
+                                   Text="{Binding Path=Title, Converter={StaticResource ShortingTextConverter}}"
+                                   Foreground="{StaticResource GreyBlue}" />
+
+                        <TextBlock FontSize="12" TextWrapping="Wrap">
+                            <Run Text="by" />
+                            <Run Text="{Binding Path=User.Login}" 
+                                 Foreground="{StaticResource GreyBlue}" />
+                        </TextBlock>
+                    </StackPanel>
                 </Grid>
             </Button>
         </DataTemplate>

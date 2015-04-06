@@ -67,7 +67,8 @@
             <HubSection x:Name="issuesSection" Header="issues"
                         HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
-
+                    <ListView ItemsSource="{Binding Path=Issues}"
+                              ItemTemplate="{StaticResource IssueTemplate}"/>
                 </DataTemplate>
             </HubSection>
         </Hub>

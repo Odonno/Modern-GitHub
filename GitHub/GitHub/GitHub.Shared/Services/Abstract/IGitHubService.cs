@@ -19,6 +19,7 @@ namespace GitHub.Services.Abstract
         Task<IReadOnlyList<Activity>> GetUserActivitiesAsync(string user);
         Task<IReadOnlyList<Repository>> GetUserRepositoriesAsync(string user);
         Task<IReadOnlyList<GitHubCommit>> GetRepositoryCommitsAsync(string owner, string repository);
+        Task<IReadOnlyList<Issue>> GetRepositoryIssuesAsync(string owner, string repository);
 
         #endregion
 

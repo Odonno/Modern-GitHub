@@ -62,6 +62,11 @@ namespace GitHub.Services.Concrete
             return await _client.Repository.Commits.GetAll(owner, repository);
         }
 
+        public async Task<IReadOnlyList<Issue>> GetRepositoryIssuesAsync(string owner, string repository)
+        {
+            return await _client.Issue.GetForRepository(owner, repository);
+        }
+        
         #endregion
 
         #region Search items
