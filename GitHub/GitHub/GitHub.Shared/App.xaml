@@ -113,16 +113,18 @@
         <DataTemplate x:Key="RepositoriesTemplate">
             <Button Style="{StaticResource TextBlockButtonStyle}" 
                     Command="{Binding Source={StaticResource Locator}, Path=Repos.GoToRepoCommand}" CommandParameter="{Binding}">
-                <Grid Margin="0 3" Background="{StaticResource GreyBlue}">
+                <Grid Margin="0 3" Background="{StaticResource GreyBlue}" MinHeight="36" MinWidth="400">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="6*" />
+                        <ColumnDefinition Width="10*" />
                     </Grid.ColumnDefinitions>
 
-                    <Image Grid.Column="0" MaxHeight="30" Margin="12" Source="/Assets/icons/download_icon.png" />
+                    <TextBlock Grid.Column="0" Margin="6 0" FontFamily="/Fonts/octicons.ttf#octicons" 
+                               Text="&#xf001;" Foreground="White"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                    <StackPanel Grid.Column="1" MinWidth="400">
-                        <TextBlock Text="{Binding Name}" FontSize="20" Foreground="White" />
+                    <StackPanel Grid.Column="1" Margin="0 0 0 6">
+                        <TextBlock Text="{Binding Name}" FontSize="18" Foreground="White" />
                         <TextBlock Text="{Binding FullName}" FontSize="10" Foreground="LightGray" />
                     </StackPanel>
                 </Grid>
@@ -250,7 +252,7 @@
                                Foreground="{Binding Path=State, Converter={StaticResource IssueStateToColorConverter}}"
                                VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                    <StackPanel Grid.Column="1" Margin="12 0 0 0" >
+                    <StackPanel Grid.Column="1" Margin="12 0 0 0">
                         <TextBlock FontSize="18" TextWrapping="Wrap" 
                                    Text="{Binding Path=Title, Converter={StaticResource ShortingTextConverter}}"
                                    Foreground="{StaticResource GreyBlue}" />

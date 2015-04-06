@@ -41,7 +41,12 @@
             <HubSection x:Name="descriptionSection" Header="description"
                         HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
-
+                    <StackPanel>
+                        <Grid Background="{StaticResource GreyBlue}" Margin="0 0 0 6">
+                            <TextBlock Text="{Binding Path=Repository.Description}" Padding="12 6"
+                                   FontSize="20" TextWrapping="Wrap" Foreground="White" />
+                        </Grid>
+                    </StackPanel>
                 </DataTemplate>
             </HubSection>
 
