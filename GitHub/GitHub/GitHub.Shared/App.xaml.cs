@@ -23,6 +23,8 @@ using GitHub.Views;
 
 #if WINDOWS_PHONE_APP
 using GitHub.Services;
+using Microsoft.ApplicationInsights;
+
 #endif
 
 namespace GitHub
@@ -32,6 +34,11 @@ namespace GitHub
     /// </summary>
     public sealed partial class App : Application
     {
+        /// <summary>
+        /// Allows tracking page views, exceptions and other telemetry through the Microsoft Application Insights service.
+        /// </summary>
+        public static TelemetryClient TelemetryClient;
+
         #region fields
 
 #if WINDOWS_PHONE_APP
@@ -49,6 +56,8 @@ namespace GitHub
         /// </summary>
         public App()
         {
+            TelemetryClient = new TelemetryClient();
+
             InitializeComponent();
             Suspending += OnSuspending;
         }
