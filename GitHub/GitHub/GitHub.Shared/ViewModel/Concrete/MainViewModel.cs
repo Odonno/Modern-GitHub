@@ -3,12 +3,22 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Views;
 using GitHub.ViewModel.Abstract;
 
 namespace GitHub.ViewModel.Concrete
 {
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
+        #region Services
+
+        private readonly INavigationService _navigationService;
+
+        #endregion
+
+
+        #region Properties
+
         public IProfileViewModel ProfileViewModel { get; private set; }
         public IActivitiesViewModel ActivitiesViewModel { get; private set; }
         public IReposViewModel ReposViewModel { get; private set; }
@@ -37,12 +47,24 @@ namespace GitHub.ViewModel.Concrete
             }
         }
 
+        #endregion
+
+
+        #region Commands
+
         public ICommand ToggleEnableSearchCommand { get; private set; }
         public ICommand RefreshCommand { get; private set; }
+        public ICommand GoToAboutCommand { get; private set; }
+
+        #endregion
 
 
-        public MainViewModel()
+        #region Constructor
+
+        public MainViewModel(INavigationService navigationService)
         {
+            _navigationService = navigationService;
+
             ProfileViewModel = ViewModelLocator.Profile;
             ActivitiesViewModel = ViewModelLocator.Activities;
             ReposViewModel = ViewModelLocator.Repos;
@@ -58,10 +80,16 @@ namespace GitHub.ViewModel.Concrete
 
                 ToggleEnableSearchCommand = new RelayCommand(ToggleEnableSearch);
                 RefreshCommand = new RelayCommand(Refresh, CanRefresh);
+                GoToAboutCommand = new RelayCommand(GoToAbout);
 
                 WaitForRefresh();
             }
         }
+
+        #endregion
+
+
+        #region Command methods
 
         private void ToggleEnableSearch()
         {
@@ -96,11 +124,22 @@ namespace GitHub.ViewModel.Concrete
             await WaitForRefresh();
         }
 
+        private void GoToAbout()
+        {
+            _navigationService.NavigateTo("About");
+        }
+
+        #endregion
+
+
+        #region Methods
 
         private async Task WaitForRefresh()
         {
             await Task.Delay(60 * 1000);
             CanRefreshProperty = true;
         }
+
+        #endregion
     }
 }

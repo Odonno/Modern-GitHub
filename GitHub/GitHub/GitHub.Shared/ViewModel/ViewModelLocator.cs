@@ -67,6 +67,9 @@ namespace GitHub.ViewModel
             SimpleIoc.Default.Register<IUserViewModel, UserViewModel>();
             SimpleIoc.Default.Register<IRepositoryViewModel, RepositoryViewModel>();
 
+            // Other Level ViewModels
+            SimpleIoc.Default.Register<IAboutViewModel, AboutViewModel>();
+
             // Services
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
             {
@@ -121,6 +124,8 @@ namespace GitHub.ViewModel
             navigationService.Configure("MyGists", typeof(MyGistsPage));
             navigationService.Configure("MyPublicRepos", typeof(MyPublicReposPage));
 
+            navigationService.Configure("About", typeof(AboutPage));
+
             return navigationService;
         }
 
@@ -141,6 +146,14 @@ namespace GitHub.ViewModel
 
 
         #region View Models
+
+        public static IAboutViewModel About
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IAboutViewModel>();
+            }
+        }
 
         public static ILoginViewModel Login
         {

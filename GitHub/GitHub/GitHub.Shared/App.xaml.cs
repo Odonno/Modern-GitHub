@@ -20,12 +20,12 @@ using GitHub.Common;
 
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955
 using GitHub.Views;
-
 #if WINDOWS_PHONE_APP
 using GitHub.Services;
 using Microsoft.ApplicationInsights;
 
 #endif
+using Microsoft.ApplicationInsights;
 
 namespace GitHub
 {

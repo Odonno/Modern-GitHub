@@ -236,6 +236,10 @@
                 <AppBarButton Icon="Refresh" Label="refresh" Command="{Binding RefreshCommand}"/>
                 <AppBarToggleButton Icon="Find" Label="search" Command="{Binding ToggleEnableSearchCommand}" IsChecked="False"/>
             </CommandBar.PrimaryCommands>
+            
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="about" Command="{Binding GoToAboutCommand}" />
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>
