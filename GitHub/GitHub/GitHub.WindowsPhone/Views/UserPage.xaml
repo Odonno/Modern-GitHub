@@ -87,7 +87,7 @@
                         HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
                     <ListView ItemsSource="{Binding Path=Repositories}" 
-                              ItemTemplate="{StaticResource RepositoriesTemplate}"
+                              ItemTemplate="{StaticResource RepositoryTemplate}"
                               IncrementalLoadingTrigger="Edge" IncrementalLoadingThreshold="2" />
                 </DataTemplate>
             </HubSection>

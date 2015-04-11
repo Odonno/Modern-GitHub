@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EventStringToTextStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IssueStateToColorConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IssueStateToTextConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\LanguageFilesGitConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ShortingTextConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Abstract\IncrementalLoadingCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Abstract\ISearchCollection.cs" />

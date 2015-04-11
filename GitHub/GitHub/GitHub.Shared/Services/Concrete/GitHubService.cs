@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Practices.ServiceLocation;
@@ -67,6 +68,42 @@ namespace GitHub.Services.Concrete
             return await _client.Issue.GetForRepository(owner, repository);
         }
         
+        #endregion
+
+        #region Current user related data
+
+        public async Task<IReadOnlyList<User>> GetCurrentCollaborators()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IReadOnlyList<User>> GetCurrentFollowers()
+        {
+            return await _client.User.Followers.GetAllForCurrent();
+        }
+
+        public async Task<IReadOnlyList<User>> GetCurrentFollowings()
+        {
+            return await _client.User.Followers.GetFollowingForCurrent();
+        }
+
+        public async Task<IReadOnlyList<Repository>> GetCurrentPublicRepos()
+        {
+            var repositories = await _client.Repository.GetAllForCurrent();
+            return repositories.Where(r => !r.Private).ToArray();
+        }
+
+        public async Task<IReadOnlyList<Repository>> GetCurrentPrivateRepos()
+        {
+            var repositories = await _client.Repository.GetAllForCurrent();
+            return repositories.Where(r => r.Private).ToArray();
+        }
+
+        public async Task<IReadOnlyList<Gist>> GetCurrentGists()
+        {
+            return await _client.Gist.GetAll();
+        }
+
         #endregion
 
         #region Search items

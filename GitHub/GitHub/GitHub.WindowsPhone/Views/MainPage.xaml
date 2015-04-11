@@ -133,20 +133,8 @@
                                     </StackPanel>
                                 </Grid>
                             </Button>
-                            
+
                             <Button Grid.Row="1" Grid.Column="1" Margin="3 3 3 0"
-                                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                    Style="{StaticResource TextBlockButtonStyle}" 
-                                    Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToPublicGistsCommand}">
-                                <Grid Background="{StaticResource GreyBlue}">
-                                    <StackPanel Margin="6" VerticalAlignment="Bottom">
-                                        <TextBlock Foreground="White" Text="{Binding Path=PublicGists}" FontSize="48" />
-                                        <TextBlock Foreground="White" Text="public gists" FontSize="12" />
-                                    </StackPanel>
-                                </Grid>
-                            </Button>
-                            
-                            <Button Grid.Row="1" Grid.Column="2" Margin="3 3 0 0"
                                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                     Style="{StaticResource TextBlockButtonStyle}" 
                                     Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToPrivateReposCommand}">
@@ -154,6 +142,18 @@
                                     <StackPanel Margin="6" VerticalAlignment="Bottom">
                                         <TextBlock Foreground="White" Text="{Binding Path=TotalPrivateRepos}" FontSize="48" />
                                         <TextBlock Foreground="White" Text="private repos" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
+
+                            <Button Grid.Row="1" Grid.Column="2" Margin="3 3 0 0"
+                                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                    Style="{StaticResource TextBlockButtonStyle}" 
+                                    Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToGistsCommand}">
+                                <Grid Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6" VerticalAlignment="Bottom">
+                                        <TextBlock Foreground="White" Text="{Binding Path=PublicGists}" FontSize="48" />
+                                        <TextBlock Foreground="White" Text="gists" FontSize="12" />
                                     </StackPanel>
                                 </Grid>
                             </Button>
@@ -194,7 +194,7 @@
                         </Grid>
 
                         <ListView Grid.Row="1" ItemsSource="{Binding Path=Repositories}" 
-                                  ItemTemplate="{StaticResource RepositoriesTemplate}"
+                                  ItemTemplate="{StaticResource RepositoryTemplate}"
                                   IncrementalLoadingTrigger="Edge" IncrementalLoadingThreshold="2" />
                     </Grid>
                 </DataTemplate>
@@ -222,25 +222,8 @@
                         </Grid>
 
                         <ListView Grid.Row="1" ItemsSource="{Binding Users}" 
-                                      IncrementalLoadingTrigger="Edge" IncrementalLoadingThreshold="2">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Button Style="{StaticResource TextBlockButtonStyle}"
-                                                Command="{Binding Source={StaticResource Locator}, Path=Users.GoToUserCommand}" CommandParameter="{Binding}">
-                                        <Grid Margin="0 6">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="4*" />
-                                            </Grid.ColumnDefinitions>
-
-                                            <Image Grid.Column="0" Source="{Binding AvatarUrl}" />
-
-                                            <TextBlock Grid.Column="1" Text="{Binding Login}" Width="500" FontSize="24" Margin="12 0 0 0" />
-                                        </Grid>
-                                    </Button>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                                  ItemTemplate="{StaticResource UserTemplate}"
+                                  IncrementalLoadingTrigger="Edge" IncrementalLoadingThreshold="2" />
                     </Grid>
                 </DataTemplate>
             </HubSection>

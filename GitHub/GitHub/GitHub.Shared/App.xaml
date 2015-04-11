@@ -16,6 +16,7 @@
         <converters:ShortingTextConverter x:Key="ShortingTextConverter" />
         <converters:IssueStateToTextConverter x:Key="IssueStateToTextConverter" />
         <converters:IssueStateToColorConverter x:Key="IssueStateToColorConverter" />
+        <converters:LanguageFilesGitConverter x:Key="LanguageFilesGitConverter" />
 
         <!-- Colors -->
         <SolidColorBrush x:Key="GreyBlue" Color="#FF445464" />
@@ -109,8 +110,25 @@
             <TextBlock Text="{Binding}" Margin="0 -12" Style="{ThemeResource HeaderTextBlockStyle}" />
         </DataTemplate>
 
+        <!-- Item Template (User) -->
+        <DataTemplate x:Key="UserTemplate">
+            <Button Style="{StaticResource TextBlockButtonStyle}"
+                                                Command="{Binding Source={StaticResource Locator}, Path=Users.GoToUserCommand}" CommandParameter="{Binding}">
+                <Grid Margin="0 6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="4*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Column="0" Source="{Binding AvatarUrl}" />
+
+                    <TextBlock Grid.Column="1" Text="{Binding Login}" Width="500" FontSize="24" Margin="12 0 0 0" />
+                </Grid>
+            </Button>
+        </DataTemplate>
+
         <!-- Item Template (Repository) -->
-        <DataTemplate x:Key="RepositoriesTemplate">
+        <DataTemplate x:Key="RepositoryTemplate">
             <Button Style="{StaticResource TextBlockButtonStyle}" 
                     Command="{Binding Source={StaticResource Locator}, Path=Repos.GoToRepoCommand}" CommandParameter="{Binding}">
                 <Grid Margin="0 3" Background="{StaticResource GreyBlue}" MinHeight="36" MinWidth="400">
@@ -128,6 +146,26 @@
                         <TextBlock Text="{Binding FullName}" FontSize="10" Foreground="LightGray" />
                     </StackPanel>
                 </Grid>
+            </Button>
+        </DataTemplate>
+
+        <!-- Item Template (Gist) -->
+        <DataTemplate x:Key="GistTemplate">
+            <Button Style="{StaticResource TextBlockButtonStyle}"
+                    Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToGistCommand}" CommandParameter="{Binding}">
+                <StackPanel Margin="0 6">
+                    <TextBlock Text="{Binding Path=Description}" FontSize="24" />
+                    
+                    <TextBlock FontSize="16">
+                        <Run Text="{Binding Path=Files.Count}" />
+                        <Run Text="file(s)" />
+                    </TextBlock>
+
+                    <TextBlock FontSize="16">
+                        <Run Text="language(s) :" />
+                        <Run Text="{Binding Path=Files, Converter={StaticResource LanguageFilesGitConverter}}" />                                     
+                    </TextBlock>
+                </StackPanel>
             </Button>
         </DataTemplate>
 

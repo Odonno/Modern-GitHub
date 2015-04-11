@@ -23,6 +23,16 @@ namespace GitHub.Services.Abstract
 
         #endregion
 
+        #region Current user related data
+
+        Task<IReadOnlyList<User>> GetCurrentFollowers();
+        Task<IReadOnlyList<User>> GetCurrentFollowings();
+        Task<IReadOnlyList<Repository>> GetCurrentPublicRepos();
+        Task<IReadOnlyList<Repository>> GetCurrentPrivateRepos();
+        Task<IReadOnlyList<Gist>> GetCurrentGists();
+
+        #endregion
+
         #region Search items
 
         Task<SearchUsersResult> SearchUsersAsync(string searchName, int page = 1, int elementPerPage = 100);

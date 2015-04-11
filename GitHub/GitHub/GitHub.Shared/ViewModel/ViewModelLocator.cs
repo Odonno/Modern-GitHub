@@ -114,6 +114,13 @@ namespace GitHub.ViewModel
             navigationService.Configure("User", typeof(UserPage));
             navigationService.Configure("Repository", typeof(RepositoryPage));
 
+            navigationService.Configure("MyCollaborators", typeof(MyCollaboratorsPage));
+            navigationService.Configure("MyFollowers", typeof(MyFollowersPage));
+            navigationService.Configure("MyFollowings", typeof(MyFollowingsPage));
+            navigationService.Configure("MyPrivateRepos", typeof(MyPrivateReposPage));
+            navigationService.Configure("MyGists", typeof(MyGistsPage));
+            navigationService.Configure("MyPublicRepos", typeof(MyPublicReposPage));
+
             return navigationService;
         }
 
