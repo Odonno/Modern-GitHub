@@ -69,7 +69,8 @@ namespace GitHub.ViewModel
 
             // Other Level ViewModels
             SimpleIoc.Default.Register<IAboutViewModel, AboutViewModel>();
-
+            SimpleIoc.Default.Register<ICreditsViewModel, CreditsViewModel>();
+            
             // Services
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
             {
@@ -125,6 +126,7 @@ namespace GitHub.ViewModel
             navigationService.Configure("MyPublicRepos", typeof(MyPublicReposPage));
 
             navigationService.Configure("About", typeof(AboutPage));
+            navigationService.Configure("Credits", typeof(CreditsPage));
 
             return navigationService;
         }
@@ -160,6 +162,14 @@ namespace GitHub.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<ILoginViewModel>();
+            }
+        }
+
+        public static ICreditsViewModel Credits
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ICreditsViewModel>();
             }
         }
 

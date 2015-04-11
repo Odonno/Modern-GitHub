@@ -55,6 +55,7 @@ namespace GitHub.ViewModel.Concrete
         public ICommand ToggleEnableSearchCommand { get; private set; }
         public ICommand RefreshCommand { get; private set; }
         public ICommand GoToAboutCommand { get; private set; }
+        public ICommand GoToCreditsCommand { get; private set; }
 
         #endregion
 
@@ -81,11 +82,12 @@ namespace GitHub.ViewModel.Concrete
                 ToggleEnableSearchCommand = new RelayCommand(ToggleEnableSearch);
                 RefreshCommand = new RelayCommand(Refresh, CanRefresh);
                 GoToAboutCommand = new RelayCommand(GoToAbout);
+                GoToCreditsCommand = new RelayCommand(GoToCredits);
 
                 WaitForRefresh();
             }
         }
-
+        
         #endregion
 
 
@@ -127,6 +129,11 @@ namespace GitHub.ViewModel.Concrete
         private void GoToAbout()
         {
             _navigationService.NavigateTo("About");
+        }
+
+        private void GoToCredits()
+        {
+            _navigationService.NavigateTo("Credits");
         }
 
         #endregion

@@ -11,7 +11,6 @@ namespace GitHub.ViewModel.Concrete
 
         public AboutViewModel()
         {
-
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
@@ -29,6 +28,5 @@ namespace GitHub.ViewModel.Concrete
                     version.Revision);
             }
         }
-
     }
 }
