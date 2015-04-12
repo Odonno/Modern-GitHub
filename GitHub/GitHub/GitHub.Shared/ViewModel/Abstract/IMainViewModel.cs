@@ -15,5 +15,6 @@ namespace GitHub.ViewModel.Abstract
         ICommand RefreshCommand { get; }
         ICommand GoToAboutCommand { get; }
         ICommand GoToCreditsCommand { get; }
+        ICommand GoToFeedbackCommand { get; }
     }
 }

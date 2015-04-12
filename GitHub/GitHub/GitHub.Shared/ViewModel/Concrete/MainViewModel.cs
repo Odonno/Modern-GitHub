@@ -56,6 +56,7 @@ namespace GitHub.ViewModel.Concrete
         public ICommand RefreshCommand { get; private set; }
         public ICommand GoToAboutCommand { get; private set; }
         public ICommand GoToCreditsCommand { get; private set; }
+        public ICommand GoToFeedbackCommand { get; private set; }
 
         #endregion
 
@@ -83,11 +84,12 @@ namespace GitHub.ViewModel.Concrete
                 RefreshCommand = new RelayCommand(Refresh, CanRefresh);
                 GoToAboutCommand = new RelayCommand(GoToAbout);
                 GoToCreditsCommand = new RelayCommand(GoToCredits);
+                GoToFeedbackCommand = new RelayCommand(GoToFeedback);
 
                 WaitForRefresh();
             }
         }
-        
+
         #endregion
 
 
@@ -134,6 +136,11 @@ namespace GitHub.ViewModel.Concrete
         private void GoToCredits()
         {
             _navigationService.NavigateTo("Credits");
+        }
+
+        private void GoToFeedback()
+        {
+            _navigationService.NavigateTo("Feedback");
         }
 
         #endregion
