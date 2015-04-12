@@ -18,8 +18,6 @@ namespace GitHub.ViewModel.Concrete
         private readonly ISessionService _sessionService;
         private readonly IDialogService _dialogService;
 
-        public ICommand LoginCommand { get; private set; }
-
 
         public LoginViewModel(INavigationService navigationService, IDialogService dialogService, ISessionService sessionService)
         {
@@ -34,13 +32,11 @@ namespace GitHub.ViewModel.Concrete
             else
             {
                 // Code runs "for real"
-
-                LoginCommand = new RelayCommand(Login);
             }
         }
 
 
-        public async void Login()
+        public async Task LoginAsync()
         {
             bool isToShowMessage = false;
 
@@ -49,9 +45,9 @@ namespace GitHub.ViewModel.Concrete
                 var auth = await _sessionService.LoginAsync();
 
                 if (auth == null)
-                    return;
+                    isToShowMessage = true;
 
-                if (auth.Value)
+                if (auth != null && auth.Value)
                     await FinalizeLoginAsync();
             }
             catch
@@ -61,8 +57,8 @@ namespace GitHub.ViewModel.Concrete
 
             if (isToShowMessage)
             {
-                await _dialogService.ShowError("Application fails.",
-                    "Authentication Sample",
+                await _dialogService.ShowError("Application fails",
+                    "Authentication",
                     "Ok",
                     null);
             }

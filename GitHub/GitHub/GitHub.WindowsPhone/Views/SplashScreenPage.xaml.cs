@@ -2,18 +2,11 @@
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using GalaSoft.MvvmLight.Views;
 using GitHub.Common;
 using GitHub.Services;
 using GitHub.ViewModel;
-#if DEBUG
-using Microsoft.Practices.ServiceLocation;
-#else
-using GitHub.ViewModel;
-#endif
 
 namespace GitHub.Views
 {
@@ -29,8 +22,6 @@ namespace GitHub.Views
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             _navigationHelper.SaveState += NavigationHelper_SaveState;
-
-            Loaded += SplashScreenPage_Loaded;
         }
 
         
@@ -89,26 +80,23 @@ namespace GitHub.Views
         /// </summary>
         /// <param name="e">Fournit des données pour les méthodes de navigation et
         /// les gestionnaires d'événements qui ne peuvent pas annuler la requête de navigation.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedTo(e);
 
             // restore transitions
             App.FirstNavigate();
+
+            await Task.Delay(500);
+            // login on GitHub API
+            await ViewModelLocator.Login.LoginAsync();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedFrom(e);
         }
-
-        private async void SplashScreenPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            await Task.Delay(100);
-            ViewModelLocator.Login.Login();
-        }
-
-
+        
         #endregion
 
         #endregion

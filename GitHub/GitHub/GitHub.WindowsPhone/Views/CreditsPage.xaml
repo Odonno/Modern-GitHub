@@ -65,7 +65,7 @@
 
                     <StackPanel Grid.Column="1" Margin="12 0 0 0">
                         <TextBlock Text="Corentin Miquée" FontSize="32" />
-                        <TextBlock FontSize="28">
+                        <TextBlock FontSize="24">
                             (<Run Text="{Binding CorentinMiq.Login}" />)
                         </TextBlock>
                         <TextBlock Text="UI Designer" />
