@@ -78,6 +78,8 @@ namespace GitHub.ViewModel.Concrete
 
             await Launcher.LaunchUriAsync(new Uri(stringUri));
 
+            App.TelemetryClient.TrackEvent(string.Format("SendFeedback.{0}", SelectedFeedbackType));
+
             _navigationService.GoBack();
             Content = string.Empty;
         }
