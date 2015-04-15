@@ -269,7 +269,7 @@ namespace GitHub.ViewModel.Concrete
             if (TopFoldersSha.Count > 1)
                 TreeItems.Add(new TreeItem("..", null, new TreeType(), 0, CurrentTopFolderSha, null));
 
-            var treeItems = await ViewModelLocator.GitHubService.GetRepositoryTree(Repository.Owner.Login, Repository.Name, sha);
+            var treeItems = await ViewModelLocator.GitHubService.GetRepositoryTreeAsync(Repository.Owner.Login, Repository.Name, sha);
             foreach (var treeItem in treeItems.Tree)
                 TreeItems.Add(treeItem);
         }

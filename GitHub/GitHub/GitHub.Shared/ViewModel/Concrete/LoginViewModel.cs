@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
-using System.Windows.Input;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;

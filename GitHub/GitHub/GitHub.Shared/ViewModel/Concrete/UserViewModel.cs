@@ -123,13 +123,13 @@ namespace GitHub.ViewModel.Concrete
 
         private async void Follow()
         {
-            if (await ViewModelLocator.GitHubService.FollowUser(User.Login))
+            if (await ViewModelLocator.GitHubService.FollowUserAsync(User.Login))
                 IsFollowing = true;
         }
 
         private async void Unfollow()
         {
-            await ViewModelLocator.GitHubService.UnfollowUser(User.Login);
+            await ViewModelLocator.GitHubService.UnfollowUserAsync(User.Login);
             IsFollowing = false;
         }
 
@@ -143,7 +143,7 @@ namespace GitHub.ViewModel.Concrete
 
         public async Task LoadUserDataAsync()
         {
-            IsFollowing = await ViewModelLocator.GitHubService.IsFollowing(User.Login);
+            IsFollowing = await ViewModelLocator.GitHubService.IsFollowingAsync(User.Login);
 
             var activities = await ViewModelLocator.GitHubService.GetUserActivitiesAsync(User.Login);
             foreach (var activity in activities)

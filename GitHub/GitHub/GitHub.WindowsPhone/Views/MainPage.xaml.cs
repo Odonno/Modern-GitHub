@@ -6,6 +6,9 @@ using Windows.UI.Xaml.Navigation;
 using GitHub.Common;
 
 // Pour en savoir plus sur le modèle d'élément Page de base, consultez la page http://go.microsoft.com/fwlink/?LinkID=390556
+using GitHub.Services.Abstract;
+using Microsoft.Practices.ServiceLocation;
+
 
 namespace GitHub.Views
 {
@@ -82,13 +85,16 @@ namespace GitHub.Views
         /// </summary>
         /// <param name="e">Fournit des données pour les méthodes de navigation et
         /// les gestionnaires d'événements qui ne peuvent pas annuler la requête de navigation.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedTo(e);
 
             // Remove SplashScreen page
             if (e.NavigationMode == NavigationMode.New)
+            {
                 Frame.BackStack.Remove(Frame.BackStack.LastOrDefault());
+                await ServiceLocator.Current.GetInstance<IBackgroundTaskService>().RegisterTasksAsync();
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)

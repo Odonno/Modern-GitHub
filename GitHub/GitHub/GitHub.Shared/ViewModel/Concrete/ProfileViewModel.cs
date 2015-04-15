@@ -202,7 +202,7 @@ namespace GitHub.ViewModel.Concrete
 
         private async void GoToFollowers()
         {
-            var followers = await ViewModelLocator.GitHubService.GetCurrentFollowers();
+            var followers = await ViewModelLocator.GitHubService.GetCurrentFollowersAsync();
 
             Followers.Clear();
             foreach (var follower in followers)
@@ -213,7 +213,7 @@ namespace GitHub.ViewModel.Concrete
 
         private async void GoToFollowings()
         {
-            var followings = await ViewModelLocator.GitHubService.GetCurrentFollowings();
+            var followings = await ViewModelLocator.GitHubService.GetCurrentFollowingsAsync();
 
             Followings.Clear();
             foreach (var following in followings)
@@ -232,7 +232,7 @@ namespace GitHub.ViewModel.Concrete
 
         private async void GoToPublicRepos()
         {
-            var publicRepos = await ViewModelLocator.GitHubService.GetCurrentPublicRepos();
+            var publicRepos = await ViewModelLocator.GitHubService.GetCurrentPublicReposAsync();
 
             PublicRepos.Clear();
             foreach (var repo in publicRepos)
@@ -243,7 +243,7 @@ namespace GitHub.ViewModel.Concrete
 
         private async void GoToPrivateRepos()
         {
-            var privateRepos = await ViewModelLocator.GitHubService.GetCurrentPrivateRepos();
+            var privateRepos = await ViewModelLocator.GitHubService.GetCurrentPrivateReposAsync();
 
             PrivateRepos.Clear();
             foreach (var repo in privateRepos)
@@ -254,7 +254,7 @@ namespace GitHub.ViewModel.Concrete
 
         private async void GoToGists()
         {
-            var gists = await ViewModelLocator.GitHubService.GetCurrentGists();
+            var gists = await ViewModelLocator.GitHubService.GetCurrentGistsAsync();
 
             Gists.Clear();
             foreach (var gist in gists)

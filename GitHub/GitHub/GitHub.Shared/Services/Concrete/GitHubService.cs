@@ -17,6 +17,7 @@ namespace GitHub.Services.Concrete
             _client = ServiceLocator.Current.GetInstance<IGitHubClient>();
         }
 
+
         #region Get single item
 
         public async Task<User> GetCurrentUserAsync()
@@ -77,29 +78,29 @@ namespace GitHub.Services.Concrete
             throw new NotImplementedException();
         }
 
-        public async Task<IReadOnlyList<User>> GetCurrentFollowers()
+        public async Task<IReadOnlyList<User>> GetCurrentFollowersAsync()
         {
             return await _client.User.Followers.GetAllForCurrent();
         }
 
-        public async Task<IReadOnlyList<User>> GetCurrentFollowings()
+        public async Task<IReadOnlyList<User>> GetCurrentFollowingsAsync()
         {
             return await _client.User.Followers.GetFollowingForCurrent();
         }
 
-        public async Task<IReadOnlyList<Repository>> GetCurrentPublicRepos()
+        public async Task<IReadOnlyList<Repository>> GetCurrentPublicReposAsync()
         {
             var repositories = await _client.Repository.GetAllForCurrent();
             return repositories.Where(r => !r.Private).ToArray();
         }
 
-        public async Task<IReadOnlyList<Repository>> GetCurrentPrivateRepos()
+        public async Task<IReadOnlyList<Repository>> GetCurrentPrivateReposAsync()
         {
             var repositories = await _client.Repository.GetAllForCurrent();
             return repositories.Where(r => r.Private).ToArray();
         }
 
-        public async Task<IReadOnlyList<Gist>> GetCurrentGists()
+        public async Task<IReadOnlyList<Gist>> GetCurrentGistsAsync()
         {
             return await _client.Gist.GetAll();
         }
@@ -130,15 +131,15 @@ namespace GitHub.Services.Concrete
 
         #region Actions
 
-        public async Task<bool> IsFollowing(string user)
+        public async Task<bool> IsFollowingAsync(string user)
         {
             return await _client.User.Followers.IsFollowingForCurrent(user);
         }
-        public async Task<bool> FollowUser(string user)
+        public async Task<bool> FollowUserAsync(string user)
         {
             return await _client.User.Followers.Follow(user);
         }
-        public async Task UnfollowUser(string user)
+        public async Task UnfollowUserAsync(string user)
         {
             await _client.User.Followers.Unfollow(user);
         }
@@ -147,9 +148,18 @@ namespace GitHub.Services.Concrete
 
         #region Tree management
 
-        public async Task<TreeResponse> GetRepositoryTree(string owner, string repository, string reference)
+        public async Task<TreeResponse> GetRepositoryTreeAsync(string owner, string repository, string reference)
         {
             return await _client.GitDatabase.Tree.Get(owner, repository, reference);
+        }
+        
+        #endregion
+
+        #region Notifications
+
+        public async Task<IReadOnlyList<Notification>> GetCurrentNotificationsAsync(DateTimeOffset lastCheck)
+        {
+            return await _client.Notification.GetAllForCurrent(new NotificationsRequest { Since = lastCheck });
         }
 
         #endregion

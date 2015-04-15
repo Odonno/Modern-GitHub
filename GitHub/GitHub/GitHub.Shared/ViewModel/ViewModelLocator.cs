@@ -89,6 +89,9 @@ namespace GitHub.ViewModel
             SimpleIoc.Default.Register<ISessionService, SessionService>();
             SimpleIoc.Default.Register<IGitHubService, GitHubService>();
 
+            SimpleIoc.Default.Register<IBackgroundTaskService, BackgroundTaskService>();
+            SimpleIoc.Default.Register<IToastNotificationService, ToastNotificationService>();
+
             // data objects
             SimpleIoc.Default.Register<UsersIncrementalLoadingCollection>();
             SimpleIoc.Default.Register<ReposIncrementalLoadingCollection>();

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Octokit;
 
@@ -25,11 +26,11 @@ namespace GitHub.Services.Abstract
 
         #region Current user related data
 
-        Task<IReadOnlyList<User>> GetCurrentFollowers();
-        Task<IReadOnlyList<User>> GetCurrentFollowings();
-        Task<IReadOnlyList<Repository>> GetCurrentPublicRepos();
-        Task<IReadOnlyList<Repository>> GetCurrentPrivateRepos();
-        Task<IReadOnlyList<Gist>> GetCurrentGists();
+        Task<IReadOnlyList<User>> GetCurrentFollowersAsync();
+        Task<IReadOnlyList<User>> GetCurrentFollowingsAsync();
+        Task<IReadOnlyList<Repository>> GetCurrentPublicReposAsync();
+        Task<IReadOnlyList<Repository>> GetCurrentPrivateReposAsync();
+        Task<IReadOnlyList<Gist>> GetCurrentGistsAsync();
 
         #endregion
 
@@ -42,15 +43,21 @@ namespace GitHub.Services.Abstract
 
         #region Actions
 
-        Task<bool> IsFollowing(string user);
-        Task<bool> FollowUser(string user);
-        Task UnfollowUser(string user);
+        Task<bool> IsFollowingAsync(string user);
+        Task<bool> FollowUserAsync(string user);
+        Task UnfollowUserAsync(string user);
 
         #endregion
 
         #region Tree management
 
-        Task<TreeResponse> GetRepositoryTree(string owner, string repository, string reference);
+        Task<TreeResponse> GetRepositoryTreeAsync(string owner, string repository, string reference);
+
+        #endregion
+
+        #region Notifications
+
+        Task<IReadOnlyList<Notification>> GetCurrentNotificationsAsync(DateTimeOffset lastCheck);
 
         #endregion
     }

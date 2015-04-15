@@ -114,7 +114,7 @@ namespace GitHub.ViewModel.Concrete
             var activitiesVm = ActivitiesViewModel as SearchViewModelBase;
             var reposVm = ReposViewModel as SearchViewModelBase;
             var usersVm = UsersViewModel as SearchViewModelBase;
-            
+
             if (activitiesVm != null)
                 refreshTasks.Add(activitiesVm.Refresh());
             if (reposVm != null)
