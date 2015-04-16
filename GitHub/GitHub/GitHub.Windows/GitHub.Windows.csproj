@@ -276,6 +276,16 @@
       <HintPath>..\..\packages\Rx-WinRT.2.2.5\lib\windows8\System.Reactive.WindowsRuntime.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GitHub.Services\GitHub.Services.csproj">
+      <Project>{25acab6d-39c5-4251-a3a9-3ec15c83954c}</Project>
+      <Name>GitHub.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GitHub.Tasks.Windows\GitHub.Tasks.Windows.csproj">
+      <Project>{152eec02-c87f-4ff2-a9d2-260297e31496}</Project>
+      <Name>GitHub.Tasks.Windows</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

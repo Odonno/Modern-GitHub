@@ -294,6 +294,16 @@
       <Name>Microsoft.AdMediator81</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GitHub.Services\GitHub.Services.csproj">
+      <Project>{25acab6d-39c5-4251-a3a9-3ec15c83954c}</Project>
+      <Name>GitHub.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GitHub.Tasks\GitHub.Tasks.WindowsPhone.csproj">
+      <Project>{a7f16851-7242-40aa-919b-f0782b5f17ff}</Project>
+      <Name>GitHub.Tasks.WindowsPhone</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

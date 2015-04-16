@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Practices.ServiceLocation;
 using Octokit;
 using GitHub.Services.Abstract;
 
@@ -12,9 +11,10 @@ namespace GitHub.Services.Concrete
     {
         private readonly IGitHubClient _client;
 
-        public GitHubService()
+
+        public GitHubService(IGitHubClient client)
         {
-            _client = ServiceLocator.Current.GetInstance<IGitHubClient>();
+            _client = client;
         }
 
 

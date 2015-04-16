@@ -25,7 +25,7 @@
         </m3:InitialRotationPreference>
       </m3:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="GitHub.Tasks.NotificationsBackgroundTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="GitHub.Tasks.WindowsPhone.NotificationsBackgroundTask">
           <BackgroundTasks>
             <Task Type="timer" />
           </BackgroundTasks>

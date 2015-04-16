@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using GitHub.Services.Abstract;
 using Windows.ApplicationModel.Background;
@@ -24,11 +25,8 @@ namespace GitHub.Services.Concrete
         {
             foreach (var kvTask in Tasks)
             {
-                foreach (var task in BackgroundTaskRegistration.AllTasks)
-                {
-                    if (task.Value.Name == kvTask.Key)
-                        break;
-                }
+                if (BackgroundTaskRegistration.AllTasks.Any(task => task.Value.Name == kvTask.Key))
+                    break;
 
                 await RegisterTaskAsync(kvTask.Key, kvTask.Value);
             }
@@ -48,7 +46,7 @@ namespace GitHub.Services.Concrete
                 };
                 taskBuilder.SetTrigger(new TimeTrigger(15, false));
 
-                var registration = taskBuilder.Register();
+                taskBuilder.Register();
             }
         }
     }

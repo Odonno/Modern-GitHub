@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Security.Authentication.Web;
 using GitHub.Services.Abstract;
-using Microsoft.Practices.ServiceLocation;
 using Octokit;
 
 #if WINDOWS_PHONE_APP
@@ -16,11 +15,11 @@ namespace GitHub.Services.Concrete
     public class SessionService : ISessionService
     {
 #if WINDOWS_PHONE_APP
-        private const string _clientId = "cf9380704e8a73863446";
-        private const string _clientSecret = "65235fc4bef14b408f43ac1a971e1c16c0a310cd";
+        private const string ClientId = "cf9380704e8a73863446";
+        private const string ClientSecret = "65235fc4bef14b408f43ac1a971e1c16c0a310cd";
 #else
-        private const string _clientId = "fea5e25a11932b2d3f96";
-        private const string _clientSecret = "1e60e28b73bd561715be6f8d149483537d627d3e";
+        private const string ClientId = "fea5e25a11932b2d3f96";
+        private const string ClientSecret = "1e60e28b73bd561715be6f8d149483537d627d3e";
 #endif
 
         private static readonly Collection<string> Scopes = new Collection<string>(new[] { "user:follow" });
@@ -29,9 +28,10 @@ namespace GitHub.Services.Concrete
 
         private readonly IGitHubClient _client;
 
-        public SessionService()
+
+        public SessionService(IGitHubClient client)
         {
-            _client = ServiceLocator.Current.GetInstance<IGitHubClient>();
+            _client = client;
         }
 
 
@@ -40,7 +40,7 @@ namespace GitHub.Services.Concrete
             try
             {
                 // create OAuth request (with scopes)
-                var oauthLoginRequest = new OauthLoginRequest(_clientId);
+                var oauthLoginRequest = new OauthLoginRequest(ClientId);
                 foreach (var scope in Scopes)
                     oauthLoginRequest.Scopes.Add(scope);
 
@@ -115,7 +115,7 @@ namespace GitHub.Services.Concrete
 
         private async Task<OauthToken> GetToken(string code)
         {
-            return await _client.Oauth.CreateAccessToken(new OauthTokenRequest(_clientId, _clientSecret, code));
+            return await _client.Oauth.CreateAccessToken(new OauthTokenRequest(ClientId, ClientSecret, code));
         }
     }
 }

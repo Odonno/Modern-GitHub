@@ -3,15 +3,17 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Storage;
 using GitHub.Services.Abstract;
-using GitHub.ViewModel;
+using GitHub.Services.Concrete;
+using Octokit;
 
-namespace GitHub.Tasks
+namespace GitHub.Tasks.Windows
 {
-    public class NotificationsBackgroundTask : IBackgroundTask
+    public sealed class NotificationsBackgroundTask : IBackgroundTask
     {
         #region Services
 
         private readonly IToastNotificationService _toastNotificationService;
+        private readonly IGitHubService _gitHubService;
 
         #endregion
 
@@ -25,9 +27,9 @@ namespace GitHub.Tasks
 
         #region Properties
 
-        public DateTime LastCheckNotificationsDate
+        public DateTimeOffset LastCheckNotificationsDate
         {
-            get { return (DateTime) (ApplicationData.Current.RoamingSettings.Values["lastCheckNotificationDate"] ?? DateTime.Now); }
+            get { return (DateTimeOffset)(ApplicationData.Current.RoamingSettings.Values["lastCheckNotificationDate"] ?? DateTimeOffset.Now); }
             set { ApplicationData.Current.RoamingSettings.Values["lastCheckNotificationDate"] = value; }
         }
 
@@ -36,9 +38,12 @@ namespace GitHub.Tasks
 
         #region Constructor
 
-        public NotificationsBackgroundTask(IToastNotificationService toastNotificationService)
+        public NotificationsBackgroundTask()
         {
-            _toastNotificationService = toastNotificationService;
+            _toastNotificationService = new ToastNotificationService();
+
+            var client = new GitHubClient(new ProductHeaderValue("UniversalGitHubW8"));
+            _gitHubService = new GitHubService(client);
         }
 
         #endregion
@@ -58,7 +63,7 @@ namespace GitHub.Tasks
             {
                 // BUG : you need to be authenticated to get current notifications => retrieve/save Token
                 // get new notifications
-                var notifications = await ViewModelLocator.GitHubService.GetCurrentNotificationsAsync(new DateTimeOffset(LastCheckNotificationsDate));
+                var notifications = await _gitHubService.GetCurrentNotificationsAsync(LastCheckNotificationsDate);
 
                 // reset last time we get notifications
                 LastCheckNotificationsDate = DateTime.Now;
@@ -72,11 +77,6 @@ namespace GitHub.Tasks
                     // TODO : show notifications (badge notifications)
 
                 }
-            }
-            catch (Exception ex)
-            {
-                // send a metric for any exception on this background task
-                App.TelemetryClient.TrackException(ex);
             }
             finally
             {
