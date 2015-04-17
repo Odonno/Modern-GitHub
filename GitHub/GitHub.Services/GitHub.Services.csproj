@@ -38,10 +38,8 @@
     <TargetPlatform Include="Windows, Version=8.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\IBackgroundTaskService.cs" />
     <Compile Include="Abstract\IGitHubService.cs" />
     <Compile Include="Abstract\IToastNotificationService.cs" />
-    <Compile Include="Concrete\BackgroundTaskService.cs" />
     <Compile Include="Concrete\GitHubService.cs" />
     <Compile Include="Concrete\ToastNotificationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

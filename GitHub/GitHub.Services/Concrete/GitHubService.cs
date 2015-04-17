@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Octokit;
 using GitHub.Services.Abstract;
 
@@ -17,6 +18,24 @@ namespace GitHub.Services.Concrete
             _client = client;
         }
 
+
+        #region Authentication
+
+        public string AccessToken
+        {
+            get { return (string)(ApplicationData.Current.LocalSettings.Values["token"]); }
+            set { ApplicationData.Current.LocalSettings.Values["token"] = value; }
+        }
+
+        public void TryAuthenticate(OauthToken token = null)
+        {
+            if (token != null)
+                AccessToken = token.AccessToken;
+
+            _client.Connection.Credentials = new Credentials(AccessToken);
+        }
+
+        #endregion
 
         #region Get single item
 
@@ -68,7 +87,7 @@ namespace GitHub.Services.Concrete
         {
             return await _client.Issue.GetForRepository(owner, repository);
         }
-        
+
         #endregion
 
         #region Current user related data
@@ -152,7 +171,7 @@ namespace GitHub.Services.Concrete
         {
             return await _client.GitDatabase.Tree.Get(owner, repository, reference);
         }
-        
+
         #endregion
 
         #region Notifications

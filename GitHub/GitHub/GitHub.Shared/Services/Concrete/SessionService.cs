@@ -22,16 +22,17 @@ namespace GitHub.Services.Concrete
         private const string ClientSecret = "1e60e28b73bd561715be6f8d149483537d627d3e";
 #endif
 
-        private static readonly Collection<string> Scopes = new Collection<string>(new[] { "user:follow" });
+        private static readonly Collection<string> Scopes = new Collection<string>(new[] { "user:follow", "notifications" });
 
-        private OauthToken _oauthToken;
 
         private readonly IGitHubClient _client;
+        private readonly IGitHubService _gitHubService;
 
 
-        public SessionService(IGitHubClient client)
+        public SessionService(IGitHubClient client, IGitHubService gitHubService)
         {
             _client = client;
+            _gitHubService = gitHubService;
         }
 
 
@@ -87,9 +88,9 @@ namespace GitHub.Services.Concrete
             if (result.ResponseStatus == WebAuthenticationStatus.Success)
             {
                 var code = GetCode(result.ResponseData);
-                _oauthToken = await GetToken(code);
+                var token = await GetToken(code);
 
-                _client.Connection.Credentials = new Credentials(_oauthToken.AccessToken);
+                _gitHubService.TryAuthenticate(token);
 
                 return true;
             }
@@ -99,7 +100,7 @@ namespace GitHub.Services.Concrete
             }
             if (result.ResponseStatus == WebAuthenticationStatus.UserCancel)
             {
-                throw new Exception("User Canceled.");
+                throw new Exception("User Canceled");
             }
 
             return false;

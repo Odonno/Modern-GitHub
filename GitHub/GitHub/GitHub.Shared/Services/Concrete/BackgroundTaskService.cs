@@ -36,9 +36,14 @@ namespace GitHub.Services.Concrete
         {
             var requestAccess = await BackgroundExecutionManager.RequestAccessAsync();
 
-            if (requestAccess == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity || 
+            if (requestAccess == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity ||
                 requestAccess == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity)
             {
+#if WINDOWS_PHONE_APP
+                taskNamespace += ".WindowsPhone";
+#else
+                taskNamespace += ".Windows";
+#endif
                 var taskBuilder = new BackgroundTaskBuilder
                 {
                     Name = taskName,

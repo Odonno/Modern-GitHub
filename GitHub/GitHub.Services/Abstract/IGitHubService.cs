@@ -7,6 +7,14 @@ namespace GitHub.Services.Abstract
 {
     public interface IGitHubService
     {
+        #region Authentication
+
+        string AccessToken { get; }
+
+        void TryAuthenticate(OauthToken token = null);
+
+        #endregion
+
         #region Get items
 
         Task<User> GetCurrentUserAsync();

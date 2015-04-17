@@ -61,7 +61,12 @@ namespace GitHub.Tasks.WindowsPhone
         {
             try
             {
-                // BUG : you need to be authenticated to get current notifications => retrieve/save Token
+#if DEBUG
+                _toastNotificationService.SendNotification("Comment", "Toast Notifications (GitHub-Universal-App)");
+#else
+                // you need to be authenticated first to get current notifications
+                _gitHubService.TryAuthenticate();
+
                 // get new notifications
                 var notifications = await _gitHubService.GetCurrentNotificationsAsync(LastCheckNotificationsDate);
 
@@ -77,6 +82,7 @@ namespace GitHub.Tasks.WindowsPhone
                     // TODO : show notifications (badge notifications)
 
                 }
+#endif
             }
             finally
             {
