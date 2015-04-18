@@ -12,7 +12,7 @@ namespace GitHub.Tasks.Windows
     {
         #region Services
 
-        private readonly IToastNotificationService _toastNotificationService;
+        private readonly ILocalNotificationService _localNotificationService;
         private readonly IGitHubService _gitHubService;
 
         #endregion
@@ -40,7 +40,7 @@ namespace GitHub.Tasks.Windows
 
         public NotificationsBackgroundTask()
         {
-            _toastNotificationService = new ToastNotificationService();
+            _localNotificationService = new LocalNotificationService();
 
             var client = new GitHubClient(new ProductHeaderValue("UniversalGitHubW8"));
             _gitHubService = new GitHubService(client);
@@ -61,7 +61,9 @@ namespace GitHub.Tasks.Windows
         {
             try
             {
-                // BUG : you need to be authenticated to get current notifications => retrieve/save Token
+                // you need to be authenticated first to get current notifications
+                _gitHubService.TryAuthenticate();
+
                 // get new notifications
                 var notifications = await _gitHubService.GetCurrentNotificationsAsync(LastCheckNotificationsDate);
 
@@ -70,12 +72,9 @@ namespace GitHub.Tasks.Windows
 
                 foreach (var notification in notifications)
                 {
-                    // show notifications (toast notifications)
+                    // show notifications (toast + badge notifications)
                     string notificationContent = string.Format("{0} ({1})", notification.Subject.Title, notification.Repository.Name);
-                    _toastNotificationService.SendNotification(notification.Subject.Type, notificationContent);
-
-                    // TODO : show notifications (badge notifications)
-
+                    _localNotificationService.SendNotification(notification.Subject.Type, notificationContent);
                 }
             }
             finally

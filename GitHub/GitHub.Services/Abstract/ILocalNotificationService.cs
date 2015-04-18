@@ -1,6 +1,6 @@
 ﻿namespace GitHub.Services.Abstract
 {
-    public interface IToastNotificationService
+    public interface ILocalNotificationService
     {
         void SendNotification(string title, string content);
     }

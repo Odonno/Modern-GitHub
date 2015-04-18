@@ -12,7 +12,7 @@ namespace GitHub.Tasks.WindowsPhone
     {
         #region Services
 
-        private readonly IToastNotificationService _toastNotificationService;
+        private readonly ILocalNotificationService _localNotificationService;
         private readonly IGitHubService _gitHubService;
 
         #endregion
@@ -40,7 +40,7 @@ namespace GitHub.Tasks.WindowsPhone
 
         public NotificationsBackgroundTask()
         {
-            _toastNotificationService = new ToastNotificationService();
+            _localNotificationService = new LocalNotificationService();
 
             var client = new GitHubClient(new ProductHeaderValue("UniversalGitHub"));
             _gitHubService = new GitHubService(client);
@@ -61,9 +61,6 @@ namespace GitHub.Tasks.WindowsPhone
         {
             try
             {
-#if DEBUG
-                _toastNotificationService.SendNotification("Comment", "Toast Notifications (GitHub-Universal-App)");
-#else
                 // you need to be authenticated first to get current notifications
                 _gitHubService.TryAuthenticate();
 
@@ -75,14 +72,10 @@ namespace GitHub.Tasks.WindowsPhone
 
                 foreach (var notification in notifications)
                 {
-                    // show notifications (toast notifications)
+                    // show notifications (toast + badge notifications)
                     string notificationContent = string.Format("{0} ({1})", notification.Subject.Title, notification.Repository.Name);
-                    _toastNotificationService.SendNotification(notification.Subject.Type, notificationContent);
-
-                    // TODO : show notifications (badge notifications)
-
+                    _localNotificationService.SendNotification(notification.Subject.Type, notificationContent);
                 }
-#endif
             }
             finally
             {
