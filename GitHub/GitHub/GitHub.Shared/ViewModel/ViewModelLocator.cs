@@ -111,7 +111,7 @@ namespace GitHub.ViewModel
         #endregion Constructor
 
 
-        #region Methods
+        #region Navigation Service (Page declaration)
 
         private INavigationService CreateNavigationService()
         {

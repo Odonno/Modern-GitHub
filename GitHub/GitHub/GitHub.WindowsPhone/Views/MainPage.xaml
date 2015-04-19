@@ -241,6 +241,7 @@
                 <AppBarButton Label="feedback" Command="{Binding GoToFeedbackCommand}" />
                 <AppBarButton Label="about" Command="{Binding GoToAboutCommand}" />
                 <AppBarButton Label="credits" Command="{Binding GoToCreditsCommand}" />
+                <AppBarButton Label="this" Command="{Binding GoToThisCommand}" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

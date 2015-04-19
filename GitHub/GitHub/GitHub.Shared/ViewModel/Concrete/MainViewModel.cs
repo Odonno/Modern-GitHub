@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
+using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
 
 namespace GitHub.ViewModel.Concrete
@@ -12,6 +14,7 @@ namespace GitHub.ViewModel.Concrete
     {
         #region Services
 
+        private readonly IGitHubService _gitHubService;
         private readonly INavigationService _navigationService;
 
         #endregion
@@ -57,14 +60,16 @@ namespace GitHub.ViewModel.Concrete
         public ICommand GoToAboutCommand { get; private set; }
         public ICommand GoToCreditsCommand { get; private set; }
         public ICommand GoToFeedbackCommand { get; private set; }
+        public ICommand GoToThisCommand { get; private set; }
 
         #endregion
 
 
         #region Constructor
 
-        public MainViewModel(INavigationService navigationService)
+        public MainViewModel(IGitHubService gitHubService, INavigationService navigationService)
         {
+            _gitHubService = gitHubService;
             _navigationService = navigationService;
 
             ProfileViewModel = ViewModelLocator.Profile;
@@ -85,11 +90,12 @@ namespace GitHub.ViewModel.Concrete
                 GoToAboutCommand = new RelayCommand(GoToAbout);
                 GoToCreditsCommand = new RelayCommand(GoToCredits);
                 GoToFeedbackCommand = new RelayCommand(GoToFeedback);
+                GoToThisCommand = new RelayCommand(GoToThis);
 
                 WaitForRefresh();
             }
         }
-
+        
         #endregion
 
 
@@ -141,6 +147,13 @@ namespace GitHub.ViewModel.Concrete
         private void GoToFeedback()
         {
             _navigationService.NavigateTo("Feedback");
+        }
+
+        private async void GoToThis()
+        {
+            // search for THIS repository
+            var thisRepository = (await _gitHubService.SearchReposAsync("GitHub-Universal-App")).Items.First();
+            ReposViewModel.GoToRepoCommand.Execute(thisRepository);
         }
 
         #endregion
