@@ -15,14 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToActiveColorConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\DateTimeOffsetToTimeAgoConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\EventStringToTextStringConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\IssueStateToColorConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\IssueStateToTextConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\LanguageFilesGitConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\ShortingTextConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Abstract\IncrementalLoadingCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Abstract\ISearchCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Concrete\ReposIncrementalLoadingCollection.cs" />

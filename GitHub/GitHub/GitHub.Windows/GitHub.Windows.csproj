@@ -279,6 +279,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\GitHub.Converters\GitHub.Converters.csproj">
+      <Project>{2bb646a2-4989-4e70-9e09-3b1f42b380e3}</Project>
+      <Name>GitHub.Converters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\GitHub.Services\GitHub.Services.csproj">
       <Project>{25acab6d-39c5-4251-a3a9-3ec15c83954c}</Project>
       <Name>GitHub.Services</Name>

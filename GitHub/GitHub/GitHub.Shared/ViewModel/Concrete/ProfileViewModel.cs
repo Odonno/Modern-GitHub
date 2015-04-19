@@ -254,6 +254,7 @@ namespace GitHub.ViewModel.Concrete
 
         private async void GoToGists()
         {
+            // BUG : Files's GistFiles throw EntryPointNotFoundException (not expected)
             var gists = await ViewModelLocator.GitHubService.GetCurrentGistsAsync();
 
             Gists.Clear();
