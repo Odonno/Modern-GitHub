@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using GitHub.DataObjects.Concrete;
+using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
 using Octokit;
 
@@ -13,6 +14,8 @@ namespace GitHub.ViewModel.Concrete
     public class UsersViewModel : SearchViewModelBase, IUsersViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly IProgressIndicatorService _progressIndicatorService;
+
 
         private readonly UsersIncrementalLoadingCollection _users;
         public UsersIncrementalLoadingCollection Users { get { return _users; } }
@@ -20,9 +23,12 @@ namespace GitHub.ViewModel.Concrete
         public ICommand GoToUserCommand { get; private set; }
 
 
-        public UsersViewModel(INavigationService navigationService)
+        public UsersViewModel(INavigationService navigationService,
+            IProgressIndicatorService progressIndicatorService)
         {
             _navigationService = navigationService;
+            _progressIndicatorService = progressIndicatorService;
+
             _users = SimpleIoc.Default.GetInstance<UsersIncrementalLoadingCollection>();
 
             if (IsInDesignMode)
@@ -62,10 +68,14 @@ namespace GitHub.ViewModel.Concrete
 
         private async void GoToUser(User user)
         {
+            await _progressIndicatorService.ShowAsync();
+
             ViewModelLocator.User.User = user;
             _navigationService.NavigateTo("User");
 
             await ViewModelLocator.User.LoadUserDataAsync();
+
+            await _progressIndicatorService.HideAsync();
         }
     }
 }

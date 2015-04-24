@@ -20,9 +20,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Concrete\ReposIncrementalLoadingCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataObjects\Concrete\UsersIncrementalLoadingCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Abstract\IBackgroundTaskService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Abstract\IProgressIndicatorService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Abstract\ISessionService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Concrete\BackgroundTaskService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Concrete\GitHubService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Concrete\ProgressIndicatorService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Concrete\SessionService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TemplateSelectors\TreeItemTemplateSelector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Abstract\IAboutViewModel.cs" />

@@ -19,7 +19,7 @@
 
         
         <!-- Content -->
-        <Hub>
+        <Hub Margin="0 24 0 0">
             <!-- Title (header) -->
             <Hub.HeaderTemplate>
                 <DataTemplate>

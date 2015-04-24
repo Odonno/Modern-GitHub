@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using GitHub.DataObjects.Concrete;
+using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
 using Octokit;
 
@@ -13,15 +14,19 @@ namespace GitHub.ViewModel.Concrete
     public class ReposViewModel : SearchViewModelBase, IReposViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly IProgressIndicatorService _progressIndicatorService;
 
         public ReposIncrementalLoadingCollection Repositories { get; private set; }
 
         public ICommand GoToRepoCommand { get; private set; }
 
 
-        public ReposViewModel(INavigationService navigationService)
+        public ReposViewModel(INavigationService navigationService,
+            IProgressIndicatorService progressIndicatorService)
         {
             _navigationService = navigationService;
+            _progressIndicatorService = progressIndicatorService;
+
             Repositories = SimpleIoc.Default.GetInstance<ReposIncrementalLoadingCollection>();
 
             if (IsInDesignMode)
@@ -77,10 +82,14 @@ namespace GitHub.ViewModel.Concrete
 
         private async void GoToRepostiory(Repository repository)
         {
+            await _progressIndicatorService.ShowAsync();
+
             ViewModelLocator.Repository.Repository = repository;
             _navigationService.NavigateTo("Repository");
 
             await ViewModelLocator.Repository.LoadRepositoryDataAsync();
+
+            await _progressIndicatorService.HideAsync();
         }
     }
 }

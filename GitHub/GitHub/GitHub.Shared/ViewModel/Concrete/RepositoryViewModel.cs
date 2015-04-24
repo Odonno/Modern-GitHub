@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
+using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
 using Octokit;
 using GalaSoft.MvvmLight.Command;
@@ -17,6 +18,7 @@ namespace GitHub.ViewModel.Concrete
         #region Services
 
         private readonly INavigationService _navigationService;
+        private readonly IProgressIndicatorService _progressIndicatorService;
 
         #endregion
 
@@ -64,9 +66,11 @@ namespace GitHub.ViewModel.Concrete
 
         #region Constructor
 
-        public RepositoryViewModel(INavigationService navigationService)
+        public RepositoryViewModel(INavigationService navigationService,
+            IProgressIndicatorService progressIndicatorService)
         {
             _navigationService = navigationService;
+            _progressIndicatorService = progressIndicatorService;
 
             SelectTreeItemCommand = new RelayCommand<TreeItem>(SelectTreeItem);
             GoBackTreeCommand = new RelayCommand(GoBackTree);
@@ -177,6 +181,8 @@ namespace GitHub.ViewModel.Concrete
         {
             if (treeItem.Type == TreeType.Tree)
             {
+                await _progressIndicatorService.ShowAsync();
+
                 // replace the top folder to go back recursively
                 CurrentTopFolderSha = TopFoldersSha.Last();
 
@@ -185,6 +191,8 @@ namespace GitHub.ViewModel.Concrete
 
                 // create the new tree
                 await CreateTree(treeItem.Sha);
+
+                await _progressIndicatorService.HideAsync();
 
                 return;
             }
@@ -201,6 +209,8 @@ namespace GitHub.ViewModel.Concrete
 
         private async void GoBackTree()
         {
+            await _progressIndicatorService.ShowAsync();
+
             // remove the node (current top folder) cause it is useless now
             TopFoldersSha.Remove(TopFoldersSha.Last());
             
@@ -209,6 +219,8 @@ namespace GitHub.ViewModel.Concrete
 
             // create the new tree
             await CreateTree(CurrentTopFolderSha);
+
+            await _progressIndicatorService.HideAsync();
         }
 
         private void SelectCommit(GitHubCommit commit)

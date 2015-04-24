@@ -16,6 +16,7 @@ namespace GitHub.ViewModel.Concrete
 
         private readonly IGitHubService _gitHubService;
         private readonly INavigationService _navigationService;
+        private readonly IProgressIndicatorService _progressIndicatorService;
 
         #endregion
 
@@ -67,10 +68,13 @@ namespace GitHub.ViewModel.Concrete
 
         #region Constructor
 
-        public MainViewModel(IGitHubService gitHubService, INavigationService navigationService)
+        public MainViewModel(IGitHubService gitHubService, 
+            INavigationService navigationService,
+            IProgressIndicatorService progressIndicatorService)
         {
             _gitHubService = gitHubService;
             _navigationService = navigationService;
+            _progressIndicatorService = progressIndicatorService;
 
             ProfileViewModel = ViewModelLocator.Profile;
             ActivitiesViewModel = ViewModelLocator.Activities;
@@ -113,6 +117,7 @@ namespace GitHub.ViewModel.Concrete
         private async void Refresh()
         {
             CanRefreshProperty = false;
+            await _progressIndicatorService.ShowAsync();
 
             // TODO : check for any bug !
             var refreshTasks = new List<Task>();
@@ -131,6 +136,7 @@ namespace GitHub.ViewModel.Concrete
             foreach (var refreshTak in refreshTasks)
                 await refreshTak;
 
+            await _progressIndicatorService.HideAsync();
             await WaitForRefresh();
         }
 
@@ -151,9 +157,13 @@ namespace GitHub.ViewModel.Concrete
 
         private async void GoToThis()
         {
+            await _progressIndicatorService.ShowAsync();
+
             // search for THIS repository
             var thisRepository = (await _gitHubService.SearchReposAsync("GitHub-Universal-App")).Items.First();
             ReposViewModel.GoToRepoCommand.Execute(thisRepository);
+
+            await _progressIndicatorService.HideAsync();
         }
 
         #endregion

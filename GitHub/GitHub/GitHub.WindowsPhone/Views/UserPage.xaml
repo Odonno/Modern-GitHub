@@ -17,7 +17,7 @@
         </Grid.ChildrenTransitions>
 
         <!-- Content -->
-        <Hub>
+        <Hub Margin="0 12 0 0">
             <!-- Title (header) -->
             <Hub.HeaderTemplate>
                 <DataTemplate>

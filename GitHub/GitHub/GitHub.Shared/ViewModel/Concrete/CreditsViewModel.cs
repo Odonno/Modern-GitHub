@@ -1,5 +1,6 @@
 ﻿using System;
 using GalaSoft.MvvmLight;
+using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
 using Octokit;
 
@@ -7,6 +8,9 @@ namespace GitHub.ViewModel.Concrete
 {
     public class CreditsViewModel : ViewModelBase, ICreditsViewModel
     {
+        private readonly IProgressIndicatorService _progressIndicatorService;
+
+
         private User _odonno;
         public User Odonno
         {
@@ -22,8 +26,10 @@ namespace GitHub.ViewModel.Concrete
         }
 
 
-        public CreditsViewModel()
+        public CreditsViewModel(IProgressIndicatorService progressIndicatorService)
         {
+            _progressIndicatorService = progressIndicatorService;
+
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
@@ -49,8 +55,12 @@ namespace GitHub.ViewModel.Concrete
 
         private async void LoadUsers()
         {
+            await _progressIndicatorService.ShowAsync();
+
             Odonno = await ViewModelLocator.GitHubService.GetUserAsync("Odonno");
             CorentinMiq = await ViewModelLocator.GitHubService.GetUserAsync("CorentinMiq");
+
+            await _progressIndicatorService.HideAsync();
         }
     }
 }

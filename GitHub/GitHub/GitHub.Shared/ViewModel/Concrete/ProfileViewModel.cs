@@ -6,6 +6,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
+using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
 using Octokit;
 
@@ -16,6 +17,7 @@ namespace GitHub.ViewModel.Concrete
         #region Services
 
         private readonly INavigationService _navigationService;
+        private readonly IProgressIndicatorService _progressIndicatorService;
 
         #endregion
 
@@ -60,9 +62,11 @@ namespace GitHub.ViewModel.Concrete
 
         #region Constructor
 
-        public ProfileViewModel(INavigationService navigationService)
+        public ProfileViewModel(INavigationService navigationService,
+            IProgressIndicatorService progressIndicatorService)
         {
             _navigationService = navigationService;
+            _progressIndicatorService = progressIndicatorService;
 
             if (IsInDesignMode)
             {
@@ -187,12 +191,12 @@ namespace GitHub.ViewModel.Concrete
 
         public async Task LoadAsync()
         {
-#if DEBUG
-            CurrentUser = await ViewModelLocator.GitHubService.GetUserAsync("Odonno");
-#else
+            await _progressIndicatorService.ShowAsync();
+
             CurrentUser = await ViewModelLocator.GitHubService.GetCurrentUserAsync();
-#endif
             RaisePropertyChanged("CurrentUser");
+
+            await _progressIndicatorService.HideAsync();
         }
 
         #endregion
@@ -202,6 +206,8 @@ namespace GitHub.ViewModel.Concrete
 
         private async void GoToFollowers()
         {
+            await _progressIndicatorService.ShowAsync();
+
             var followers = await ViewModelLocator.GitHubService.GetCurrentFollowersAsync();
 
             Followers.Clear();
@@ -209,10 +215,14 @@ namespace GitHub.ViewModel.Concrete
                 Followers.Add(follower);
 
             _navigationService.NavigateTo("MyFollowers");
+
+            await _progressIndicatorService.HideAsync();
         }
 
         private async void GoToFollowings()
         {
+            await _progressIndicatorService.ShowAsync();
+
             var followings = await ViewModelLocator.GitHubService.GetCurrentFollowingsAsync();
 
             Followings.Clear();
@@ -220,6 +230,8 @@ namespace GitHub.ViewModel.Concrete
                 Followings.Add(following);
 
             _navigationService.NavigateTo("MyFollowings");
+
+            await _progressIndicatorService.HideAsync();
         }
 
         private void GoToCollaborators()
@@ -232,6 +244,8 @@ namespace GitHub.ViewModel.Concrete
 
         private async void GoToPublicRepos()
         {
+            await _progressIndicatorService.ShowAsync();
+
             var publicRepos = await ViewModelLocator.GitHubService.GetCurrentPublicReposAsync();
 
             PublicRepos.Clear();
@@ -239,10 +253,14 @@ namespace GitHub.ViewModel.Concrete
                 PublicRepos.Add(repo);
 
             _navigationService.NavigateTo("MyPublicRepos");
+
+            await _progressIndicatorService.HideAsync();
         }
 
         private async void GoToPrivateRepos()
         {
+            await _progressIndicatorService.ShowAsync();
+
             var privateRepos = await ViewModelLocator.GitHubService.GetCurrentPrivateReposAsync();
 
             PrivateRepos.Clear();
@@ -250,10 +268,14 @@ namespace GitHub.ViewModel.Concrete
                 PrivateRepos.Add(repo);
 
             _navigationService.NavigateTo("MyPrivateRepos");
+
+            await _progressIndicatorService.HideAsync();
         }
 
         private async void GoToGists()
         {
+            await _progressIndicatorService.ShowAsync();
+
             // BUG : Files's GistFiles throw EntryPointNotFoundException (not expected)
             var gists = await ViewModelLocator.GitHubService.GetCurrentGistsAsync();
 
@@ -262,6 +284,8 @@ namespace GitHub.ViewModel.Concrete
                 Gists.Add(gist);
 
             _navigationService.NavigateTo("MyGists");
+
+            await _progressIndicatorService.HideAsync();
         }
 
         private void GoToGist(Gist gist)

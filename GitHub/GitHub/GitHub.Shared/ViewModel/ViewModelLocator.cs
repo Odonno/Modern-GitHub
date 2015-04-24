@@ -86,6 +86,12 @@ namespace GitHub.ViewModel
                 SimpleIoc.Default.Register<IDialogService>(() => dialogService);
             }
 
+            if (!SimpleIoc.Default.IsRegistered<IProgressIndicatorService>())
+            {
+                var progressIndicatorService = new ProgressIndicatorService();
+                SimpleIoc.Default.Register<IProgressIndicatorService>(() => progressIndicatorService);
+            }
+
             SimpleIoc.Default.Register<ISessionService, SessionService>();
             SimpleIoc.Default.Register<IGitHubService, GitHubService>();
 

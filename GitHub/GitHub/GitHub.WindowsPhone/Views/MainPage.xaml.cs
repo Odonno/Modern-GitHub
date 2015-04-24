@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -19,10 +20,12 @@ namespace GitHub.Views
     {
         public MainPage()
         {
-            InitializeComponent();
+            var statusBar = StatusBar.GetForCurrentView();
+            statusBar.ForegroundColor = Colors.Black;
+            ServiceLocator.Current.GetInstance<IProgressIndicatorService>().ProgressIndicator =
+                statusBar.ProgressIndicator;
 
-            StatusBar statusBar = StatusBar.GetForCurrentView();
-            statusBar.HideAsync();
+            InitializeComponent();
 
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;

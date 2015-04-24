@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GitHub.Common;
+using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
 using Octokit;
 
@@ -11,6 +12,9 @@ namespace GitHub.ViewModel.Concrete
 {
     public class UserViewModel : ViewModelBase, IUserViewModel
     {
+        private readonly IProgressIndicatorService _progressIndicatorService;
+
+
         private User _user;
         public User User
         {
@@ -59,8 +63,10 @@ namespace GitHub.ViewModel.Concrete
         public ICommand UnfollowCommand { get; private set; }
 
 
-        public UserViewModel()
+        public UserViewModel(IProgressIndicatorService progressIndicatorService)
         {
+            _progressIndicatorService = progressIndicatorService;
+
             FollowCommand = new RelayCommand(Follow, () => CanFollow);
             UnfollowCommand = new RelayCommand(Unfollow);
 
@@ -123,14 +129,22 @@ namespace GitHub.ViewModel.Concrete
 
         private async void Follow()
         {
+            await _progressIndicatorService.ShowAsync();
+
             if (await ViewModelLocator.GitHubService.FollowUserAsync(User.Login))
                 IsFollowing = true;
+
+            await _progressIndicatorService.HideAsync();
         }
 
         private async void Unfollow()
         {
+            await _progressIndicatorService.ShowAsync();
+
             await ViewModelLocator.GitHubService.UnfollowUserAsync(User.Login);
             IsFollowing = false;
+
+            await _progressIndicatorService.HideAsync();
         }
 
 

@@ -9,7 +9,7 @@ namespace GitHub.Services.Concrete
     public class GitHubService : GlobalGitHubService
     {
         private readonly ILocalNotificationService _localNotificationService;
-
+        
 
         public GitHubService(IGitHubClient client, ILocalNotificationService localNotificationService)
             : base(client)

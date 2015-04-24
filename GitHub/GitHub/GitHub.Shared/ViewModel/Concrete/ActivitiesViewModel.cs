@@ -12,6 +12,7 @@ namespace GitHub.ViewModel.Concrete
     public class ActivitiesViewModel : SearchViewModelBase, IActivitiesViewModel
     {
         private readonly INavigationService _navigationService;
+        
 
         private readonly ObservableCollection<Activity> _activities = new ObservableCollection<Activity>();
         public ObservableCollection<Activity> Activities { get { return _activities; } }
