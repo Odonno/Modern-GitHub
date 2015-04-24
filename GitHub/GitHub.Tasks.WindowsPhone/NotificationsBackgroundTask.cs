@@ -43,7 +43,7 @@ namespace GitHub.Tasks.WindowsPhone
             _localNotificationService = new LocalNotificationService();
 
             var client = new GitHubClient(new ProductHeaderValue("UniversalGitHub"));
-            _gitHubService = new GitHubService(client);
+            _gitHubService = new GlobalGitHubService(client);
         }
 
         #endregion

@@ -43,7 +43,7 @@ namespace GitHub.Tasks.Windows
             _localNotificationService = new LocalNotificationService();
 
             var client = new GitHubClient(new ProductHeaderValue("UniversalGitHubW8"));
-            _gitHubService = new GitHubService(client);
+            _gitHubService = new GlobalGitHubService(client);
         }
 
         #endregion

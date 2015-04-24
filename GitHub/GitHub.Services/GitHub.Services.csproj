@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IGitHubService.cs" />
     <Compile Include="Abstract\ILocalNotificationService.cs" />
-    <Compile Include="Concrete\GitHubService.cs" />
+    <Compile Include="Concrete\GlobalGitHubService.cs" />
     <Compile Include="Concrete\LocalNotificationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

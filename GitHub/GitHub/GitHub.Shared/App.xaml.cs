@@ -20,10 +20,8 @@ using GitHub.Common;
 
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955
 using GitHub.Views;
-using Microsoft.ApplicationInsights.Extensibility;
-#if WINDOWS_PHONE_APP
 using GitHub.Services;
-#endif
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights;
 
 namespace GitHub
@@ -56,7 +54,7 @@ namespace GitHub
         public App()
         {
 #if DEBUG
-            TelemetryClient = new TelemetryClient(new TelemetryConfiguration { DisableTelemetry = false });
+            TelemetryClient = new TelemetryClient(new TelemetryConfiguration { DisableTelemetry = true });
 #else
             TelemetryClient = new TelemetryClient();
 #endif
