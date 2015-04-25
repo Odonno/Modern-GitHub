@@ -5,7 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    RequestedTheme="Light" Background="White" Foreground="Black">
+    RequestedTheme="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme}"
+    Background="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme, Converter={StaticResource ThemeToColorBrushConverter}}">
 
     <Grid x:Name="LayoutRoot">
 
@@ -17,7 +18,9 @@
 
         <!-- Content -->
         <StackPanel x:Name="ContentRoot" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 120">
-            <Image MaxHeight="150" Source="/Assets/github-logo.png" />
+            <TextBlock FontFamily="/Fonts/octicons.ttf#octicons" FontSize="200"
+                       Text="&#xf00a;" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            
             <TextBlock Text="This page is currently under development..." 
                        TextWrapping="Wrap" Margin="36" FontSize="24" FontWeight="SemiBold"
                        HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />

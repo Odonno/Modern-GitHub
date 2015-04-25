@@ -50,6 +50,7 @@
     <Compile Include="LanguageFilesGitConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShortingTextConverter.cs" />
+    <Compile Include="ThemeToColorBrushConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Octokit, Version=0.8.0.0, Culture=neutral, processorArchitecture=MSIL">

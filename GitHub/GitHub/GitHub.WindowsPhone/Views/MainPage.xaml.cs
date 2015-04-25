@@ -3,11 +3,14 @@ using System.Linq;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GitHub.Common;
 
 // Pour en savoir plus sur le modèle d'élément Page de base, consultez la page http://go.microsoft.com/fwlink/?LinkID=390556
+using GitHub.Converters;
 using GitHub.Services.Abstract;
+using GitHub.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 
 
@@ -20,10 +23,18 @@ namespace GitHub.Views
     {
         public MainPage()
         {
+            // retrieve status bar
             var statusBar = StatusBar.GetForCurrentView();
-            statusBar.ForegroundColor = Colors.Black;
-            ServiceLocator.Current.GetInstance<IProgressIndicatorService>().ProgressIndicator =
-                statusBar.ProgressIndicator;
+
+            // retrieve color for status bar (inverse of background theme color)
+            var themeColorBrush =
+                (SolidColorBrush)
+                    new ThemeToColorBrushConverter().Convert(ViewModelLocator.Settings.SelectedTheme, null, "inverse", null);
+           
+            // set status bar color
+            statusBar.ForegroundColor = themeColorBrush.Color;
+            // set progress indicator, to use it in a global service
+            ServiceLocator.Current.GetInstance<IProgressIndicatorService>().ProgressIndicator =statusBar.ProgressIndicator;
 
             InitializeComponent();
 

@@ -17,6 +17,7 @@
         <converters:IssueStateToTextConverter x:Key="IssueStateToTextConverter" />
         <converters:IssueStateToColorConverter x:Key="IssueStateToColorConverter" />
         <converters:LanguageFilesGitConverter x:Key="LanguageFilesGitConverter" />
+        <converters:ThemeToColorBrushConverter x:Key="ThemeToColorBrushConverter" />
 
         <!-- Colors -->
         <SolidColorBrush x:Key="GreyBlue" Color="#FF445464" />

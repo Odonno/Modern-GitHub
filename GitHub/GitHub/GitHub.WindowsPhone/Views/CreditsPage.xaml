@@ -6,7 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=Credits}"
-    RequestedTheme="Light" Background="White" Foreground="Black">
+    RequestedTheme="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme}"
+    Background="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme, Converter={StaticResource ThemeToColorBrushConverter}}">
 
     <Grid x:Name="LayoutRoot" Margin="12 0">
 

@@ -32,7 +32,7 @@ namespace GitHub.ViewModel.Concrete
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
-                _selectedTheme = "light";
+                _selectedTheme = "dark";
             }
             else
             {

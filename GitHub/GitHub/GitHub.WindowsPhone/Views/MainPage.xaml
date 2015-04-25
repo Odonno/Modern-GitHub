@@ -6,7 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
-    RequestedTheme="Light" Background="White" Foreground="Black"
+    RequestedTheme="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme}"
+    Background="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme, Converter={StaticResource ThemeToColorBrushConverter}}"
     NavigationCacheMode="Required">
 
     <Grid x:Name="LayoutRoot">
@@ -17,7 +18,7 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        
+
         <!-- Content -->
         <Hub Margin="0 24 0 0">
             <!-- Title (header) -->
@@ -44,7 +45,7 @@
                 </DataTemplate>
             </Hub.HeaderTemplate>
 
-            
+
             <!-- Profile section -->
             <HubSection x:Name="profileSection" Header="me" 
                             DataContext="{Binding Path=ProfileViewModel}" 
@@ -97,7 +98,7 @@
                                     </StackPanel>
                                 </Grid>
                             </Button>
-                            
+
                             <Button Grid.Row="0" Grid.Column="1" Margin="3 0 3 3"
                                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                     Style="{StaticResource TextBlockButtonStyle}" 
@@ -109,7 +110,7 @@
                                     </StackPanel>
                                 </Grid>
                             </Button>
-                            
+
                             <Button Grid.Row="0" Grid.Column="2" Margin="3 0 0 3"
                                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                     Style="{StaticResource TextBlockButtonStyle}" 
@@ -236,7 +237,7 @@
                 <AppBarButton Icon="Refresh" Label="refresh" Command="{Binding RefreshCommand}"/>
                 <AppBarToggleButton Icon="Find" Label="search" Command="{Binding ToggleEnableSearchCommand}" IsChecked="False"/>
             </CommandBar.PrimaryCommands>
-            
+
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="feedback" Command="{Binding GoToFeedbackCommand}" />
                 <AppBarButton Label="about" Command="{Binding GoToAboutCommand}" />

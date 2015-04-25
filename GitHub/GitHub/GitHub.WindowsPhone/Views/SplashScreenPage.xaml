@@ -5,14 +5,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    RequestedTheme="Light" Background="White" Foreground="Black"
-    DataContext="{Binding Source={StaticResource Locator}, Path=Login}">
+    DataContext="{Binding Source={StaticResource Locator}, Path=Login}"
+    RequestedTheme="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme}"
+    Background="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme, Converter={StaticResource ThemeToColorBrushConverter}}">
 
     <Grid x:Name="LayoutRoot">
         <!-- Content -->
         <StackPanel x:Name="ContentRoot" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 120">
-            <Image x:Name="image" MaxHeight="200" Source="/Assets/github-logo.png" />
-            <ProgressRing IsActive="True" Background="Transparent" Foreground="Black" Width="100" Height="100" />
+            <TextBlock FontFamily="/Fonts/octicons.ttf#octicons" FontSize="200"
+                       Text="&#xf00a;" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            
+            <ProgressRing IsActive="True" Background="Transparent" Foreground="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme, Converter={StaticResource ThemeToColorBrushConverter}, ConverterParameter=inverse}" Width="100" Height="100" />
         </StackPanel>
     </Grid>
 </Page>
