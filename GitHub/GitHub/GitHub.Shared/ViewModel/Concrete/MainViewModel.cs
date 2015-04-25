@@ -62,6 +62,7 @@ namespace GitHub.ViewModel.Concrete
         public ICommand GoToCreditsCommand { get; private set; }
         public ICommand GoToFeedbackCommand { get; private set; }
         public ICommand GoToThisCommand { get; private set; }
+        public ICommand GoToSettingsCommand { get; private set; }
 
         #endregion
 
@@ -95,6 +96,7 @@ namespace GitHub.ViewModel.Concrete
                 GoToCreditsCommand = new RelayCommand(GoToCredits);
                 GoToFeedbackCommand = new RelayCommand(GoToFeedback);
                 GoToThisCommand = new RelayCommand(GoToThis);
+                GoToSettingsCommand = new RelayCommand(GoToSettings);
 
                 WaitForRefresh();
             }
@@ -164,6 +166,11 @@ namespace GitHub.ViewModel.Concrete
             ReposViewModel.GoToRepoCommand.Execute(thisRepository);
 
             await _progressIndicatorService.HideAsync();
+        }
+
+        private void GoToSettings()
+        {
+            _navigationService.NavigateTo("Settings");
         }
 
         #endregion

@@ -71,7 +71,8 @@ namespace GitHub.ViewModel
             SimpleIoc.Default.Register<IAboutViewModel, AboutViewModel>();
             SimpleIoc.Default.Register<ICreditsViewModel, CreditsViewModel>();
             SimpleIoc.Default.Register<IFeedbackViewModel, FeedbackViewModel>();
-
+            SimpleIoc.Default.Register<ISettingsViewModel, SettingsViewModel>();
+            
 
             // Services
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
@@ -139,6 +140,7 @@ namespace GitHub.ViewModel
             navigationService.Configure("About", typeof(AboutPage));
             navigationService.Configure("Credits", typeof(CreditsPage));
             navigationService.Configure("Feedback", typeof(FeedbackPage));
+            navigationService.Configure("Settings", typeof(SettingsPage));
 
             return navigationService;
         }
@@ -214,6 +216,14 @@ namespace GitHub.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<IActivitiesViewModel>();
+            }
+        }
+
+        public static ISettingsViewModel Settings
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ISettingsViewModel>();
             }
         }
 
