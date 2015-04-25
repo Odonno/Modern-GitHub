@@ -19,11 +19,23 @@ namespace GitHub.Services.Concrete
             var toastNotifier = ToastNotificationManager.CreateToastNotifier();
 
             // create notification form
-            var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText02);
+            XmlDocument toastXml;
 
-            var toastTextElements = toastXml.GetElementsByTagName("text");
-            toastTextElements[0].AppendChild(toastXml.CreateTextNode(title));
-            toastTextElements[1].AppendChild(toastXml.CreateTextNode(content));
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText01);
+
+                var toastTextElements = toastXml.GetElementsByTagName("text");
+                toastTextElements[0].AppendChild(toastXml.CreateTextNode(content));
+            }
+            else
+            {
+                toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText02);
+
+                var toastTextElements = toastXml.GetElementsByTagName("text");
+                toastTextElements[0].AppendChild(toastXml.CreateTextNode(title));
+                toastTextElements[1].AppendChild(toastXml.CreateTextNode(content));
+            }
 
             // create the notification from the template before
             var toastNotification = new ToastNotification(toastXml);
