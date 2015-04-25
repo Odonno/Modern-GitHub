@@ -24,7 +24,7 @@ namespace GitHub.Views
             _navigationHelper.SaveState += NavigationHelper_SaveState;
         }
 
-        
+
         #region Navigation Helper
 
         private readonly NavigationHelper _navigationHelper;
@@ -83,11 +83,9 @@ namespace GitHub.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedTo(e);
-
-            // restore transitions
-            App.FirstNavigate();
-
+            
             await Task.Delay(500);
+
             // login on GitHub API
             await ViewModelLocator.Login.LoginAsync();
         }
@@ -95,8 +93,11 @@ namespace GitHub.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedFrom(e);
+
+            // restore transitions
+            App.FirstNavigate();
         }
-        
+
         #endregion
 
         #endregion

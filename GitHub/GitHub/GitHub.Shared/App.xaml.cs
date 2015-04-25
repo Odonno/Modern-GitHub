@@ -98,6 +98,8 @@ namespace GitHub
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
+
+                rootFrame.ContentTransitions = new TransitionCollection();
             }
 
             return rootFrame;
@@ -134,6 +136,7 @@ namespace GitHub
             _continuationManager = new ContinuationManager();
 
             Frame rootFrame = CreateRootFrame();
+
             await RestoreStatusAsync(e.PreviousExecutionState);
 
             if (rootFrame.Content == null)

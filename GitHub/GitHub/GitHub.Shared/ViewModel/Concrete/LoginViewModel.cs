@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
 using GitHub.Services.Abstract;
@@ -42,14 +43,17 @@ namespace GitHub.ViewModel.Concrete
             {
                 var auth = await _sessionService.LoginAsync();
 
+#if WINDOWS_APP
                 if (auth == null)
                     isToShowMessage = true;
 
                 if (auth != null && auth.Value)
                     await FinalizeLoginAsync();
+#endif
             }
-            catch
+            catch (Exception ex)
             {
+                App.TelemetryClient.TrackException(ex);
                 isToShowMessage = true;
             }
 
