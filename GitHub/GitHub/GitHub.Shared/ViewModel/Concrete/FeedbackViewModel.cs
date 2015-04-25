@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using Windows.ApplicationModel.Resources;
 using Windows.System;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -11,12 +12,21 @@ namespace GitHub.ViewModel.Concrete
 {
     public class FeedbackViewModel : ViewModelBase, IFeedbackViewModel
     {
+        private readonly ResourceLoader _resourceLoader = ResourceLoader.GetForCurrentView("Resources");
         private readonly INavigationService _navigationService;
 
 
         public IEnumerable<string> FeedbackTypes
         {
-            get { return new List<string> { "suggestion", "bug", "other" }; }
+            get
+            {
+                return new List<string>
+                {
+                    _resourceLoader.GetString("suggestion"),
+                    _resourceLoader.GetString("bug"),
+                    _resourceLoader.GetString("other")
+                };
+            }
         }
 
         private string _selectedFeedbackType;
@@ -49,7 +59,7 @@ namespace GitHub.ViewModel.Concrete
         {
             _navigationService = navigationService;
 
-            SelectedFeedbackType = "suggestion";
+            SelectedFeedbackType = _resourceLoader.GetString("suggestion");
 
             SendFeedbackCommand = new RelayCommand(SendFeedback, CanSendFeedback);
 

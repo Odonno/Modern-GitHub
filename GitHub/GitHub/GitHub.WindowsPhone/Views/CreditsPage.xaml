@@ -26,7 +26,8 @@
         <StackPanel Grid.Row="0">
             <TextBlock Text="MODERN GITHUB"
                        Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0" />
-            <TextBlock Text="credits" Margin="0,-6.5,0,26.5" 
+            <TextBlock x:Uid="/UIResources/creditstitle" Text="credits" 
+                       Margin="0,-6.5,0,26.5" 
                        Style="{ThemeResource HeaderTextBlockStyle}" 
                        CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
         </StackPanel>
@@ -48,7 +49,8 @@
                         <TextBlock FontSize="24">
                             (<Run Text="{Binding Odonno.Login}" />)
                         </TextBlock>
-                        <TextBlock Text="Product Manager / Developer" />
+                        <TextBlock x:Uid="/UIResources/productmanager" 
+                                   Text="Product Manager / Developer" />
                     </StackPanel>
                 </Grid>
             </Button>
@@ -69,7 +71,8 @@
                         <TextBlock FontSize="24">
                             (<Run Text="{Binding CorentinMiq.Login}" />)
                         </TextBlock>
-                        <TextBlock Text="UI Designer" />
+                        <TextBlock x:Uid="/UIResources/uidesigner"
+                                   Text="UI Designer" />
                     </StackPanel>
                 </Grid>
             </Button>

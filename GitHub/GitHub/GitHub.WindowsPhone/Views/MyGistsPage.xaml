@@ -23,7 +23,8 @@
         </Grid.RowDefinitions>
 
         <!-- Title -->
-        <TextBlock Text="my gists" FontSize="48" Margin="0 0 0 12"
+        <TextBlock x:Uid="/UIResources/mygists"
+                   Text="my gists" FontSize="48" Margin="0 0 0 12"
                    Style="{ThemeResource HeaderTextBlockStyle}" />
 
         <!-- Content (list) -->

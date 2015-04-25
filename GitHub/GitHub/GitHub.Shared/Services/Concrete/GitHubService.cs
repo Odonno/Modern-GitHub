@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 using Octokit;
 using GitHub.Services.Abstract;
 
@@ -8,8 +9,9 @@ namespace GitHub.Services.Concrete
 {
     public class GitHubService : GlobalGitHubService
     {
+        private readonly ResourceLoader _resourceLoader = ResourceLoader.GetForCurrentView("Resources");
         private readonly ILocalNotificationService _localNotificationService;
-        
+
 
         public GitHubService(IGitHubClient client, ILocalNotificationService localNotificationService)
             : base(client)
@@ -28,7 +30,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", "Can't retrieve your profile");
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    _resourceLoader.GetString("CantRetrieveProfile"));
                 App.TelemetryClient.TrackException(ex);
                 return null;
             }
@@ -42,7 +46,9 @@ namespace GitHub.Services.Concrete
             }
             catch (NotFoundException ex)
             {
-                _localNotificationService.SendNotification("An error occured", string.Format("Can't retrieve user {0}", name));
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    string.Format(_resourceLoader.GetString("CantRetrieveUser"), name));
                 App.TelemetryClient.TrackException(ex);
                 return null;
             }
@@ -60,7 +66,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", "Can't retrieve global activities");
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    _resourceLoader.GetString("CantRetrieveActivities"));
                 App.TelemetryClient.TrackException(ex);
                 return new Activity[] { };
             }
@@ -74,7 +82,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", string.Format("Can't retrieve activities of user {0}", user));
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    string.Format(_resourceLoader.GetString("CantRetrieveActivitiesOfUser"), user));
                 App.TelemetryClient.TrackException(ex);
                 return new Activity[] { };
             }
@@ -88,7 +98,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", string.Format("Can't retrieve repositories of user {0}", user));
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    string.Format(_resourceLoader.GetString("CantRetrieveRepositoriesOfUser"), user));
                 App.TelemetryClient.TrackException(ex);
                 return new Repository[] { };
             }
@@ -102,7 +114,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", string.Format("Can't retrieve commits of repository {0}", repository));
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    string.Format(_resourceLoader.GetString("CantRetrieveCommitsOfRepository"), repository));
                 App.TelemetryClient.TrackException(ex);
                 return new GitHubCommit[] { };
             }
@@ -116,7 +130,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", string.Format("Can't retrieve issues of repository {0}", repository));
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    string.Format(_resourceLoader.GetString("CantRetrieveIssuesOfRepository"), repository));
                 App.TelemetryClient.TrackException(ex);
                 return new Issue[] { };
             }
@@ -134,7 +150,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", "Can't retrieve your followers");
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    _resourceLoader.GetString("CantRetrieveFollowers"));
                 App.TelemetryClient.TrackException(ex);
                 return new User[] { };
             }
@@ -148,7 +166,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", "Can't retrieve your followings");
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    _resourceLoader.GetString("CantRetrieveFollowings"));
                 App.TelemetryClient.TrackException(ex);
                 return new User[] { };
             }
@@ -162,7 +182,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", "Can't retrieve your public repositories");
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    _resourceLoader.GetString("CantRetrievePublicRepos"));
                 App.TelemetryClient.TrackException(ex);
                 return new Repository[] { };
             }
@@ -176,7 +198,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", "Can't retrieve your private repositories");
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    _resourceLoader.GetString("CantRetrievePrivateRepos"));
                 App.TelemetryClient.TrackException(ex);
                 return new Repository[] { };
             }
@@ -190,7 +214,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", "Can't retrieve your gists");
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    _resourceLoader.GetString("CantRetrieveGists"));
                 App.TelemetryClient.TrackException(ex);
                 return new Gist[] { };
             }
@@ -208,7 +234,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", string.Format("Can't complete user search for {0}", searchName));
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    string.Format(_resourceLoader.GetString("CantCompleteUserSearch"), searchName));
                 App.TelemetryClient.TrackException(ex);
                 return new SearchUsersResult();
             }
@@ -222,7 +250,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", string.Format("Can't complete repo search for {0}", searchName));
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    string.Format(_resourceLoader.GetString("CantCompleteRepoSearch"), searchName));
                 App.TelemetryClient.TrackException(ex);
                 return new SearchRepositoryResult();
             }
@@ -240,7 +270,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", string.Format("Can't get if you follow {0}", user));
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    string.Format(_resourceLoader.GetString("CantGetIfFoloow"), user));
                 App.TelemetryClient.TrackException(ex);
                 return false;
             }
@@ -253,7 +285,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", string.Format("Can't follow {0}", user));
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    string.Format(_resourceLoader.GetString("CantFollow"), user));
                 App.TelemetryClient.TrackException(ex);
                 return false;
             }
@@ -266,7 +300,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", string.Format("Can't unfollow {0}", user));
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    string.Format(_resourceLoader.GetString("CantUnfollow"), user));
                 App.TelemetryClient.TrackException(ex);
             }
         }
@@ -283,7 +319,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", string.Format("Can't get the tree of repo {0}", repository));
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    string.Format(_resourceLoader.GetString("CantGetTreeRepo"), repository));
                 App.TelemetryClient.TrackException(ex);
                 return new TreeResponse();
             }
@@ -301,7 +339,9 @@ namespace GitHub.Services.Concrete
             }
             catch (Exception ex)
             {
-                _localNotificationService.SendNotification("An error occured", "Can't get the notifications");
+                _localNotificationService.SendNotification(
+                    _resourceLoader.GetString("AnErrorOccured"),
+                    _resourceLoader.GetString("CantGetNotifications"));
                 App.TelemetryClient.TrackException(ex);
                 return new Notification[] { };
             }

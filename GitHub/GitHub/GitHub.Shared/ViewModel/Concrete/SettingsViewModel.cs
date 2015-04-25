@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -10,6 +11,9 @@ namespace GitHub.ViewModel.Concrete
 {
     public class SettingsViewModel : ViewModelBase, ISettingsViewModel
     {
+        private readonly ResourceLoader _resourceLoader = ResourceLoader.GetForCurrentView("Resources");
+
+
         #region Properties
 
         private readonly IEnumerable<string> _themes = new[] { "light", "dark" };
@@ -48,15 +52,17 @@ namespace GitHub.ViewModel.Concrete
 
         private async void RequestSaveChanges(string value)
         {
-            var messageDialog = new MessageDialog("You need to restart the app to apply changes", "Apply changes");
+            var messageDialog = new MessageDialog(
+                _resourceLoader.GetString("NeedToRestart"), 
+                _resourceLoader.GetString("ApplyChanges"));
 
-            messageDialog.Commands.Add(new UICommand("ok", command =>
+            messageDialog.Commands.Add(new UICommand(_resourceLoader.GetString("ok"), command =>
             {
                 ApplicationData.Current.LocalSettings.Values["theme"] = value;
                 Application.Current.Exit();
             }));
 
-            messageDialog.Commands.Add(new UICommand("cancel", command =>
+            messageDialog.Commands.Add(new UICommand(_resourceLoader.GetString("cancel"), command =>
             {
                 _selectedTheme = (string)(ApplicationData.Current.LocalSettings.Values["theme"] ?? "light");
                 RaisePropertyChanged("SelectedTheme");

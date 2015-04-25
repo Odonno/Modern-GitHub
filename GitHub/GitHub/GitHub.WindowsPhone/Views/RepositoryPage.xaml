@@ -34,7 +34,8 @@
 
 
             <!-- Description section -->
-            <HubSection x:Name="descriptionSection" Header="description"
+            <HubSection x:Uid="/UIResources/description"
+                        x:Name="descriptionSection" Header="description"
                         HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
                     <StackPanel>
@@ -47,7 +48,8 @@
             </HubSection>
 
             <!-- Code section -->
-            <HubSection x:Name="browseSection" Header="browse"
+            <HubSection x:Uid="/UIResources/browse"
+                        x:Name="browseSection" Header="browse"
                         HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
                     <ListView ItemsSource="{Binding Path=TreeItems}" 
@@ -56,7 +58,8 @@
             </HubSection>
 
             <!-- Commits section -->
-            <HubSection x:Name="commitsSection" Header="commits"
+            <HubSection x:Uid="/UIResources/commits"
+                        x:Name="commitsSection" Header="commits"
                         HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
                     <ListView ItemsSource="{Binding Path=Commits}"
@@ -65,7 +68,8 @@
             </HubSection>
 
             <!-- Issues section -->
-            <HubSection x:Name="issuesSection" Header="issues"
+            <HubSection x:Uid="/UIResources/issues"
+                        x:Name="issuesSection" Header="issues"
                         HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
                     <ListView ItemsSource="{Binding Path=Issues}"

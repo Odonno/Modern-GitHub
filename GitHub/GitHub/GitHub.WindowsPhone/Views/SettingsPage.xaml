@@ -26,7 +26,8 @@
         <StackPanel Grid.Row="0">
             <TextBlock Text="MODERN GITHUB"
                        Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0" />
-            <TextBlock Text="settings" Margin="0,-6.5,0,26.5" 
+            <TextBlock x:Uid="/UIResources/settingstitle" 
+                       Text="settings" Margin="0,-6.5,0,26.5" 
                        Style="{ThemeResource HeaderTextBlockStyle}" 
                        CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
         </StackPanel>
@@ -34,7 +35,8 @@
         <!-- Content -->
         <StackPanel Grid.Row="1" x:Name="ContentRoot">
 
-            <TextBlock Text="theme" Style="{ThemeResource BodyTextBlockStyle}" />
+            <TextBlock x:Uid="/UIResources/theme" Text="theme"
+                       Style="{ThemeResource BodyTextBlockStyle}" />
             
             <ComboBox ItemsSource="{Binding Path=Themes}"
                       SelectedItem="{Binding Path=SelectedTheme, Mode=TwoWay}" />

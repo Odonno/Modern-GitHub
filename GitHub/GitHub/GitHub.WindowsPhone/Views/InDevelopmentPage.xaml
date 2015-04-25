@@ -20,8 +20,9 @@
         <StackPanel x:Name="ContentRoot" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 120">
             <TextBlock FontFamily="/Fonts/octicons.ttf#octicons" FontSize="200"
                        Text="&#xf00a;" VerticalAlignment="Center" HorizontalAlignment="Center" />
-            
-            <TextBlock Text="This page is currently under development..." 
+
+            <TextBlock x:Uid="/UIResources/underdevelopment"
+                       Text="This page is currently under development..." 
                        TextWrapping="Wrap" Margin="36" FontSize="24" FontWeight="SemiBold"
                        HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
         </StackPanel>

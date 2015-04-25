@@ -32,7 +32,8 @@
 
 
             <!-- About section -->
-            <HubSection x:Name="aboutSection" Header="about"
+            <HubSection x:Uid="/UIResources/aboutheader"
+                        x:Name="aboutSection" Header="about"
                         HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
                     <StackPanel>
@@ -50,7 +51,9 @@
                                 <TextBlock FontFamily="/Fonts/octicons.ttf#octicons" FontSize="40" Foreground="White"
                                            Text="&#xf05d;" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                                <TextBlock Grid.Column="1" Text="follow" FontSize="32" Foreground="White" />
+                                <TextBlock x:Uid="/UIResources/follow"
+                                           Grid.Column="1" Text="follow" 
+                                           FontSize="32" Foreground="White" />
                             </Grid>
                         </Button>
 
@@ -66,8 +69,10 @@
 
                                 <TextBlock FontFamily="/Fonts/octicons.ttf#octicons" FontSize="40" Foreground="White"
                                            Text="&#xf03a;" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                
-                                <TextBlock Grid.Column="1" Text="you are a follower" FontSize="32" Foreground="White" />
+
+                                <TextBlock x:Uid="/UIResources/youarefollower"
+                                           Grid.Column="1" Text="you are a follower" 
+                                           FontSize="32" Foreground="White" />
                             </Grid>
                         </Button>
                     </StackPanel>
@@ -75,7 +80,8 @@
             </HubSection>
 
             <!-- Activities section -->
-            <HubSection x:Name="activitiesSection" Header="activities"
+            <HubSection x:Uid="/UIResources/activitiesheader"
+                        x:Name="activitiesSection" Header="activities"
                         HeaderTemplate="{StaticResource HeaderTemplate}">
                <DataTemplate>
                     <ListView ItemsSource="{Binding Path=Activities}" 
@@ -84,7 +90,8 @@
             </HubSection>
 
             <!-- Repositories section -->
-            <HubSection x:Name="reposSection" Header="repositories"
+            <HubSection x:Uid="/UIResources/repositoriesheader"
+                        x:Name="reposSection" Header="repositories"
                         HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
                     <ListView ItemsSource="{Binding Path=Repositories}" 

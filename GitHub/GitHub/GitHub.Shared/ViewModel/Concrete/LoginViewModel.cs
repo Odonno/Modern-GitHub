@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
 using GitHub.Services.Abstract;
@@ -13,15 +14,18 @@ namespace GitHub.ViewModel.Concrete
 {
     public class LoginViewModel : ViewModelBase, ILoginViewModel
     {
+        private readonly ResourceLoader _resourceLoader = ResourceLoader.GetForCurrentView("Resources");
         private readonly INavigationService _navigationService;
         private readonly ISessionService _sessionService;
-        private readonly IDialogService _dialogService;
+        private readonly ILocalNotificationService _localNotificationService;
 
 
-        public LoginViewModel(INavigationService navigationService, IDialogService dialogService, ISessionService sessionService)
+        public LoginViewModel(INavigationService navigationService, 
+            ILocalNotificationService localNotificationService, 
+            ISessionService sessionService)
         {
             _navigationService = navigationService;
-            _dialogService = dialogService;
+            _localNotificationService = localNotificationService;
             _sessionService = sessionService;
 
             if (IsInDesignMode)
@@ -59,10 +63,7 @@ namespace GitHub.ViewModel.Concrete
 
             if (isToShowMessage)
             {
-                await _dialogService.ShowError("Application fails",
-                    "Authentication",
-                    "Ok",
-                    null);
+                _localNotificationService.SendNotification(null, _resourceLoader.GetString("AuthenticationFails"));
             }
         }
 

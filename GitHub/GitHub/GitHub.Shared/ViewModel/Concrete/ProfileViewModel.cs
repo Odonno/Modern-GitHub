@@ -237,8 +237,6 @@ namespace GitHub.ViewModel.Concrete
         private void GoToCollaborators()
         {
             // TODO : get the collaborator list
-
-            //_navigationService.NavigateTo("MyCollaborators");
             _navigationService.NavigateTo("InDevelopment");
         }
 

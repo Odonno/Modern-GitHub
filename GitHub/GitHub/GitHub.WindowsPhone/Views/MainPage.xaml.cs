@@ -30,11 +30,11 @@ namespace GitHub.Views
             var themeColorBrush =
                 (SolidColorBrush)
                     new ThemeToColorBrushConverter().Convert(ViewModelLocator.Settings.SelectedTheme, null, "inverse", null);
-           
+
             // set status bar color
             statusBar.ForegroundColor = themeColorBrush.Color;
             // set progress indicator, to use it in a global service
-            ServiceLocator.Current.GetInstance<IProgressIndicatorService>().ProgressIndicator =statusBar.ProgressIndicator;
+            ServiceLocator.Current.GetInstance<IProgressIndicatorService>().ProgressIndicator = statusBar.ProgressIndicator;
 
             InitializeComponent();
 

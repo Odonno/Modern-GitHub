@@ -47,9 +47,10 @@
 
 
             <!-- Profile section -->
-            <HubSection x:Name="profileSection" Header="me" 
-                            DataContext="{Binding Path=ProfileViewModel}" 
-                            HeaderTemplate="{StaticResource HeaderTemplate}">
+            <HubSection x:Uid="/UIResources/me" x:Name="profileSection" 
+                        Header="me"
+                        DataContext="{Binding Path=ProfileViewModel}" 
+                        HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
                     <StackPanel DataContext="{Binding Path=CurrentUser, Mode=OneWay}">
 
@@ -94,7 +95,7 @@
                                 <Grid Background="{StaticResource GreyBlue}">
                                     <StackPanel Margin="6" VerticalAlignment="Bottom">
                                         <TextBlock Foreground="White" Text="{Binding Path=Followers}" FontSize="48" />
-                                        <TextBlock Foreground="White" Text="followers" FontSize="12" />
+                                        <TextBlock x:Uid="/UIResources/followers" Foreground="White" Text="followers" FontSize="12" />
                                     </StackPanel>
                                 </Grid>
                             </Button>
@@ -106,7 +107,7 @@
                                 <Grid Background="{StaticResource GreyBlue}">
                                     <StackPanel Margin="6" VerticalAlignment="Bottom">
                                         <TextBlock Foreground="White" Text="{Binding Path=Following}" FontSize="48" />
-                                        <TextBlock Foreground="White" Text="following" FontSize="12" />
+                                        <TextBlock x:Uid="/UIResources/following" Foreground="White" Text="following" FontSize="12" />
                                     </StackPanel>
                                 </Grid>
                             </Button>
@@ -118,7 +119,7 @@
                                 <Grid Background="{StaticResource GreyBlue}">
                                     <StackPanel Margin="6" VerticalAlignment="Bottom">
                                         <TextBlock Foreground="White" Text="{Binding Path=Collaborators}" FontSize="48" />
-                                        <TextBlock Foreground="White" Text="collaborators" FontSize="12" />
+                                        <TextBlock x:Uid="/UIResources/collaborators" Foreground="White" Text="collaborators" FontSize="12" />
                                     </StackPanel>
                                 </Grid>
                             </Button>
@@ -130,7 +131,7 @@
                                 <Grid Background="{StaticResource GreyBlue}">
                                     <StackPanel Margin="6" VerticalAlignment="Bottom">
                                         <TextBlock Foreground="White" Text="{Binding Path=PublicRepos}" FontSize="48" />
-                                        <TextBlock Foreground="White" Text="public repos" FontSize="12" />
+                                        <TextBlock x:Uid="/UIResources/publicrepos" Foreground="White" Text="public repos" FontSize="12" />
                                     </StackPanel>
                                 </Grid>
                             </Button>
@@ -142,7 +143,7 @@
                                 <Grid Background="{StaticResource GreyBlue}">
                                     <StackPanel Margin="6" VerticalAlignment="Bottom">
                                         <TextBlock Foreground="White" Text="{Binding Path=TotalPrivateRepos}" FontSize="48" />
-                                        <TextBlock Foreground="White" Text="private repos" FontSize="12" />
+                                        <TextBlock x:Uid="/UIResources/privaterepos" Foreground="White" Text="private repos" FontSize="12" />
                                     </StackPanel>
                                 </Grid>
                             </Button>
@@ -154,7 +155,7 @@
                                 <Grid Background="{StaticResource GreyBlue}">
                                     <StackPanel Margin="6" VerticalAlignment="Bottom">
                                         <TextBlock Foreground="White" Text="{Binding Path=PublicGists}" FontSize="48" />
-                                        <TextBlock Foreground="White" Text="gists" FontSize="12" />
+                                        <TextBlock x:Uid="/UIResources/gists" Foreground="White" Text="gists" FontSize="12" />
                                     </StackPanel>
                                 </Grid>
                             </Button>
@@ -164,9 +165,10 @@
             </HubSection>
 
             <!-- Activities section -->
-            <HubSection x:Name="activitiesSection" Header="my activities" 
-                            DataContext="{Binding Path=ActivitiesViewModel}"
-                            HeaderTemplate="{StaticResource HeaderTemplate}">
+            <HubSection x:Uid="/UIResources/myactivities" x:Name="activitiesSection" 
+                        Header="my activities" 
+                        DataContext="{Binding Path=ActivitiesViewModel}"
+                        HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
                     <ListView ItemsSource="{Binding Path=Activities}" 
                               ItemTemplate="{StaticResource ActivitiesTemplate}" />
@@ -174,9 +176,10 @@
             </HubSection>
 
             <!-- Rpositories section -->
-            <HubSection x:Name="reposSection" Header="repositories" 
-                            DataContext="{Binding Path=ReposViewModel}"
-                            HeaderTemplate="{StaticResource HeaderTemplate}">
+            <HubSection x:Uid="/UIResources/repositories" x:Name="reposSection" 
+                        Header="repositories" 
+                        DataContext="{Binding Path=ReposViewModel}"
+                        HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -202,9 +205,10 @@
             </HubSection>
 
             <!-- Users section -->
-            <HubSection x:Name="usersSection" Header="users" 
-                            DataContext="{Binding Path=UsersViewModel}"
-                            HeaderTemplate="{StaticResource HeaderTemplate}">
+            <HubSection x:Uid="/UIResources/users" x:Name="usersSection" 
+                        Header="users" 
+                        DataContext="{Binding Path=UsersViewModel}"
+                        HeaderTemplate="{StaticResource HeaderTemplate}">
                 <DataTemplate>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -234,16 +238,23 @@
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
-                <AppBarButton Icon="Refresh" Label="refresh" Command="{Binding RefreshCommand}"/>
-                <AppBarToggleButton Icon="Find" Label="search" Command="{Binding ToggleEnableSearchCommand}" IsChecked="False"/>
+                <AppBarButton x:Uid="/UIResources/refresh" Icon="Refresh" 
+                              Label="refresh" Command="{Binding RefreshCommand}"/>
+                <AppBarToggleButton x:Uid="/UIResources/search" Icon="Find" 
+                                    Label="search" Command="{Binding ToggleEnableSearchCommand}" IsChecked="False"/>
             </CommandBar.PrimaryCommands>
 
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="feedback" Command="{Binding GoToFeedbackCommand}" />
-                <AppBarButton Label="about" Command="{Binding GoToAboutCommand}" />
-                <AppBarButton Label="credits" Command="{Binding GoToCreditsCommand}" />
-                <AppBarButton Label="settings" Command="{Binding GoToSettingsCommand}" />
-                <AppBarButton Label="this" Command="{Binding GoToThisCommand}" />
+                <AppBarButton x:Uid="/UIResources/feedback" Label="feedback" 
+                              Command="{Binding GoToFeedbackCommand}" />
+                <AppBarButton x:Uid="/UIResources/about" Label="about" 
+                              Command="{Binding GoToAboutCommand}" />
+                <AppBarButton x:Uid="/UIResources/credits" Label="credits" 
+                              Command="{Binding GoToCreditsCommand}" />
+                <AppBarButton x:Uid="/UIResources/settings" Label="settings"
+                              Command="{Binding GoToSettingsCommand}" />
+                <AppBarButton x:Uid="/UIResources/this" Label="this" 
+                              Command="{Binding GoToThisCommand}" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

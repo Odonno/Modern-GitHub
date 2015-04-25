@@ -26,7 +26,8 @@
         <StackPanel Grid.Row="0">
             <TextBlock Text="MODERN GITHUB"
                        Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0" />
-            <TextBlock Text="feedback" Margin="0,-6.5,0,26.5" 
+            <TextBlock x:Uid="/UIResources/feedbacktitle"
+                       Text="feedback" Margin="0,-6.5,0,26.5" 
                        Style="{ThemeResource HeaderTextBlockStyle}" 
                        CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
         </StackPanel>
@@ -50,7 +51,9 @@
                      IsColorFontEnabled="True" IsSpellCheckEnabled="True"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
-            <Button Grid.Row="2" Content="send" Command="{Binding Path=SendFeedbackCommand}"
+            <Button x:Uid="/UIResources/send" 
+                    Grid.Row="2" Content="send" 
+                    Command="{Binding Path=SendFeedbackCommand}"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
         </Grid>
