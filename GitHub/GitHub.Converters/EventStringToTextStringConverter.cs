@@ -1,10 +1,14 @@
 ﻿using System;
+using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml.Data;
 
 namespace GitHub.Converters
 {
     public class EventStringToTextStringConverter : IValueConverter
     {
+        private readonly ResourceLoader _resourceLoader = ResourceLoader.GetForCurrentView("ConvertersResources");
+
+
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             string eventType = value as string;
@@ -12,58 +16,58 @@ namespace GitHub.Converters
             switch (eventType)
             {
                 case "CommitCommentEvent":
-                    return "commented a commit on";
+                    return _resourceLoader.GetString("CommentedCommit");
                 case "CreateEvent":
-                    return "created an object (repo/branch/tag) on";
+                    return _resourceLoader.GetString("CreatedObject");
                 case "DeleteEvent":
-                    return "deleted a branch/tag on";
+                    return _resourceLoader.GetString("DeletedBranchTag");
                 case "DeploymentEvent":
-                    return "deployed";
+                    return _resourceLoader.GetString("Deployed");
                 case "DeploymentStatusEvent":
-                    throw new NotSupportedException(string.Format("The {0} is not supported.", eventType));
+                    throw new NotSupportedException(string.Format(_resourceLoader.GetString("NotSupportedEvent"), eventType));
                 case "DownloadEvent":
-                    return "created a download of";
+                    return _resourceLoader.GetString("CreatedDownload");
                 case "FollowEvent":
-                    return "started to follow";
+                    return _resourceLoader.GetString("StartedFollow");
                 case "ForkEvent":
-                    return "forked";
+                    return _resourceLoader.GetString("Forked");
                 case "ForkApplyEvent":
-                    return "applied a fork on";
+                    return _resourceLoader.GetString("AppliedFork");
                 case "GistEvent":
-                    return "created or updated the gist";
+                    return _resourceLoader.GetString("Gists");
                 case "GollumEvent":
-                    return "created or updated wiki page of";
+                    return _resourceLoader.GetString("WikiPage");
                 case "IssueCommentEvent":
-                    return "commented an issue on";
+                    return _resourceLoader.GetString("CommentedIssue");
                 case "IssuesEvent":
-                    return "managed an issue on";
+                    return _resourceLoader.GetString("ManagedIssue");
                 case "MemberEvent":
-                    return "added a collaborator to";
+                    return _resourceLoader.GetString("AddedCollaborator");
                 case "MembershipEvent":
-                    return "added or removed a user from";
+                    return _resourceLoader.GetString("AddedRemovedUser");
                 case "PageBuildEvent":
-                    throw new NotSupportedException(string.Format("The {0} is not supported.", eventType));
+                    throw new NotSupportedException(string.Format(_resourceLoader.GetString("NotSupportedEvent"), eventType));
                 case "PublicEvent":
-                    return "made open source";
+                    return _resourceLoader.GetString("MadeOpenSource");
                 case "PullRequestEvent":
-                    return "managed pull request on";
+                    return _resourceLoader.GetString("ManagedPullRequest");
                 case "PullRequestReviewCommentEvent":
-                    return "commented on pull request of";
+                    return _resourceLoader.GetString("CommentedPullRequest");
                 case "PushEvent":
-                    return "pushed to";
+                    return _resourceLoader.GetString("Pushed");
                 case "ReleaseEvent":
-                    return "published a release of";
+                    return _resourceLoader.GetString("PublishedRelease");
                 case "RepositoryEvent":
-                    return "created repository";
+                    return _resourceLoader.GetString("CreatedRepository");
                 case "StatusEvent":
-                    throw new NotSupportedException(string.Format("The {0} is not supported.", eventType));
+                    throw new NotSupportedException(string.Format(_resourceLoader.GetString("NotSupportedEvent"), eventType));
                 case "TeamAddEvent":
-                    return "added to team the repository";
+                    return _resourceLoader.GetString("AddedToTeam");
                 case "WatchEvent":
-                    return "starred";
+                    return _resourceLoader.GetString("Starred");
             }
 
-            throw new NotSupportedException(string.Format("The {0} is not supported.", eventType));
+            throw new NotSupportedException(string.Format(_resourceLoader.GetString("NotSupportedEvent"), eventType));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
