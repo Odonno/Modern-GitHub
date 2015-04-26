@@ -117,142 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="about.Label" xml:space="preserve">
-    <value>about</value>
+  <data name="ApplyChanges" xml:space="preserve">
+    <value>Appliquer les changements</value>
   </data>
-  <data name="aboutdescription.Text" xml:space="preserve">
-    <value>Modern GitHub try to be the best companion app for GitHub users. Modern GitHub is dedicated to Windows platform only (Windows 8 and Windows Phone 8 only).</value>
+  <data name="AuthenticationFails" xml:space="preserve">
+    <value>L'authentification a échoué</value>
   </data>
-  <data name="aboutheader.Header" xml:space="preserve">
-    <value>about</value>
+  <data name="bug" xml:space="preserve">
+    <value>bug</value>
   </data>
-  <data name="abouttitle.Text" xml:space="preserve">
-    <value>about</value>
+  <data name="cancel" xml:space="preserve">
+    <value>annuler</value>
   </data>
-  <data name="activitiesheader.Header" xml:space="preserve">
-    <value>activities</value>
+  <data name="NeedToRestart" xml:space="preserve">
+    <value>Vous devez redémarrer l'application pour appliquer les modifications</value>
   </data>
-  <data name="and.Text" xml:space="preserve">
-    <value>and</value>
+  <data name="ok" xml:space="preserve">
+    <value>ok</value>
   </data>
-  <data name="browse.Header" xml:space="preserve">
-    <value>browse</value>
+  <data name="other" xml:space="preserve">
+    <value>autre</value>
   </data>
-  <data name="by.Text" xml:space="preserve">
-    <value>by</value>
+  <data name="suggestion" xml:space="preserve">
+    <value>suggestion</value>
   </data>
-  <data name="collaborators.Text" xml:space="preserve">
-    <value>collaborators</value>
+  <data name="AnErrorOccured" xml:space="preserve">
+    <value>Une erreur est survenue</value>
   </data>
-  <data name="commits.Header" xml:space="preserve">
-    <value>commits</value>
+  <data name="CantCompleteRepoSearch" xml:space="preserve">
+    <value>Ne peut faire la recherche de repositories pour {0}</value>
   </data>
-  <data name="credits.Label" xml:space="preserve">
-    <value>credits</value>
+  <data name="CantCompleteUserSearch" xml:space="preserve">
+    <value>Ne peut faire la recherche d'utilisateurs pour {0}</value>
   </data>
-  <data name="creditstitle.Text" xml:space="preserve">
-    <value>credits</value>
+  <data name="CantFollow" xml:space="preserve">
+    <value>Ne peut pas suivre {0}</value>
   </data>
-  <data name="description.Header" xml:space="preserve">
-    <value>description</value>
+  <data name="CantGetIfFoloow" xml:space="preserve">
+    <value>Ne peut pas savoir si vous suivez {0}</value>
   </data>
-  <data name="feedback.Label" xml:space="preserve">
-    <value>feedback</value>
+  <data name="CantGetNotifications" xml:space="preserve">
+    <value>Ne peut obtenir les notifications</value>
   </data>
-  <data name="feedbacktitle.Text" xml:space="preserve">
-    <value>feedback</value>
+  <data name="CantGetTreeRepo" xml:space="preserve">
+    <value>Ne peut obtenir l'arbre du repo {0}</value>
   </data>
-  <data name="follow.Text" xml:space="preserve">
-    <value>follow</value>
+  <data name="CantRetrieveActivities" xml:space="preserve">
+    <value>Ne peut récupérer les activités globales</value>
   </data>
-  <data name="followers.Text" xml:space="preserve">
-    <value>followers</value>
+  <data name="CantRetrieveActivitiesOfUser" xml:space="preserve">
+    <value>Ne peut récupérer les activités de {0}</value>
   </data>
-  <data name="following.Text" xml:space="preserve">
-    <value>following</value>
+  <data name="CantRetrieveCommitsOfRepository" xml:space="preserve">
+    <value>Ne peut récupérer les commits du repo{0}</value>
   </data>
-  <data name="gists.Text" xml:space="preserve">
-    <value>gists</value>
+  <data name="CantRetrieveFollowers" xml:space="preserve">
+    <value>Ne peut récupérer vos followers</value>
   </data>
-  <data name="issues.Header" xml:space="preserve">
-    <value>issues</value>
+  <data name="CantRetrieveFollowings" xml:space="preserve">
+    <value>Ne peut récupérer vos followings</value>
   </data>
-  <data name="languages.Text" xml:space="preserve">
-    <value>languages</value>
+  <data name="CantRetrieveGists" xml:space="preserve">
+    <value>Ne peut récupérer vos gists</value>
   </data>
-  <data name="me.Header" xml:space="preserve">
-    <value>me</value>
+  <data name="CantRetrieveIssuesOfRepository" xml:space="preserve">
+    <value>Ne peut récupérer les issues du repo {0}</value>
   </data>
-  <data name="myactivities.Header" xml:space="preserve">
-    <value>my activities</value>
+  <data name="CantRetrievePrivateRepos" xml:space="preserve">
+    <value>Ne peut récupérer vos repos privés</value>
   </data>
-  <data name="mycollaborators.Text" xml:space="preserve">
-    <value>my collaborators</value>
+  <data name="CantRetrieveProfile" xml:space="preserve">
+    <value>Ne peut récupérer votre profil</value>
   </data>
-  <data name="myfollowers.Text" xml:space="preserve">
-    <value>my followers</value>
+  <data name="CantRetrievePublicRepos" xml:space="preserve">
+    <value>Ne peut récupérer vos repos publics</value>
   </data>
-  <data name="myfollowings.Text" xml:space="preserve">
-    <value>my followings</value>
+  <data name="CantRetrieveRepositoriesOfUser" xml:space="preserve">
+    <value>Ne peut récupérer les repositories de {0}</value>
   </data>
-  <data name="mygists.Text" xml:space="preserve">
-    <value>my gists</value>
+  <data name="CantRetrieveUser" xml:space="preserve">
+    <value>Ne peut récupérer les infos de {0}</value>
   </data>
-  <data name="myprivaterepos.Text" xml:space="preserve">
-    <value>my private repos</value>
-  </data>
-  <data name="mypublicrepos.Text" xml:space="preserve">
-    <value>my public repos</value>
-  </data>
-  <data name="privaterepos.Text" xml:space="preserve">
-    <value>private repos</value>
-  </data>
-  <data name="productmanager.Text" xml:space="preserve">
-    <value>Product Manager / Developer</value>
-  </data>
-  <data name="publicrepos.Text" xml:space="preserve">
-    <value>public repos</value>
-  </data>
-  <data name="refresh.Label" xml:space="preserve">
-    <value>refresh</value>
-  </data>
-  <data name="repositories.Header" xml:space="preserve">
-    <value>repositories</value>
-  </data>
-  <data name="repositoriesheader.Header" xml:space="preserve">
-    <value>repositories</value>
-  </data>
-  <data name="search.Label" xml:space="preserve">
-    <value>search</value>
-  </data>
-  <data name="send.Content" xml:space="preserve">
-    <value>send</value>
-  </data>
-  <data name="settings.Label" xml:space="preserve">
-    <value>settings</value>
-  </data>
-  <data name="settingstitle.Text" xml:space="preserve">
-    <value>settings</value>
-  </data>
-  <data name="theme.Text" xml:space="preserve">
-    <value>theme</value>
-  </data>
-  <data name="this.Label" xml:space="preserve">
-    <value>this</value>
-  </data>
-  <data name="uidesigner.Text" xml:space="preserve">
-    <value>UI Designer</value>
-  </data>
-  <data name="underdevelopment.Text" xml:space="preserve">
-    <value>This page is currently under development...</value>
-  </data>
-  <data name="users.Header" xml:space="preserve">
-    <value>users</value>
-  </data>
-  <data name="version.Text" xml:space="preserve">
-    <value>version</value>
-  </data>
-  <data name="youarefollower.Text" xml:space="preserve">
-    <value>you are a follower</value>
+  <data name="CantUnfollow" xml:space="preserve">
+    <value>Ne peut arrêter de suivre {0}</value>
   </data>
 </root>

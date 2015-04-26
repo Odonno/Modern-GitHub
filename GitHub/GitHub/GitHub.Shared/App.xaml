@@ -163,7 +163,8 @@
                     </TextBlock>
 
                     <TextBlock FontSize="16">
-                        <Run Text="language(s) :" />
+                        <Run x:Uid="/UIResources/languages" Text="languages" />
+                        <Run Text=":" />
                         <Run Text="{Binding Path=Files, Converter={StaticResource LanguageFilesGitConverter}}" />                                     
                     </TextBlock>
                 </StackPanel>
@@ -214,7 +215,7 @@
                                    Foreground="{StaticResource GreyBlue}" />
 
                         <TextBlock FontSize="12" TextWrapping="Wrap">
-                            <Run Text="by" />
+                            <Run x:Uid="/UIResources/by" Text="by" />
                             <Run Text="{Binding Path=Committer.Login}" 
                                  Foreground="{StaticResource GreyBlue}" />
                         </TextBlock>
@@ -297,7 +298,7 @@
                                    Foreground="{StaticResource GreyBlue}" />
 
                         <TextBlock FontSize="12" TextWrapping="Wrap">
-                            <Run Text="by" />
+                            <Run x:Uid="/UIResources/by" Text="by" />
                             <Run Text="{Binding Path=User.Login}" 
                                  Foreground="{StaticResource GreyBlue}" />
                         </TextBlock>

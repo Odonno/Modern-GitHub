@@ -50,7 +50,8 @@
                             (<Run Text="{Binding Odonno.Login}" />)
                         </TextBlock>
                         <TextBlock x:Uid="/UIResources/productmanager" 
-                                   Text="Product Manager / Developer" />
+                                   Text="Product Manager / Developer"
+                                   FontSize="16" />
                     </StackPanel>
                 </Grid>
             </Button>
@@ -72,7 +73,8 @@
                             (<Run Text="{Binding CorentinMiq.Login}" />)
                         </TextBlock>
                         <TextBlock x:Uid="/UIResources/uidesigner"
-                                   Text="UI Designer" />
+                                   Text="UI Designer"
+                                   FontSize="16" />
                     </StackPanel>
                 </Grid>
             </Button>

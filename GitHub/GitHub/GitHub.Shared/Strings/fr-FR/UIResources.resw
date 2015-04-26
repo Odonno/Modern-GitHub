@@ -118,40 +118,40 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="about.Label" xml:space="preserve">
-    <value>about</value>
+    <value>à propos</value>
   </data>
   <data name="aboutdescription.Text" xml:space="preserve">
-    <value>Modern GitHub try to be the best companion app for GitHub users. Modern GitHub is dedicated to Windows platform only (Windows 8 and Windows Phone 8 only).</value>
+    <value>Modern GitHub a pour objectif d'être la meilleure application compagnon pour les utilisateurs de GitHub. Modern GitHub est dédié à la plateforme Windows uniquement (Windows 8 et Windows Phone 8 uniquement)</value>
   </data>
   <data name="aboutheader.Header" xml:space="preserve">
-    <value>about</value>
+    <value>à propos</value>
   </data>
   <data name="abouttitle.Text" xml:space="preserve">
-    <value>about</value>
+    <value>à propos</value>
   </data>
   <data name="activitiesheader.Header" xml:space="preserve">
-    <value>activities</value>
+    <value>activités</value>
   </data>
   <data name="and.Text" xml:space="preserve">
-    <value>and</value>
+    <value>et</value>
   </data>
   <data name="browse.Header" xml:space="preserve">
-    <value>browse</value>
+    <value>code</value>
   </data>
   <data name="by.Text" xml:space="preserve">
-    <value>by</value>
+    <value>par</value>
   </data>
   <data name="collaborators.Text" xml:space="preserve">
-    <value>collaborators</value>
+    <value>collaborateurs</value>
   </data>
   <data name="commits.Header" xml:space="preserve">
     <value>commits</value>
   </data>
   <data name="credits.Label" xml:space="preserve">
-    <value>credits</value>
+    <value>crédits</value>
   </data>
   <data name="creditstitle.Text" xml:space="preserve">
-    <value>credits</value>
+    <value>crédits</value>
   </data>
   <data name="description.Header" xml:space="preserve">
     <value>description</value>
@@ -163,7 +163,7 @@
     <value>feedback</value>
   </data>
   <data name="follow.Text" xml:space="preserve">
-    <value>follow</value>
+    <value>suivre</value>
   </data>
   <data name="followers.Text" xml:space="preserve">
     <value>followers</value>
@@ -178,43 +178,43 @@
     <value>issues</value>
   </data>
   <data name="languages.Text" xml:space="preserve">
-    <value>languages</value>
+    <value>langages</value>
   </data>
   <data name="me.Header" xml:space="preserve">
-    <value>me</value>
+    <value>profil</value>
   </data>
   <data name="myactivities.Header" xml:space="preserve">
-    <value>my activities</value>
+    <value>mes activités</value>
   </data>
   <data name="mycollaborators.Text" xml:space="preserve">
-    <value>my collaborators</value>
+    <value>mes collaborateurs</value>
   </data>
   <data name="myfollowers.Text" xml:space="preserve">
-    <value>my followers</value>
+    <value>mes followers</value>
   </data>
   <data name="myfollowings.Text" xml:space="preserve">
-    <value>my followings</value>
+    <value>mes followings</value>
   </data>
   <data name="mygists.Text" xml:space="preserve">
-    <value>my gists</value>
+    <value>mes gists</value>
   </data>
   <data name="myprivaterepos.Text" xml:space="preserve">
-    <value>my private repos</value>
+    <value>mes repos privés</value>
   </data>
   <data name="mypublicrepos.Text" xml:space="preserve">
-    <value>my public repos</value>
+    <value>mes repos publics</value>
   </data>
   <data name="privaterepos.Text" xml:space="preserve">
-    <value>private repos</value>
+    <value>repos privés</value>
   </data>
   <data name="productmanager.Text" xml:space="preserve">
-    <value>Product Manager / Developer</value>
+    <value>Product Manager / Développeur</value>
   </data>
   <data name="publicrepos.Text" xml:space="preserve">
-    <value>public repos</value>
+    <value>repos publics</value>
   </data>
   <data name="refresh.Label" xml:space="preserve">
-    <value>refresh</value>
+    <value>rafraîchir</value>
   </data>
   <data name="repositories.Header" xml:space="preserve">
     <value>repositories</value>
@@ -223,36 +223,36 @@
     <value>repositories</value>
   </data>
   <data name="search.Label" xml:space="preserve">
-    <value>search</value>
+    <value>rechercher</value>
   </data>
   <data name="send.Content" xml:space="preserve">
-    <value>send</value>
+    <value>envoyer</value>
   </data>
   <data name="settings.Label" xml:space="preserve">
-    <value>settings</value>
+    <value>paramètres</value>
   </data>
   <data name="settingstitle.Text" xml:space="preserve">
-    <value>settings</value>
+    <value>paramètres</value>
   </data>
   <data name="theme.Text" xml:space="preserve">
-    <value>theme</value>
+    <value>thème</value>
   </data>
   <data name="this.Label" xml:space="preserve">
-    <value>this</value>
+    <value>ce repo</value>
   </data>
   <data name="uidesigner.Text" xml:space="preserve">
     <value>UI Designer</value>
   </data>
   <data name="underdevelopment.Text" xml:space="preserve">
-    <value>This page is currently under development...</value>
+    <value>Cette page est en cours de développement...</value>
   </data>
   <data name="users.Header" xml:space="preserve">
-    <value>users</value>
+    <value>utilisateurs</value>
   </data>
   <data name="version.Text" xml:space="preserve">
     <value>version</value>
   </data>
   <data name="youarefollower.Text" xml:space="preserve">
-    <value>you are a follower</value>
+    <value>vous suivez</value>
   </data>
 </root>
