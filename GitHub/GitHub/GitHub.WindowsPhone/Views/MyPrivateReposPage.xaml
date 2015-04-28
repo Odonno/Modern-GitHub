@@ -1,0 +1,34 @@
+﻿<Page
+    x:Class="GitHub.Views.MyPrivateReposPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Profile}"
+    RequestedTheme="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme}"
+    Background="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme, Converter={StaticResource ThemeToColorBrushConverter}}">
+
+    <Grid x:Name="LayoutRoot" Margin="12 0">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock x:Uid="/UIResources/myprivaterepos"
+                   Text="my private repos" FontSize="48" Margin="0 0 0 12"
+                   Style="{ThemeResource HeaderTextBlockStyle}" />
+
+        <!-- Content (list) -->
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=PrivateRepos}"
+                  ItemTemplate="{StaticResource RepositoryTemplate}" />
+    </Grid>
+</Page>

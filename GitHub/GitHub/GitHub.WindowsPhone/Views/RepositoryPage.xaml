@@ -1,0 +1,81 @@
+﻿<Page
+    x:Class="GitHub.Views.RepositoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Repository}"
+    RequestedTheme="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme}"
+    Background="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme, Converter={StaticResource ThemeToColorBrushConverter}}">
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!-- Content -->
+        <Hub Grid.Row="1" Margin="0 12 0 0">
+            <!-- Title (header) -->
+            <Hub.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Style="{ThemeResource HeaderTextBlockStyle}"
+                               Text="{Binding Path=Repository.Name}" />
+                </DataTemplate>
+            </Hub.HeaderTemplate>
+
+
+            <!-- Description section -->
+            <HubSection x:Uid="/UIResources/description"
+                        x:Name="descriptionSection" Header="description"
+                        HeaderTemplate="{StaticResource HeaderTemplate}">
+                <DataTemplate>
+                    <StackPanel>
+                        <Grid Background="{StaticResource GreyBlue}" Margin="0 0 0 6">
+                            <TextBlock Text="{Binding Path=Repository.Description}" Padding="12 6"
+                                   FontSize="20" TextWrapping="Wrap" Foreground="White" />
+                        </Grid>
+                    </StackPanel>
+                </DataTemplate>
+            </HubSection>
+
+            <!-- Code section -->
+            <HubSection x:Uid="/UIResources/browse"
+                        x:Name="browseSection" Header="browse"
+                        HeaderTemplate="{StaticResource HeaderTemplate}">
+                <DataTemplate>
+                    <ListView ItemsSource="{Binding Path=TreeItems}" 
+                              ItemTemplateSelector="{StaticResource TreeItemTemplateSelector}" />
+                </DataTemplate>
+            </HubSection>
+
+            <!-- Commits section -->
+            <HubSection x:Uid="/UIResources/commits"
+                        x:Name="commitsSection" Header="commits"
+                        HeaderTemplate="{StaticResource HeaderTemplate}">
+                <DataTemplate>
+                    <ListView ItemsSource="{Binding Path=Commits}"
+                              ItemTemplate="{StaticResource CommitTemplate}"/>
+                </DataTemplate>
+            </HubSection>
+
+            <!-- Issues section -->
+            <HubSection x:Uid="/UIResources/issues"
+                        x:Name="issuesSection" Header="issues"
+                        HeaderTemplate="{StaticResource HeaderTemplate}">
+                <DataTemplate>
+                    <ListView ItemsSource="{Binding Path=Issues}"
+                              ItemTemplate="{StaticResource IssueTemplate}"/>
+                </DataTemplate>
+            </HubSection>
+        </Hub>
+    </Grid>
+</Page>

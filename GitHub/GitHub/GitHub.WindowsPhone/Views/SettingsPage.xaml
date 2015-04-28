@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="GitHub.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Settings}"
+    RequestedTheme="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme}"
+    Background="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme, Converter={StaticResource ThemeToColorBrushConverter}}">
+
+    <Grid x:Name="LayoutRoot" Margin="12 0">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="MODERN GITHUB"
+                       Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0" />
+            <TextBlock x:Uid="/UIResources/settingstitle" 
+                       Text="settings" Margin="0,-6.5,0,26.5" 
+                       Style="{ThemeResource HeaderTextBlockStyle}" 
+                       CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        </StackPanel>
+
+        <!-- Content -->
+        <StackPanel Grid.Row="1" x:Name="ContentRoot">
+
+            <TextBlock x:Uid="/UIResources/theme" Text="theme"
+                       Style="{ThemeResource BodyTextBlockStyle}" />
+            
+            <ComboBox ItemsSource="{Binding Path=Themes}"
+                      SelectedItem="{Binding Path=SelectedTheme, Mode=TwoWay}" />
+
+        </StackPanel>
+    </Grid>
+</Page>

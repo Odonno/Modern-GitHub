@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="49142DavidBOTTIAU.ModernGitHub" Publisher="CN=519CD1E7-EAA2-4CE2-92D3-BDEE98B243DC" Version="0.1.0.0" />
+  <Identity Name="49142DavidBOTTIAU.ModernGitHub" Publisher="CN=519CD1E7-EAA2-4CE2-92D3-BDEE98B243DC" Version="0.5.7.0" />
   <mp:PhoneIdentity PhoneProductId="fa606241-b5e8-47f4-8383-0265e849ace7" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Modern GitHub</DisplayName>
@@ -16,7 +16,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="GitHub.WindowsPhone.App">
-      <m3:VisualElements DisplayName="Modern GitHub" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="A GitHub client for Windows Phone" ForegroundText="light" BackgroundColor="transparent">
+      <m3:VisualElements DisplayName="Modern GitHub" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="A GitHub client for Windows Phone" ForegroundText="light" BackgroundColor="transparent" ToastCapable="true">
         <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png">
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\SplashScreen.png" />
@@ -24,6 +24,13 @@
           <m3:Rotation Preference="portrait" />
         </m3:InitialRotationPreference>
       </m3:VisualElements>
+      <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="GitHub.Tasks.WindowsPhone.NotificationsBackgroundTask">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

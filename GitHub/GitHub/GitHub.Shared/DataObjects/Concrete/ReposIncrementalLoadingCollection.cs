@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using GitHub.DataObjects.Abstract;
-using GitHub.Services.Abstract;
-using Microsoft.Practices.ServiceLocation;
+using GitHub.ViewModel;
 using Octokit;
 
 namespace GitHub.DataObjects.Concrete
@@ -16,7 +15,7 @@ namespace GitHub.DataObjects.Concrete
 
         protected async override Task<IReadOnlyList<Repository>> LoadMoreItemsAsync()
         {
-            var result = await ServiceLocator.Current.GetInstance<IGitHubService>().SearchReposAsync(SearchValue, ++Page, ItemsPerPage);
+            var result = await ViewModelLocator.GitHubService.SearchReposAsync(SearchValue, ++Page, ItemsPerPage);
             TotalCount = result.TotalCount;
             return result.Items;
         }

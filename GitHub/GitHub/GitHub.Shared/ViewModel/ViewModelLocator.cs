@@ -51,16 +51,30 @@ namespace GitHub.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            // view models
+            // ViewModels
+
+            // First ViewModel (Global)
             SimpleIoc.Default.Register<ILoginViewModel, LoginViewModel>();
             SimpleIoc.Default.Register<IMainViewModel, MainViewModel>();
 
+            // Top level ViewModels
             SimpleIoc.Default.Register<IProfileViewModel, ProfileViewModel>();
             SimpleIoc.Default.Register<IActivitiesViewModel, ActivitiesViewModel>();
             SimpleIoc.Default.Register<IReposViewModel, ReposViewModel>();
             SimpleIoc.Default.Register<IUsersViewModel, UsersViewModel>();
 
-            // services
+            // Second Level ViewModels
+            SimpleIoc.Default.Register<IUserViewModel, UserViewModel>();
+            SimpleIoc.Default.Register<IRepositoryViewModel, RepositoryViewModel>();
+
+            // Other Level ViewModels
+            SimpleIoc.Default.Register<IAboutViewModel, AboutViewModel>();
+            SimpleIoc.Default.Register<ICreditsViewModel, CreditsViewModel>();
+            SimpleIoc.Default.Register<IFeedbackViewModel, FeedbackViewModel>();
+            SimpleIoc.Default.Register<ISettingsViewModel, SettingsViewModel>();
+            
+
+            // Services
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
             {
                 var navigationService = CreateNavigationService();
@@ -73,13 +87,21 @@ namespace GitHub.ViewModel
                 SimpleIoc.Default.Register<IDialogService>(() => dialogService);
             }
 
+            if (!SimpleIoc.Default.IsRegistered<IProgressIndicatorService>())
+            {
+                var progressIndicatorService = new ProgressIndicatorService();
+                SimpleIoc.Default.Register<IProgressIndicatorService>(() => progressIndicatorService);
+            }
+
             SimpleIoc.Default.Register<ISessionService, SessionService>();
             SimpleIoc.Default.Register<IGitHubService, GitHubService>();
+
+            SimpleIoc.Default.Register<IBackgroundTaskService, BackgroundTaskService>();
+            SimpleIoc.Default.Register<ILocalNotificationService, LocalNotificationService>();
 
             // data objects
             SimpleIoc.Default.Register<UsersIncrementalLoadingCollection>();
             SimpleIoc.Default.Register<ReposIncrementalLoadingCollection>();
-            SimpleIoc.Default.Register<ActivitiesIncrementalLoadingCollection>();
 
             // model
             if (!SimpleIoc.Default.IsRegistered<IGitHubClient>())
@@ -95,14 +117,30 @@ namespace GitHub.ViewModel
 
         #endregion Constructor
 
-        #region Methods
+
+        #region Navigation Service (Page declaration)
 
         private INavigationService CreateNavigationService()
         {
             var navigationService = new NavigationService();
+
             navigationService.Configure("SplashScreen", typeof(SplashScreenPage));
             navigationService.Configure("Main", typeof(MainPage));
             navigationService.Configure("InDevelopment", typeof(InDevelopmentPage));
+            navigationService.Configure("User", typeof(UserPage));
+            navigationService.Configure("Repository", typeof(RepositoryPage));
+
+            navigationService.Configure("MyCollaborators", typeof(MyCollaboratorsPage));
+            navigationService.Configure("MyFollowers", typeof(MyFollowersPage));
+            navigationService.Configure("MyFollowings", typeof(MyFollowingsPage));
+            navigationService.Configure("MyPrivateRepos", typeof(MyPrivateReposPage));
+            navigationService.Configure("MyGists", typeof(MyGistsPage));
+            navigationService.Configure("MyPublicRepos", typeof(MyPublicReposPage));
+
+            navigationService.Configure("About", typeof(AboutPage));
+            navigationService.Configure("Credits", typeof(CreditsPage));
+            navigationService.Configure("Feedback", typeof(FeedbackPage));
+            navigationService.Configure("Settings", typeof(SettingsPage));
 
             return navigationService;
         }
@@ -110,8 +148,44 @@ namespace GitHub.ViewModel
         #endregion
 
 
+        #region Services
+
+        public static IGitHubService GitHubService
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IGitHubService>();
+            }
+        }
+
+        #endregion
+
 
         #region View Models
+
+        public static IAboutViewModel About
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IAboutViewModel>();
+            }
+        }
+
+        public static ICreditsViewModel Credits
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ICreditsViewModel>();
+            }
+        }
+
+        public static IFeedbackViewModel Feedback
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IFeedbackViewModel>();
+            }
+        }
 
         public static ILoginViewModel Login
         {
@@ -145,6 +219,14 @@ namespace GitHub.ViewModel
             }
         }
 
+        public static ISettingsViewModel Settings
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ISettingsViewModel>();
+            }
+        }
+
         public static IReposViewModel Repos
         {
             get
@@ -153,11 +235,27 @@ namespace GitHub.ViewModel
             }
         }
 
+        public static IRepositoryViewModel Repository
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IRepositoryViewModel>();
+            }
+        }
+
         public static IUsersViewModel Users
         {
             get
             {
                 return ServiceLocator.Current.GetInstance<IUsersViewModel>();
+            }
+        }
+
+        public static IUserViewModel User
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IUserViewModel>();
             }
         }
 

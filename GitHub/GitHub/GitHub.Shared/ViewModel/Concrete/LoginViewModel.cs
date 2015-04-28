@@ -1,6 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
@@ -13,20 +14,18 @@ namespace GitHub.ViewModel.Concrete
 {
     public class LoginViewModel : ViewModelBase, ILoginViewModel
     {
+        private readonly ResourceLoader _resourceLoader = ResourceLoader.GetForCurrentView("Resources");
         private readonly INavigationService _navigationService;
         private readonly ISessionService _sessionService;
-        private readonly IDialogService _dialogService;
-
-        public string Username { get; set; }
-        public string Password { get; set; }
-
-        public ICommand LoginCommand { get; private set; }
+        private readonly ILocalNotificationService _localNotificationService;
 
 
-        public LoginViewModel(INavigationService navigationService, IDialogService dialogService, ISessionService sessionService)
+        public LoginViewModel(INavigationService navigationService, 
+            ILocalNotificationService localNotificationService, 
+            ISessionService sessionService)
         {
             _navigationService = navigationService;
-            _dialogService = dialogService;
+            _localNotificationService = localNotificationService;
             _sessionService = sessionService;
 
             if (IsInDesignMode)
@@ -36,13 +35,11 @@ namespace GitHub.ViewModel.Concrete
             else
             {
                 // Code runs "for real"
-
-                LoginCommand = new RelayCommand(Login);
             }
         }
 
 
-        public async void Login()
+        public async Task LoginAsync()
         {
             bool isToShowMessage = false;
 
@@ -50,24 +47,30 @@ namespace GitHub.ViewModel.Concrete
             {
                 var auth = await _sessionService.LoginAsync();
 
+#if WINDOWS_APP
                 if (auth == null)
-                    return;
+                    isToShowMessage = true;
 
-                if (auth.Value)
-                    _navigationService.NavigateTo("Main");
+                if (auth != null && auth.Value)
+                    await FinalizeLoginAsync();
+#endif
             }
-            catch
+            catch (Exception ex)
             {
+                App.TelemetryClient.TrackException(ex);
                 isToShowMessage = true;
             }
 
             if (isToShowMessage)
             {
-                await _dialogService.ShowError("Application fails.",
-                    "Authentication Sample",
-                    "Ok",
-                    null);
+                _localNotificationService.SendNotification(null, _resourceLoader.GetString("AuthenticationFails"));
             }
+        }
+
+        private async Task FinalizeLoginAsync()
+        {
+            await ViewModelLocator.Profile.LoadAsync();
+            _navigationService.NavigateTo("Main");
         }
 
 
@@ -76,7 +79,7 @@ namespace GitHub.ViewModel.Concrete
         {
             var result = await _sessionService.Finalize(args);
             if (result)
-                _navigationService.NavigateTo("Main");
+                await FinalizeLoginAsync();
         }
 #endif
     }

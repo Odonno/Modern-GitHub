@@ -195,6 +195,8 @@
     <MainPackageIdentityName>49142DavidBOTTIAU.Bats-moi</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.Calcule-moi</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.ColorCapture</MainPackageIdentityName>
+    <MainPackageIdentityName>49142DavidBOTTIAU.Coloreach</MainPackageIdentityName>
+    <MainPackageIdentityName>49142DavidBOTTIAU.Colorrrs</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.Crypte-moi</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.Dessine-moi</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.Finis-moi</MainPackageIdentityName>
@@ -203,13 +205,20 @@
     <MainPackageIdentityName>49142DavidBOTTIAU.Mmorise-moi</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.ModernWordReference</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.OptimisationdeDantzig</MainPackageIdentityName>
+    <MainPackageIdentityName>49142DavidBOTTIAU.Pomodorize</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.Pousse-moi</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.RenaultWindows8</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.RumbleBubble</MainPackageIdentityName>
-    <MainPackageIdentityName>49142DavidBOTTIAU.SoftDesignPatterns</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.StickmanLegends</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.Trouve-moi</MainPackageIdentityName>
     <MainPackageIdentityName>49142DavidBOTTIAU.VisualLightStudio</MainPackageIdentityName>
+    <MainPackageIdentityName>49142DavidBOTTIAU.WantApps</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windowsphone.com/AppSubmission/AssociationLanding?windowsProductId=59144394-05f6-4e30-acd2-3a24fcd66e12" />
+  <PackageInfoList LandingUrl="https://dev.windowsphone.com/AppSubmission/AssociationLanding?windowsProductId=59144394-05f6-4e30-acd2-3a24fcd66e12">
+    <PackageInfo>
+      <OsMinVersion>6.3.0.0</OsMinVersion>
+      <PackageArchitecture>neutral</PackageArchitecture>
+      <PackageMaxArchitectureVersion>0.5.1.0</PackageMaxArchitectureVersion>
+    </PackageInfo>
+  </PackageInfoList>
 </StoreAssociation>

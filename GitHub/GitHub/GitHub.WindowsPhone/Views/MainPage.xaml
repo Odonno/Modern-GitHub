@@ -1,4 +1,4 @@
-﻿<Page
+﻿<Page xmlns:WindowsPhone81="using:Microsoft.AdMediator.WindowsPhone81" 
     x:Class="GitHub.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,88 +6,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
-    RequestedTheme="Light" Background="White" Foreground="Black"
+    RequestedTheme="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme}"
+    Background="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme, Converter={StaticResource ThemeToColorBrushConverter}}"
     NavigationCacheMode="Required">
-
-    <Page.Resources>
-        <!-- Nutton style -->
-        <Style x:Key="TextBlockButtonStyle" TargetType="ButtonBase">
-            <Setter Property="MinWidth" Value="0"/>
-            <Setter Property="MinHeight" Value="0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ButtonBase">
-                        <Grid Background="{TemplateBinding Background}">
-                            <ContentPresenter x:Name="Text" Content="{TemplateBinding Content}" />
-                            <Rectangle
-                                x:Name="FocusVisualWhite"
-                                IsHitTestVisible="False"
-                                Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}"
-                                StrokeEndLineCap="Square"
-                                StrokeDashArray="1,1"
-                                Opacity="0"
-                                StrokeDashOffset="1.5"/>
-                            <Rectangle
-                                x:Name="FocusVisualBlack"
-                                IsHitTestVisible="False"
-                                Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}"
-                                StrokeEndLineCap="Square"
-                                StrokeDashArray="1,1"
-                                Opacity="0"
-                                StrokeDashOffset="0.5"/>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal"/>
-                                    <VisualState x:Name="PointerOver">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Text" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationPointerOverForegroundThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Text" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationPressedForegroundThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Text" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationPressedForegroundThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="FocusStates">
-                                    <VisualState x:Name="Focused">
-                                        <Storyboard>
-                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetName="FocusVisualWhite" Storyboard.TargetProperty="Opacity"/>
-                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetName="FocusVisualBlack" Storyboard.TargetProperty="Opacity"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Unfocused"/>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="CheckStates">
-                                    <VisualState x:Name="Checked"/>
-                                    <VisualState x:Name="Unchecked">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Text" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Indeterminate"/>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Page.Resources>
-
 
     <Grid x:Name="LayoutRoot">
 
@@ -97,238 +18,244 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!-- Title -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Image MaxHeight="100" Width="50" Source="/Assets/github-logo.png" Margin="12 -6.5 0 6.5" />
-            <TextBlock Text="github" Margin="12 -6.5 0 26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}">
-                <TextBlock.Foreground>
-                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="1,1">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </TextBlock.Foreground>
-            </TextBlock>
-        </StackPanel>
 
         <!-- Content -->
-        <Grid Grid.Row="1" x:Name="ContentRoot">
-            <Hub>
-                <HubSection x:Name="profileSection" Header="me" DataContext="{Binding Path=ProfileViewModel}">
-                    <DataTemplate>
-                        <StackPanel DataContext="{Binding Path=CurrentUser, Mode=OneWay}">
-                            <StackPanel Orientation="Horizontal">
-                                <Image HorizontalAlignment="Left" MaxHeight="40" VerticalAlignment="Top" Source="{Binding Path=AvatarUrl}"/>
-                                <TextBlock Margin="12 0 0 0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=Login}" VerticalAlignment="Top" FontSize="36"/>
-                            </StackPanel>
+        <Hub Margin="0 24 0 0">
+            <!-- Title (header) -->
+            <Hub.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <!-- Ad -->
+                        <WindowsPhone81:AdMediatorControl x:Name="AdMediator_A66EEE" 
+                                                          Id="AdMediator-Id-DFBE8D50-75AA-4DAF-94CC-AF900634EC86"
+                                                          HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                          Margin="-12 0 0 0" Width="640" Height="100"
+                                                          Background="White"
+                                                          Canvas.ZIndex="1" />
 
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="100" />
-                                    <RowDefinition Height="100" />
-                                </Grid.RowDefinitions>
+                        <!-- Title (logo + name) -->
+                        <StackPanel Orientation="Horizontal" Height="100" Canvas.ZIndex="0">
+                            <TextBlock FontFamily="/Fonts/octicons.ttf#octicons" FontSize="90" Margin="0 0 0 -6"
+                                   Text="&#xf00a;" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-
-                                <Button Grid.Row="0" Grid.Column="0" Margin="0 6 6 6"
-                                        Style="{StaticResource TextBlockButtonStyle}" 
-                                        Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToFollowersCommand}">
-                                    <Grid Background="{StaticResource GreyBlue}" Width="100" Height="100">
-                                        <StackPanel Margin="6 -6">
-                                            <TextBlock Foreground="White" Text="{Binding Path=Followers}" FontSize="48" />
-                                            <TextBlock Foreground="White" Text="followers" FontSize="12" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                                <Button Grid.Row="0" Grid.Column="1" Margin="6"
-                                        Style="{StaticResource TextBlockButtonStyle}" 
-                                        Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToFollowingsCommand}">
-                                    <Grid Background="{StaticResource GreyBlue}" Width="100" Height="100">
-                                        <StackPanel Margin="6 -6">
-                                            <TextBlock Foreground="White" Text="{Binding Path=Following}" FontSize="48" />
-                                            <TextBlock Foreground="White" Text="following" FontSize="12" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                                <Button Grid.Row="0" Grid.Column="2" Margin="6 6 0 6"
-                                        Style="{StaticResource TextBlockButtonStyle}" 
-                                        Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToCollaboratorsCommand}">
-                                    <Grid Background="{StaticResource GreyBlue}" Width="100" Height="100">
-                                        <StackPanel Margin="6 -6">
-                                            <TextBlock Foreground="White" Text="{Binding Path=Collaborators}" FontSize="48" />
-                                            <TextBlock Foreground="White" Text="collaborators" FontSize="12" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-
-                                <Button Grid.Row="1" Grid.Column="0" Margin="0 6 6 6"
-                                        Style="{StaticResource TextBlockButtonStyle}" 
-                                        Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToPublicReposCommand}">
-                                    <Grid Background="{StaticResource GreyBlue}" Width="100" Height="100">
-                                        <StackPanel Margin="6 -6">
-                                            <TextBlock Foreground="White" Text="{Binding Path=PublicRepos}" FontSize="48" />
-                                            <TextBlock Foreground="White" Text="public repos" FontSize="12" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                                <Button Grid.Row="1" Grid.Column="1" Margin="6"
-                                        Style="{StaticResource TextBlockButtonStyle}" 
-                                        Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToPublicGistsCommand}">
-                                    <Grid Background="{StaticResource GreyBlue}" Width="100" Height="100">
-                                        <StackPanel Margin="6 -6">
-                                            <TextBlock Foreground="White" Text="{Binding Path=PublicGists}" FontSize="48" />
-                                            <TextBlock Foreground="White" Text="public gists" FontSize="12" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                                <Button Grid.Row="1" Grid.Column="2" Margin="6 6 0 6"
-                                        Style="{StaticResource TextBlockButtonStyle}" 
-                                        Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToPrivateReposCommand}">
-                                    <Grid Background="{StaticResource GreyBlue}" Width="100" Height="100">
-                                        <StackPanel Margin="6 -6">
-                                            <TextBlock Foreground="White" Text="{Binding Path=TotalPrivateRepos}" FontSize="48" />
-                                            <TextBlock Foreground="White" Text="private repos" FontSize="12" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                            </Grid>
+                            <TextBlock FontFamily="/Fonts/octicons.ttf#octicons" FontSize="100" Margin="24 0 0 -42"
+                                   Text="&#xf092;" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </StackPanel>
-                    </DataTemplate>
-                </HubSection>
-                <HubSection x:Name="activitiesSection" Header="activities" DataContext="{Binding Path=ActivitiesViewModel}">
-                    <DataTemplate>
-                        <ListView ItemsSource="{Binding Path=Activities}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Button Style="{StaticResource TextBlockButtonStyle}" 
-                                            Command="{Binding Source={StaticResource Locator}, Path=Activities.GoToActivityCommand}" CommandParameter="{Binding}">
-                                        <Grid Margin="0 6">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="5*" />
-                                            </Grid.ColumnDefinitions>
+                    </Grid>
+                </DataTemplate>
+            </Hub.HeaderTemplate>
 
-                                            <Image Grid.Column="0" Source="{Binding Actor.AvatarUrl}" VerticalAlignment="Top" Margin="0 6 0 0" />
 
-                                            <StackPanel Grid.Column="1" Margin="12 0 0 0">
-                                                <TextBlock FontSize="16" TextWrapping="Wrap">
-                                                    <Run Text="{Binding Path=Actor.Login}" Foreground="{StaticResource GreyBlue}" />
-                                                    <Run Text="{Binding Path=Type, Converter={StaticResource EventStringToTextStringConverter}}" />
-                                                    <Run Text="{Binding Path=Repo.Name}" Foreground="{StaticResource GreyBlue}" />
-                                                </TextBlock>
+            <!-- Profile section -->
+            <HubSection x:Uid="/UIResources/me" x:Name="profileSection" 
+                        Header="me"
+                        DataContext="{Binding Path=ProfileViewModel}" 
+                        HeaderTemplate="{StaticResource HeaderTemplate}">
+                <DataTemplate>
+                    <StackPanel DataContext="{Binding Path=CurrentUser, Mode=OneWay}">
 
-                                                <TextBlock Text="{Binding Path=CreatedAt, Converter={StaticResource DateTimeOffsetToTimeAgoConverter}}" FontSize="16" Foreground="Gray"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Button>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </DataTemplate>
-                </HubSection>
-                <HubSection x:Name="reposSection" Header="repositories" DataContext="{Binding Path=ReposViewModel}">
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-
-                            <Grid Visibility="{Binding Source={StaticResource Locator}, Path=Main.SearchingEnabled, Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Top">
+                        <Button Style="{StaticResource TextBlockButtonStyle}"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                Command="{Binding Source={StaticResource Locator}, Path=Users.GoToUserCommand}" CommandParameter="{Binding}">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="2*" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox TextWrapping="Wrap" PlaceholderText="repo name"
-                                             Text="{Binding SearchValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Grid Grid.Column="0" Background="{StaticResource GreyBlue}">
+                                    <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Path=AvatarUrl}"/>
+                                </Grid>
+
+                                <Grid Grid.Column="1" Background="{StaticResource GreyBlue}">
+                                    <TextBlock Foreground="White" Margin="6 0" FontWeight="Bold" Padding="6 6 0 0"
+                                           HorizontalAlignment="Left" TextWrapping="Wrap"
+                                           Text="{Binding Path=Login}" VerticalAlignment="Top" 
+                                           FontSize="36"/>
+                                </Grid>
                             </Grid>
+                        </Button>
 
-                            <ListView Grid.Row="1" ItemsSource="{Binding Path=Repositories}" 
-                                      IncrementalLoadingTrigger="Edge" IncrementalLoadingThreshold="2">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Button Style="{StaticResource TextBlockButtonStyle}" 
-                                                Command="{Binding Source={StaticResource Locator}, Path=Repos.GoToRepoCommand}" CommandParameter="{Binding}">
-                                            <Grid Margin="0 3" Background="{StaticResource GreyBlue}">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="6*" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Image Grid.Column="0" MaxHeight="30" Margin="12" Source="/Assets/icons/download_icon.png" />
-
-                                                <StackPanel Grid.Column="1" Width="400">
-                                                    <TextBlock Text="{Binding Name}" FontSize="20" Foreground="White" />
-                                                    <TextBlock Text="{Binding FullName}" FontSize="10" Foreground="LightGray" />
-                                                </StackPanel>
-                                            </Grid>
-                                        </Button>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </Grid>
-                    </DataTemplate>
-                </HubSection>
-                <HubSection x:Name="usersSection" Header="users" DataContext="{Binding Path=UsersViewModel}">
-                    <DataTemplate>
-                        <Grid>
+                        <Grid Margin="0 12 0 0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition />
+                                <RowDefinition Height="100" />
+                                <RowDefinition Height="100" />
                             </Grid.RowDefinitions>
 
-                            <Grid Visibility="{Binding Source={StaticResource Locator}, Path=Main.SearchingEnabled, Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Top">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
-                                <TextBox TextWrapping="Wrap" PlaceholderText="username"
-                                             Text="{Binding SearchValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </Grid>
+                            <Button Grid.Row="0" Grid.Column="0" Margin="0 0 3 3"
+                                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                    Style="{StaticResource TextBlockButtonStyle}" 
+                                    Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToFollowersCommand}">
+                                <Grid Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6" VerticalAlignment="Bottom">
+                                        <TextBlock Foreground="White" Text="{Binding Path=Followers}" FontSize="48" />
+                                        <TextBlock x:Uid="/UIResources/followers" Foreground="White" Text="followers" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
 
-                            <ListView Grid.Row="1" ItemsSource="{Binding Users}" 
-                                      IncrementalLoadingTrigger="Edge" IncrementalLoadingThreshold="2">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Button Style="{StaticResource TextBlockButtonStyle}"
-                                                Command="{Binding Source={StaticResource Locator}, Path=Users.GoToUserCommand}" CommandParameter="{Binding}">
-                                            <Grid Margin="0 6">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="4*" />
-                                                </Grid.ColumnDefinitions>
+                            <Button Grid.Row="0" Grid.Column="1" Margin="3 0 3 3"
+                                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                    Style="{StaticResource TextBlockButtonStyle}" 
+                                    Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToFollowingsCommand}">
+                                <Grid Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6" VerticalAlignment="Bottom">
+                                        <TextBlock Foreground="White" Text="{Binding Path=Following}" FontSize="48" />
+                                        <TextBlock x:Uid="/UIResources/following" Foreground="White" Text="following" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
 
-                                                <Image Grid.Column="0" Source="{Binding AvatarUrl}" />
+                            <Button Grid.Row="0" Grid.Column="2" Margin="3 0 0 3"
+                                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                    Style="{StaticResource TextBlockButtonStyle}" 
+                                    Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToCollaboratorsCommand}">
+                                <Grid Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6" VerticalAlignment="Bottom">
+                                        <TextBlock Foreground="White" Text="{Binding Path=Collaborators}" FontSize="48" />
+                                        <TextBlock x:Uid="/UIResources/collaborators" Foreground="White" Text="collaborators" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
 
-                                                <TextBlock Grid.Column="1" Text="{Binding Login}" Width="500" FontSize="24" Margin="12 0 0 0" />
-                                            </Grid>
-                                        </Button>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                            <Button Grid.Row="1" Grid.Column="0" Margin="0 3 3 0"
+                                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                    Style="{StaticResource TextBlockButtonStyle}" 
+                                    Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToPublicReposCommand}">
+                                <Grid Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6" VerticalAlignment="Bottom">
+                                        <TextBlock Foreground="White" Text="{Binding Path=PublicRepos}" FontSize="48" />
+                                        <TextBlock x:Uid="/UIResources/publicrepos" Foreground="White" Text="public repos" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
+
+                            <Button Grid.Row="1" Grid.Column="1" Margin="3 3 3 0"
+                                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                    Style="{StaticResource TextBlockButtonStyle}" 
+                                    Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToPrivateReposCommand}">
+                                <Grid Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6" VerticalAlignment="Bottom">
+                                        <TextBlock Foreground="White" Text="{Binding Path=TotalPrivateRepos}" FontSize="48" />
+                                        <TextBlock x:Uid="/UIResources/privaterepos" Foreground="White" Text="private repos" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
+
+                            <Button Grid.Row="1" Grid.Column="2" Margin="3 3 0 0"
+                                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                    Style="{StaticResource TextBlockButtonStyle}" 
+                                    Command="{Binding Source={StaticResource Locator}, Path=Profile.GoToGistsCommand}">
+                                <Grid Background="{StaticResource GreyBlue}">
+                                    <StackPanel Margin="6" VerticalAlignment="Bottom">
+                                        <TextBlock Foreground="White" Text="{Binding Path=PublicGists}" FontSize="48" />
+                                        <TextBlock x:Uid="/UIResources/gists" Foreground="White" Text="gists" FontSize="12" />
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
                         </Grid>
-                    </DataTemplate>
-                </HubSection>
-            </Hub>
-        </Grid>
+                    </StackPanel>
+                </DataTemplate>
+            </HubSection>
+
+            <!-- Activities section -->
+            <HubSection x:Uid="/UIResources/myactivities" x:Name="activitiesSection" 
+                        Header="my activities" 
+                        DataContext="{Binding Path=ActivitiesViewModel}"
+                        HeaderTemplate="{StaticResource HeaderTemplate}">
+                <DataTemplate>
+                    <ListView ItemsSource="{Binding Path=Activities}" 
+                              ItemTemplate="{StaticResource ActivitiesTemplate}" />
+                </DataTemplate>
+            </HubSection>
+
+            <!-- Rpositories section -->
+            <HubSection x:Uid="/UIResources/repositories" x:Name="reposSection" 
+                        Header="repositories" 
+                        DataContext="{Binding Path=ReposViewModel}"
+                        HeaderTemplate="{StaticResource HeaderTemplate}">
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Grid Visibility="{Binding Source={StaticResource Locator}, Path=Main.SearchingEnabled, Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox TextWrapping="Wrap" PlaceholderText="repo name"
+                                             Text="{Binding SearchValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+
+                        <ListView Grid.Row="1" ItemsSource="{Binding Path=Repositories}" 
+                                  ItemTemplate="{StaticResource RepositoryTemplate}"
+                                  IncrementalLoadingTrigger="Edge" IncrementalLoadingThreshold="2" />
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+
+            <!-- Users section -->
+            <HubSection x:Uid="/UIResources/users" x:Name="usersSection" 
+                        Header="users" 
+                        DataContext="{Binding Path=UsersViewModel}"
+                        HeaderTemplate="{StaticResource HeaderTemplate}">
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Grid Visibility="{Binding Source={StaticResource Locator}, Path=Main.SearchingEnabled, Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox TextWrapping="Wrap" PlaceholderText="username"
+                                             Text="{Binding SearchValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+
+                        <ListView Grid.Row="1" ItemsSource="{Binding Users}" 
+                                  ItemTemplate="{StaticResource UserTemplate}"
+                                  IncrementalLoadingTrigger="Edge" IncrementalLoadingThreshold="2" />
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+        </Hub>
     </Grid>
 
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
-                <AppBarButton Icon="Refresh" Label="refresh" Command="{Binding RefreshCommand}"/>
-                <AppBarToggleButton Icon="Find" Label="search" Command="{Binding ToggleEnableSearchCommand}" IsChecked="False"/>
+                <AppBarButton x:Uid="/UIResources/refresh" Icon="Refresh" 
+                              Label="refresh" Command="{Binding RefreshCommand}"/>
+                <AppBarToggleButton x:Uid="/UIResources/search" Icon="Find" 
+                                    Label="search" Command="{Binding ToggleEnableSearchCommand}" IsChecked="False"/>
             </CommandBar.PrimaryCommands>
+
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="/UIResources/feedback" Label="feedback" 
+                              Command="{Binding GoToFeedbackCommand}" />
+                <AppBarButton x:Uid="/UIResources/about" Label="about" 
+                              Command="{Binding GoToAboutCommand}" />
+                <AppBarButton x:Uid="/UIResources/credits" Label="credits" 
+                              Command="{Binding GoToCreditsCommand}" />
+                <AppBarButton x:Uid="/UIResources/settings" Label="settings"
+                              Command="{Binding GoToSettingsCommand}" />
+                <AppBarButton x:Uid="/UIResources/this" Label="this" 
+                              Command="{Binding GoToThisCommand}" />
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

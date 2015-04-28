@@ -117,161 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DescriptionHeader.Text" xml:space="preserve">
-    <value>Description text:</value>
+  <data name="ApplyChanges" xml:space="preserve">
+    <value>Apply changes</value>
   </data>
-  <data name="Group1Subtitle" xml:space="preserve">
-    <value>Group Subtitle: 1</value>
+  <data name="AuthenticationFails" xml:space="preserve">
+    <value>Authentication fails</value>
   </data>
-  <data name="Group1Title" xml:space="preserve">
-    <value>Group Title: 1</value>
+  <data name="bug" xml:space="preserve">
+    <value>bug</value>
   </data>
-  <data name="Group2Subtitle" xml:space="preserve">
-    <value>Group Subtitle: 2</value>
+  <data name="cancel" xml:space="preserve">
+    <value>cancel</value>
   </data>
-  <data name="Group2Title" xml:space="preserve">
-    <value>Group Title: 2</value>
+  <data name="NeedToRestart" xml:space="preserve">
+    <value>You need to restart the app to apply changes</value>
   </data>
-  <data name="Group3Subtitle" xml:space="preserve">
-    <value>Group Subtitle: 3</value>
+  <data name="ok" xml:space="preserve">
+    <value>ok</value>
   </data>
-  <data name="Group3Title" xml:space="preserve">
-    <value>Group Title: 3</value>
+  <data name="other" xml:space="preserve">
+    <value>other</value>
   </data>
-  <data name="Group4Subtitle" xml:space="preserve">
-    <value>Group Subtitle: 4</value>
+  <data name="suggestion" xml:space="preserve">
+    <value>suggestion</value>
   </data>
-  <data name="Group4Title" xml:space="preserve">
-    <value>Group Title: 4</value>
+  <data name="AnErrorOccured" xml:space="preserve">
+    <value>An error occured</value>
   </data>
-  <data name="Group5Subtitle" xml:space="preserve">
-    <value>Group Subtitle: 5</value>
+  <data name="CantCompleteRepoSearch" xml:space="preserve">
+    <value>Can't complete repo search for {0}</value>
   </data>
-  <data name="Group5Title" xml:space="preserve">
-    <value>Group Title: 5</value>
+  <data name="CantCompleteUserSearch" xml:space="preserve">
+    <value>Can't complete user search for {0}</value>
   </data>
-  <data name="Group6Subtitle" xml:space="preserve">
-    <value>Group Subtitle: 6</value>
+  <data name="CantFollow" xml:space="preserve">
+    <value>Can't follow {0}</value>
   </data>
-  <data name="Group6Title" xml:space="preserve">
-    <value>Group Title: 6</value>
+  <data name="CantGetIfFoloow" xml:space="preserve">
+    <value>Can't get if you follow {0}</value>
   </data>
-  <data name="GroupDescription" xml:space="preserve">
-    <value>Group Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempor scelerisque lorem in vehicula. Aliquam tincidunt, lacus ut sagittis tristique, turpis massa volutpat augue, eu rutrum ligula ante a ante</value>
+  <data name="CantGetNotifications" xml:space="preserve">
+    <value>Can't get the notifications</value>
   </data>
-  <data name="Item1Subtitle" xml:space="preserve">
-    <value>Item Subtitle: 1</value>
+  <data name="CantGetTreeRepo" xml:space="preserve">
+    <value>Can't get the tree of repo {0}</value>
   </data>
-  <data name="Item1Title" xml:space="preserve">
-    <value>Item Title: 1</value>
+  <data name="CantRetrieveActivities" xml:space="preserve">
+    <value>Can't retrieve global activities</value>
   </data>
-  <data name="Item2Subtitle" xml:space="preserve">
-    <value>Item Subtitle: 2</value>
+  <data name="CantRetrieveActivitiesOfUser" xml:space="preserve">
+    <value>Can't retrieve activities of user {0}</value>
   </data>
-  <data name="Item2Title" xml:space="preserve">
-    <value>Item Title: 2</value>
+  <data name="CantRetrieveCommitsOfRepository" xml:space="preserve">
+    <value>Can't retrieve commits of repository {0}</value>
   </data>
-  <data name="Item3Subtitle" xml:space="preserve">
-    <value>Item Subtitle: 3</value>
+  <data name="CantRetrieveFollowers" xml:space="preserve">
+    <value>Can't retrieve your followers</value>
   </data>
-  <data name="Item3Title" xml:space="preserve">
-    <value>Item Title: 3</value>
+  <data name="CantRetrieveFollowings" xml:space="preserve">
+    <value>Can't retrieve your followings</value>
   </data>
-  <data name="Item4Subtitle" xml:space="preserve">
-    <value>Item Subtitle: 4</value>
+  <data name="CantRetrieveGists" xml:space="preserve">
+    <value>Can't retrieve your gists</value>
   </data>
-  <data name="Item4Title" xml:space="preserve">
-    <value>Item Title: 4</value>
+  <data name="CantRetrieveIssuesOfRepository" xml:space="preserve">
+    <value>Can't retrieve issues of repository {0}</value>
   </data>
-  <data name="Item5Subtitle" xml:space="preserve">
-    <value>Item Subtitle: 5</value>
+  <data name="CantRetrievePrivateRepos" xml:space="preserve">
+    <value>Can't retrieve your private repositories</value>
   </data>
-  <data name="Item5Title" xml:space="preserve">
-    <value>Item Title: 5</value>
+  <data name="CantRetrieveProfile" xml:space="preserve">
+    <value>Can't retrieve your profile</value>
   </data>
-  <data name="Item6Subtitle" xml:space="preserve">
-    <value>Item Subtitle: 6</value>
+  <data name="CantRetrievePublicRepos" xml:space="preserve">
+    <value>Can't retrieve your public repositories</value>
   </data>
-  <data name="Item6Title" xml:space="preserve">
-    <value>Item Title: 6</value>
+  <data name="CantRetrieveRepositoriesOfUser" xml:space="preserve">
+    <value>Can't retrieve repositories of user {0}</value>
   </data>
-  <data name="Item7Subtitle" xml:space="preserve">
-    <value>Item Subtitle: 7</value>
+  <data name="CantRetrieveUser" xml:space="preserve">
+    <value>Can't retrieve user {0}</value>
   </data>
-  <data name="Item7Title" xml:space="preserve">
-    <value>Item Title: 7</value>
-  </data>
-  <data name="Item8Subtitle" xml:space="preserve">
-    <value>Item Subtitle: 8</value>
-  </data>
-  <data name="Item8Title" xml:space="preserve">
-    <value>Item Title: 8</value>
-  </data>
-  <data name="ItemContent" xml:space="preserve">
-    <value>Curabitur class aliquam vestibulum nam curae maecenas sed integer cras phasellus suspendisse quisque donec dis praesent accumsan bibendum pellentesque condimentum adipiscing etiam consequat vivamus dictumst aliquam duis convallis scelerisque est parturient ullamcorper aliquet fusce suspendisse nunc hac eleifend amet blandit facilisi condimentum commodo scelerisque faucibus aenean ullamcorper ante mauris dignissim consectetuer nullam lorem vestibulum habitant conubia elementum pellentesque morbi facilisis arcu sollicitudin diam cubilia aptent vestibulum auctor eget dapibus pellentesque inceptos leo egestas interdum nulla consectetuer suspendisse adipiscing pellentesque proin lobortis sollicitudin augue elit mus congue fermentum parturient fringilla euismod feugiat</value>
-  </data>
-  <data name="ItemContentFormat" xml:space="preserve">
-    <value>Item Content: {0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}</value>
-  </data>
-  <data name="ItemDescription" xml:space="preserve">
-    <value>Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.</value>
-  </data>
-  <data name="ItemSubTitle.Text" xml:space="preserve">
-    <value>Item Sub Title</value>
-  </data>
-  <data name="ItemTitle.Text" xml:space="preserve">
-    <value>Item Title</value>
-  </data>
-  <data name="LongText.Text" xml:space="preserve">
-    <value>Lorem ipsum dolor sit amet, consectetuer ising elit, sed diam nonummy nibh uismod tincidunt ut laoreet suscipit lobortis ni ut wisi quipexerci quis consequat minim veniam, quis nostrud exerci tation ullam corper. Lorem ipsum dolor sit amet, consectetuer ising elit, sed diam nonummy nibh uismod tincidunt ut laoreet suscipit lobortis ni ut wisi quipexerci quis consequat minim veniam, quis nostrud exerci tation ullam corper. Lorem ipsum dolor sit amet, consectetuer ising elit, sed diam nonummy nibh uismod tincidunt ut laoreet suscipit lobortis ni ut wisi quipexerci quis consequat minim veniam, quis nostrud exerci tation ullam corper. Lorem ipsum dolor sit amet, consectetuer ising elit, sed diam nonummy nibh uismod tincidunt ut laoreet suscipit lobortis ni ut wisi quipexerci quis consequat minim veniam, quis nostrud exerci tation ullam corper. Lorem ipsum dolor sit amet, consectetuer ising elit, sed diam nonummy nibh uismod tincidunt ut laoreet suscipit lobortis ni ut wisi quipexerci quis consequat minim veniam, quis nostrud exerci tation ullam corper. Lorem ipsum dolor sit amet, consectetuer ising elit, sed diam nonummy nibh uismod tincidunt ut laoreet suscipit lobortis ni ut wisi quipexerci quis consequat minim veniam, quis nostrud exerci tation ullam corper.</value>
-    <comment>"Section1DescriptionText" duplicated three times.</comment>
-  </data>
-  <data name="Section1DescriptionText.Text" xml:space="preserve">
-    <value>Lorem ipsum dolor sit amet, consectetuer ising elit, sed diam nonummy nibh uismod tincidunt ut laoreet suscipit lobortis ni ut wisi quipexerci quis consequat minim veniam, quis nostrud exerci tation ullam corper. Lorem ipsum dolor sit amet, consectetuer ising elit, sed diam nonummy nibh uismod tincidunt ut laoreet suscipit lobortis ni ut wisi quipexerci quis consequat minim veniam, quis nostrud exerci tation ullam corper.</value>
-  </data>
-  <data name="Section1Header.Header" xml:space="preserve">
-    <value>Section 1</value>
-  </data>
-  <data name="Section1Subtitle.Text" xml:space="preserve">
-    <value>Lorem ipsum dolor sit nonumy sed consectetuer ising elit, sed diam</value>
-  </data>
-  <data name="Section2Header.Header" xml:space="preserve">
-    <value>Section 2</value>
-  </data>
-  <data name="Section3Header.Header" xml:space="preserve">
-    <value>Section 3</value>
-  </data>
-  <data name="Section3Subtitle.Text" xml:space="preserve">
-    <value>Section subtitle</value>
-  </data>
-  <data name="Section4Header.Header" xml:space="preserve">
-    <value>Section 4</value>
-  </data>
-  <data name="Section2UnderTitle.Text" xml:space="preserve">
-    <value>Quisque in porta lorem dolor amet sed consectetuer ising elit, sed diam non my nibh uis mod wisi quip.</value>
-  </data>
-  <data name="Header.Text" xml:space="preserve">
-    <value>application name</value>
-  </data>
-  <data name="Hub.Header" xml:space="preserve">
-    <value>application name</value>
-  </data>
-  <data name="HubSection1" xml:space="preserve">
-    <value>SECTION 1</value>
-  </data>
-  <data name="HubSection2" xml:space="preserve">
-    <value>SECTION 2</value>
-  </data>
-  <data name="HubSection3" xml:space="preserve">
-    <value>SECTION 3</value>
-  </data>
-  <data name="HubSection4" xml:space="preserve">
-    <value>SECTION 4</value>
-  </data>
-  <data name="HubSection5" xml:space="preserve">
-    <value>SECTION 5</value>
-  </data>
-  <data name="NavigationFailedExceptionMessage" xml:space="preserve">
-    <value>Navigation failed.</value>
+  <data name="CantUnfollow" xml:space="preserve">
+    <value>Can't unfollow {0}</value>
   </data>
 </root>

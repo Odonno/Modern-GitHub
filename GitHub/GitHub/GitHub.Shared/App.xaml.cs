@@ -20,10 +20,9 @@ using GitHub.Common;
 
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955
 using GitHub.Views;
-
-#if WINDOWS_PHONE_APP
 using GitHub.Services;
-#endif
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights;
 
 namespace GitHub
 {
@@ -32,6 +31,11 @@ namespace GitHub
     /// </summary>
     public sealed partial class App : Application
     {
+        /// <summary>
+        /// Allows tracking page views, exceptions and other telemetry through the Microsoft Application Insights service.
+        /// </summary>
+        public static TelemetryClient TelemetryClient;
+
         #region fields
 
 #if WINDOWS_PHONE_APP
@@ -49,6 +53,12 @@ namespace GitHub
         /// </summary>
         public App()
         {
+#if DEBUG
+            TelemetryClient = new TelemetryClient(new TelemetryConfiguration { DisableTelemetry = true });
+#else
+            TelemetryClient = new TelemetryClient();
+#endif
+
             InitializeComponent();
             Suspending += OnSuspending;
         }
@@ -88,6 +98,8 @@ namespace GitHub
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
+
+                rootFrame.ContentTransitions = new TransitionCollection();
             }
 
             return rootFrame;
@@ -124,6 +136,7 @@ namespace GitHub
             _continuationManager = new ContinuationManager();
 
             Frame rootFrame = CreateRootFrame();
+
             await RestoreStatusAsync(e.PreviousExecutionState);
 
             if (rootFrame.Content == null)

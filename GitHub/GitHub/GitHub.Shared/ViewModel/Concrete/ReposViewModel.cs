@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using GitHub.DataObjects.Concrete;
+using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
 using Octokit;
 
@@ -13,23 +14,55 @@ namespace GitHub.ViewModel.Concrete
     public class ReposViewModel : SearchViewModelBase, IReposViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly IProgressIndicatorService _progressIndicatorService;
 
         public ReposIncrementalLoadingCollection Repositories { get; private set; }
 
         public ICommand GoToRepoCommand { get; private set; }
 
 
-        public ReposViewModel(INavigationService navigationService)
+        public ReposViewModel(INavigationService navigationService,
+            IProgressIndicatorService progressIndicatorService)
         {
             _navigationService = navigationService;
+            _progressIndicatorService = progressIndicatorService;
+
             Repositories = SimpleIoc.Default.GetInstance<ReposIncrementalLoadingCollection>();
 
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
 
-                Repositories.Add(new Repository { Name = "First-Repository", FullName = "Odonno/First-Repository" });
-                Repositories.Add(new Repository { Name = "Another-Repository", FullName = "Odonno/Another-Repository" });
+                var firstRepo = new Repository(null, null, null, null, null, null, null,
+                    1,
+                    null,
+                    "First-Repository",
+                    "Odonno/First-Repository",
+                    null, null, null,
+                    false, false,
+                    0, 0, 0,
+                    "master",
+                    0,
+                    null, new DateTimeOffset(), new DateTimeOffset(),
+                    null, null, null, null,
+                    false, false, false);
+
+                var anotherRepo = new Repository(null, null, null, null, null, null, null,
+                    2,
+                    null,
+                    "Another-Repository",
+                    "Odonno/Another-Repository",
+                    null, null, null,
+                    false, false,
+                    0, 0, 0,
+                    "master",
+                    0,
+                    null, new DateTimeOffset(), new DateTimeOffset(),
+                    null, null, null, null,
+                    false, false, false);
+
+                Repositories.Add(firstRepo);
+                Repositories.Add(anotherRepo);
             }
             else
             {
@@ -47,10 +80,16 @@ namespace GitHub.ViewModel.Concrete
             await Repositories.LoadMoreItemsAsync((uint)Repositories.ItemsPerPage);
         }
 
-        private void GoToRepostiory(Repository repository)
+        private async void GoToRepostiory(Repository repository)
         {
-            // TODO : implement new page
-            _navigationService.NavigateTo("InDevelopment");
+            await _progressIndicatorService.ShowAsync();
+
+            ViewModelLocator.Repository.Repository = repository;
+            _navigationService.NavigateTo("Repository");
+
+            await ViewModelLocator.Repository.LoadRepositoryDataAsync();
+
+            await _progressIndicatorService.HideAsync();
         }
     }
 }

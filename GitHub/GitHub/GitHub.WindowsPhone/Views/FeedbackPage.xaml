@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="GitHub.Views.FeedbackPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Feedback}"
+    RequestedTheme="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme}"
+    Background="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme, Converter={StaticResource ThemeToColorBrushConverter}}">
+
+    <Grid x:Name="LayoutRoot" Margin="12 0">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="MODERN GITHUB"
+                       Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0" />
+            <TextBlock x:Uid="/UIResources/feedbacktitle"
+                       Text="feedback" Margin="0,-6.5,0,26.5" 
+                       Style="{ThemeResource HeaderTextBlockStyle}" 
+                       CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        </StackPanel>
+
+        <!-- Content -->
+        <Grid Grid.Row="1" x:Name="ContentRoot">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ComboBox Grid.Row="0" ItemsSource="{Binding Path=FeedbackTypes}"
+                      SelectedItem="{Binding Path=SelectedFeedbackType, Mode=TwoWay}" />
+
+            <TextBox Grid.Row="1" Text="{Binding Path=Content, Mode=TwoWay}"
+                     Background="WhiteSmoke" 
+                     AcceptsReturn="True" BorderBrush="Black"
+                     IsTextPredictionEnabled="True" TextWrapping="Wrap"
+                     IsColorFontEnabled="True" IsSpellCheckEnabled="True"
+                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+            <Button x:Uid="/UIResources/send" 
+                    Grid.Row="2" Content="send" 
+                    Command="{Binding Path=SendFeedbackCommand}"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+        </Grid>
+    </Grid>
+</Page>

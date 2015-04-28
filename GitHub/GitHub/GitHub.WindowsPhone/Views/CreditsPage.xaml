@@ -1,0 +1,83 @@
+﻿<Page
+    x:Class="GitHub.Views.CreditsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Credits}"
+    RequestedTheme="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme}"
+    Background="{Binding Source={StaticResource Locator}, Path=Settings.SelectedTheme, Converter={StaticResource ThemeToColorBrushConverter}}">
+
+    <Grid x:Name="LayoutRoot" Margin="12 0">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="MODERN GITHUB"
+                       Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0" />
+            <TextBlock x:Uid="/UIResources/creditstitle" Text="credits" 
+                       Margin="0,-6.5,0,26.5" 
+                       Style="{ThemeResource HeaderTextBlockStyle}" 
+                       CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        </StackPanel>
+
+        <!-- Content -->
+        <StackPanel Grid.Row="1" x:Name="ContentRoot">
+            <Button Style="{StaticResource TextBlockButtonStyle}"
+                    Command="{Binding Source={StaticResource Locator}, Path=Users.GoToUserCommand}" CommandParameter="{Binding Path=Odonno}">
+                <Grid Margin="0 6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="4*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Column="0" Source="{Binding Odonno.AvatarUrl}" />
+
+                    <StackPanel Grid.Column="1" Margin="12 0 0 0">
+                        <TextBlock Text="David Bottiau" FontSize="32" />
+                        <TextBlock FontSize="24">
+                            (<Run Text="{Binding Odonno.Login}" />)
+                        </TextBlock>
+                        <TextBlock x:Uid="/UIResources/productmanager" 
+                                   Text="Product Manager / Developer"
+                                   FontSize="16" />
+                    </StackPanel>
+                </Grid>
+            </Button>
+
+            <Button Style="{StaticResource TextBlockButtonStyle}"
+                    Command="{Binding Source={StaticResource Locator}, Path=Users.GoToUserCommand}" CommandParameter="{Binding Path=CorentinMiq}">
+                <Grid Margin="0 6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="4*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Column="0" Source="{Binding CorentinMiq.AvatarUrl}" />
+
+
+                    <StackPanel Grid.Column="1" Margin="12 0 0 0">
+                        <TextBlock Text="Corentin Miquée" FontSize="32" />
+                        <TextBlock FontSize="24">
+                            (<Run Text="{Binding CorentinMiq.Login}" />)
+                        </TextBlock>
+                        <TextBlock x:Uid="/UIResources/uidesigner"
+                                   Text="UI Designer"
+                                   FontSize="16" />
+                    </StackPanel>
+                </Grid>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

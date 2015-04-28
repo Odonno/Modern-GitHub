@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using GitHub.DataObjects.Concrete;
+using GitHub.Services.Abstract;
 using GitHub.ViewModel.Abstract;
 using Octokit;
 
@@ -13,37 +14,41 @@ namespace GitHub.ViewModel.Concrete
     public class UsersViewModel : SearchViewModelBase, IUsersViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly IProgressIndicatorService _progressIndicatorService;
 
-        public UsersIncrementalLoadingCollection Users { get; set; }
+
+        private readonly UsersIncrementalLoadingCollection _users;
+        public UsersIncrementalLoadingCollection Users { get { return _users; } }
 
         public ICommand GoToUserCommand { get; private set; }
 
 
-        public UsersViewModel(INavigationService navigationService)
+        public UsersViewModel(INavigationService navigationService,
+            IProgressIndicatorService progressIndicatorService)
         {
             _navigationService = navigationService;
-            Users = SimpleIoc.Default.GetInstance<UsersIncrementalLoadingCollection>();
+            _progressIndicatorService = progressIndicatorService;
+
+            _users = SimpleIoc.Default.GetInstance<UsersIncrementalLoadingCollection>();
 
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
 
-                Users.Add(new User
-                {
-                    Login = "Odonno",
-                    Followers = 144,
-                    Following = 3,
-                    PublicRepos = 44,
-                    AvatarUrl = "https://github.com/identicons/odonno.png"
-                });
-                Users.Add(new User
-                {
-                    Login = "CorentinMiq",
-                    Followers = 7,
-                    Following = 84,
-                    PublicRepos = 3,
-                    AvatarUrl = "https://github.com/identicons/CorentinMiq.png"
-                });
+                var odonno = new User("https://github.com/identicons/odonno.png",
+                    null, null, 100, null, new DateTimeOffset(), 0, null, 144, 3, null, null, 0,
+                    1, null,
+                    "Odonno", "David Bottiau",
+                    0, null, 0, 0, 44, null, false);
+
+                var corentinMiq = new User("https://github.com/identicons/CorentinMiq.png",
+                    null, null, 200, null, new DateTimeOffset(), 0, null, 7, 84, null, null, 0,
+                    2, null,
+                    "CorentinMiq", "Corentin Miquée",
+                    0, null, 0, 0, 3, null, false);
+
+                Users.Add(odonno);
+                Users.Add(corentinMiq);
             }
             else
             {
@@ -61,10 +66,16 @@ namespace GitHub.ViewModel.Concrete
             await Users.LoadMoreItemsAsync((uint)Users.ItemsPerPage);
         }
 
-        private void GoToUser(User user)
+        private async void GoToUser(User user)
         {
-            // TODO : implement new page
-            _navigationService.NavigateTo("InDevelopment");
+            await _progressIndicatorService.ShowAsync();
+
+            ViewModelLocator.User.User = user;
+            _navigationService.NavigateTo("User");
+
+            await ViewModelLocator.User.LoadUserDataAsync();
+
+            await _progressIndicatorService.HideAsync();
         }
     }
 }
