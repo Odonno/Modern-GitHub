@@ -17,16 +17,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Services", "GitHub.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Tasks.Windows", "GitHub.Tasks.Windows\GitHub.Tasks.Windows.csproj", "{152EEC02-C87F-4FF2-A9D2-260297E31496}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6E3294E2-6A35-4679-A0CE-29C04436BE37}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Converters", "GitHub.Converters\GitHub.Converters.csproj", "{2BB646A2-4989-4E70-9E09-3B1F42B380E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Tasks.WindowsPhone", "GitHub.Tasks.WindowsPhone\GitHub.Tasks.WindowsPhone.csproj", "{A7F16851-7242-40AA-919B-F0782B5F17FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B8B2E59C-5344-487A-911A-627F747E632C}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Converters", "GitHub.Converters\GitHub.Converters.csproj", "{2BB646A2-4989-4E70-9E09-3B1F42B380E3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Tasks.WindowsPhone", "GitHub.Tasks.WindowsPhone\GitHub.Tasks.WindowsPhone.csproj", "{A7F16851-7242-40AA-919B-F0782B5F17FF}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

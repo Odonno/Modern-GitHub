@@ -162,7 +162,7 @@ namespace GitHub.ViewModel.Concrete
             await _progressIndicatorService.ShowAsync();
 
             // search for THIS repository
-            var thisRepository = (await _gitHubService.SearchReposAsync("GitHub-Universal-App")).Items.First();
+            var thisRepository = (await _gitHubService.SearchReposAsync("Modern-GitHub")).Items.First();
             ReposViewModel.GoToRepoCommand.Execute(thisRepository);
 
             await _progressIndicatorService.HideAsync();
