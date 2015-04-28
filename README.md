@@ -1,10 +1,27 @@
 # GitHub-Universal-App
 
-A GitHub client as a Universal Windows App.
+The best Universal Windows companion app for GitHub users.
 
-## Roadmap
+## Next Steps
 
-### v0.1 (current)
+## v0.5
+
+* Notification page
+* Direct access to the related issue from toast
+
+## v0.6
+
+* Activities detail
+
+## v0.7
+
+* Tiles
+	* Pin repository
+	* Pin user
+
+## Current versions
+
+### v0.1
 
 * Authentication of user
 * Home page
@@ -17,7 +34,6 @@ A GitHub client as a Universal Windows App.
 
 * Repository page
 	* "description" section
-	* "activities" section
 	* "code" section
 	* "commits" section
 	* "issues" section
@@ -25,7 +41,7 @@ A GitHub client as a Universal Windows App.
 ### v0.3
 
 * User page
-	* "info" section
+	* "about" section
 	* "activities" section
 	* "repositories" section
 
@@ -34,13 +50,13 @@ A GitHub client as a Universal Windows App.
 * "me" sub-pages
 	* followers page
 	* following page
-	* collaborators page
+	* NO collaborators page (not available from API Octokit)
 	* public repos page
 	* public gists page
 	* private repos page
 
 ### v0.5
 
-* Notifications
-	* toast notifications (with background tasks)
-	* badge notifications
+* Notifications (in background tasks)
+	* toast notifications
+	* NO badge notifications (need coherence provided in Windows10)
